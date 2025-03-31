@@ -1,5 +1,3 @@
-import java.util.Random;
-
 public class Guerreiro extends ClassePersonagem {
     public Guerreiro(String nomeClasse) {
         super("Guerreiro");
@@ -14,9 +12,10 @@ public class Guerreiro extends ClassePersonagem {
         personagem.setConstituicao(personagem.getConstituicao() + 2);
     }
 
+    @Override
     public void Atacar(Personagem alvo) {
-        Random random = new Random();
-        int dano = random.nextInt(1, 9); // Rola um dado de 8 lados (1 a 8)
+        Dado dado = new Dado(8);
+        int dano = dado.rolarDado(1);// Rola um dado de 8 lados (1 a 8)
         alvo.setVida(alvo.getVida() - dano);
         System.out.println("Golpe de machado! Dano causado: " + dano);
         System.out.println("Vida restante de" + alvo.getNome() + ":" + alvo.getVida());

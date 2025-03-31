@@ -69,7 +69,7 @@ public class Personagem {
         System.out.println("XP: " + XP);
         System.out.println("Nível: " + nivel);
     }
-
+    /* Luigi: Transformei esse pedaço na própria classe.
     public void rolarDado(int q, int l) {
         int aux = 0;
         for (int i = 0; i < q; i++) {
@@ -78,7 +78,7 @@ public class Personagem {
         }
         System.out.println(q + "d" + l + " = " + aux);
     }
-
+    */
     public int getXP() {
         return XP;
     }

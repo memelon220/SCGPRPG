@@ -7,9 +7,10 @@ public class Main {
      personagem.adicionarXP(610);
      personagem.exibirXP();
      personagem.exibirFicha();
+     Dado dado = new Dado(20);
      System.out.println("---------------------------------------");
 
-     personagem.rolarDado(2, 6);
+     dado.rolarDado(2);
 
     }
 }
