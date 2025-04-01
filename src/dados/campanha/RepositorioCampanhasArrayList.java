@@ -57,6 +57,7 @@ public class RepositorioCampanhasArrayList implements IRepositorioCampanhas {
         for(Campanha j : arrayCampanhas){
             if(j.getID().equals(c_Id)){
                 flag = true;
+                break;
             }
         }
         return flag;

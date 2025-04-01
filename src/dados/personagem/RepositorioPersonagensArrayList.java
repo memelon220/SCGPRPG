@@ -58,6 +58,7 @@ public class RepositorioPersonagensArrayList implements IRepositorioPersonagens 
         for(Personagem p : arrayPersonagens){
             if(j.getID().equals(p.getJogador().getID())){
                 flag = true;
+                break;
             }
         }
         return flag;
