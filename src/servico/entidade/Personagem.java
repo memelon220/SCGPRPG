@@ -11,7 +11,7 @@ public class Personagem {
     private String nome;
     private int forca, destreza, constituicao, inteligencia, sabedoria, carisma;
     private ClassePersonagem classe;
-    private Especie especie;
+    private EspeciePersonagem especie;
     private final Random random = new Random();
     boolean randomizar;
 
@@ -59,13 +59,18 @@ public class Personagem {
         definirSecundarios();
     }
 
+    public int calcularModificador(int atributo){
+        int aux = (int) Math.floor((atributo - 10) / 2);
+        return aux;
+    }
+
     public void definirSecundarios() {
         vidaMax = 10 + ((constituicao - 10) / 2);
         magia = 8 + ((inteligencia - 10) / 2);
     }
 
     public void exibirFicha() {
-        System.out.printf("Nome: %s | Nível: %d | XP: %d | Vida Máxima: %d | Vida Atual: %d | Magia: %d%n", nome, nivel, XP, vidaMax, vidaAtual, magia);
+        System.out.printf("Nome: %s | Nível: %d | Classe: %s | Especie: %s| XP: %d | Vida Máxima: %d | Vida Atual: %d | Magia: %d%n", nome, nivel, this.classe.getNomeClasse(), this.especie.getNome(), XP, vidaMax, vidaAtual, magia);
         System.out.println("|Atributos|");
         System.out.printf("Força: %d | Destreza: %d | Constituição: %d | Inteligência: %d | Sabedoria: %d | Carisma: %d%n",
                 forca, destreza, constituicao, inteligencia, sabedoria, carisma);
@@ -76,16 +81,6 @@ public class Personagem {
         System.out.println("Nível: " + nivel);
     }
 
-    /* Luigi: Transformei esse pedaço na própria classe.
-    public void rolarDado(int q, int l) {
-        int aux = 0;
-        for (int i = 0; i < q; i++) {
-            int dado = random.nextInt(1, l + 1);
-            aux += dado;
-        }
-        System.out.println(q + "d" + l + " = " + aux);
-    }
-    */
 
     public int getXP() {
         return XP;
@@ -116,7 +111,7 @@ public class Personagem {
     }
 
     public void setVidaMax(int vidaMax) {
-        this.vidaMax = vidaMax;
+        Personagem.vidaMax = vidaMax;
     }
 
     public int getMagia() {
@@ -213,5 +208,13 @@ public class Personagem {
 
     public static void setTotalXP(int totalXP) {
         Personagem.totalXP = totalXP;
+    }
+
+    public EspeciePersonagem getEspecie() {
+        return especie;
+    }
+
+    public void setEspecie(EspeciePersonagem especie) {
+        this.especie = especie;
     }
 }

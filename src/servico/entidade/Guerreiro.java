@@ -1,8 +1,8 @@
 package servico.entidade;
 
 public class Guerreiro extends ClassePersonagem {
-    public Guerreiro(String nomeClasse) {
-        super("dados.Guerreiro");
+    public Guerreiro() {
+        super("Guerreiro");
     }
 
     @Override
@@ -16,7 +16,8 @@ public class Guerreiro extends ClassePersonagem {
 
     @Override
     public void aplicarClasse(Personagem personagem) {
-        System.out.println("Classe dados.Guerreiro aplicada com sucesso!");
+        personagem.setClasse(new Guerreiro());
+        System.out.println("Classe Guerreiro aplicada com sucesso!");
         System.out.println("---------------------------------------");
         personagem.setVidaMax(personagem.getVidaMax() + 10);
         personagem.setForca(personagem.getForca() + 2);

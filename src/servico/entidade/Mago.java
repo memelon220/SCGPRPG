@@ -2,8 +2,8 @@ package servico.entidade;
 
 public class Mago extends ClassePersonagem {
 
-    public Mago(String nomeClasse) {
-        super("dados.Mago");
+    public Mago() {
+        super("Mago");
     }
 
     @Override
@@ -18,7 +18,8 @@ public class Mago extends ClassePersonagem {
 
     @Override
     public void aplicarClasse(Personagem personagem) {
-        System.out.println("Classe dados.Mago aplicada com sucesso!");
+        personagem.setClasse(new Mago());
+        System.out.println("Classe Mago aplicada com sucesso!");
         System.out.println("---------------------------------------");
         personagem.setVidaMax(personagem.getVidaMax() + 6);
         personagem.setInteligencia(personagem.getInteligencia() + 2);
