@@ -5,10 +5,14 @@ import java.util.Scanner;
 
 public class Personagem {
     Scanner sc = new Scanner(System.in);
-    private int XP, nivel, vida, magia;
+    private int XP, nivel, vidaAtual, manaAtual, magia;
+    private static int vidaMax, manaMax;
+    private static int totalXP = 0;
     private String nome;
     private int forca, destreza, constituicao, inteligencia, sabedoria, carisma;
-    private Random random = new Random();
+    private ClassePersonagem classe;
+    private Especie especie;
+    private final Random random = new Random();
     boolean randomizar;
 
     public Personagem(String nome, boolean randomizar) {
@@ -25,7 +29,7 @@ public class Personagem {
         while (XP >= 100) {
             XP -= 100;
             nivel++;
-            vida++;
+            vidaMax++;
             System.out.println("Subiu de nível! Nível atual: " + nivel);
         }
     }
@@ -56,12 +60,12 @@ public class Personagem {
     }
 
     public void definirSecundarios() {
-        vida = 10 + ((constituicao - 10) / 2);
+        vidaMax = 10 + ((constituicao - 10) / 2);
         magia = 8 + ((inteligencia - 10) / 2);
     }
 
     public void exibirFicha() {
-        System.out.printf("Nome: %s | Nível: %d | XP: %d | Vida: %d | Magia: %d%n", nome, nivel, XP, vida, magia);
+        System.out.printf("Nome: %s | Nível: %d | XP: %d | Vida Máxima: %d | Vida Atual: %d | Magia: %d%n", nome, nivel, XP, vidaMax, vidaAtual, magia);
         System.out.println("|Atributos|");
         System.out.printf("Força: %d | Destreza: %d | Constituição: %d | Inteligência: %d | Sabedoria: %d | Carisma: %d%n",
                 forca, destreza, constituicao, inteligencia, sabedoria, carisma);
@@ -71,6 +75,7 @@ public class Personagem {
         System.out.println("XP: " + XP);
         System.out.println("Nível: " + nivel);
     }
+
     /* Luigi: Transformei esse pedaço na própria classe.
     public void rolarDado(int q, int l) {
         int aux = 0;
@@ -81,6 +86,7 @@ public class Personagem {
         System.out.println(q + "d" + l + " = " + aux);
     }
     */
+
     public int getXP() {
         return XP;
     }
@@ -97,12 +103,20 @@ public class Personagem {
         this.nivel = nivel;
     }
 
-    public int getVida() {
-        return vida;
+    public int getVidaAtual() {
+        return vidaAtual;
     }
 
-    public void setVida(int vida) {
-        this.vida = vida;
+    public void setVidaAtual(int vida) {
+        this.vidaAtual = vida;
+    }
+
+    public int getVidaMax() {
+        return vidaMax;
+    }
+
+    public void setVidaMax(int vidaMax) {
+        this.vidaMax = vidaMax;
     }
 
     public int getMagia() {
@@ -169,6 +183,35 @@ public class Personagem {
         this.carisma = carisma;
     }
 
+    public ClassePersonagem getClasse() {
+        return classe;
+    }
+
+    public void setClasse(ClassePersonagem classe) {
+        this.classe = classe;
+    }
+
+    public int getManaAtual() {
+        return manaAtual;
+    }
+
+    public void setManaAtual(int manaAtual) {
+        this.manaAtual = manaAtual;
+    }
+
+    public static int getManaMax() {
+        return manaMax;
+    }
+
+    public static void setManaMax(int manaMax) {
+        Personagem.manaMax = manaMax;
+    }
+
+    public static int getTotalXP() {
+        return totalXP;
+    }
+
+    public static void setTotalXP(int totalXP) {
+        Personagem.totalXP = totalXP;
+    }
 }
-
-

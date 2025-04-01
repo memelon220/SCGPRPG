@@ -1,17 +1,23 @@
 package servico.entidade;
+import java.util.ArrayList;
 
-import java.util.List;
+public class Jogador{
 
-public class Jogador extends Usuario{
-    protected List<Personagem> personagens;
+    protected ArrayList<Personagem> personagens;
+    protected String nome;
+    protected int idade;
+    protected String ID;
 
-    public Jogador(String nome, int ID){
-        super(nome, ID);
+    public Jogador(String nome, int idade, String ID){
+        this.personagens = new ArrayList<Personagem>() ;
+        this.nome = nome;
+        this.idade = idade;
+        this.ID = ID;
     }
 
     public void adicionarPersonagem(String nome, boolean randomizar){
         Personagem personagem = new Personagem(nome, randomizar);
-        personagens.add(personagem);
+        this.personagens.add(personagem);
         System.out.println("dados.Personagem "+ nome +" adicionado com sucesso!");
     }
 }
