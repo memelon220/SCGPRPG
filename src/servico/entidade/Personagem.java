@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class Personagem {
     Scanner sc = new Scanner(System.in);
+    private Jogador jogador;
     private int XP, nivel, vidaAtual, manaAtual, magia;
     private static int vidaMax, manaMax;
     private static int totalXP = 0;
@@ -217,4 +218,13 @@ public class Personagem {
     public void setEspecie(EspeciePersonagem especie) {
         this.especie = especie;
     }
+
+    public Jogador getJogador() {
+        return jogador;
+    }
+
+    public void setJogador(Jogador jogador) {
+        this.jogador = jogador;
+    }
+
 }

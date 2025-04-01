@@ -6,10 +6,10 @@ public interface IRepositorioJogadores {
 
     void adicionar(Jogador jogador);
     void remover(Jogador jogador);
-    void atualizar(Jogador jogador);
-    Jogador buscar(int j_Id);
+    void atualizar(Jogador jogador1, Jogador jogador2);
+    Jogador buscar(String j_Id);
     void listar();
-    boolean existe(int j_Id);
+    boolean existe(String j_Id);
 
 
 }
