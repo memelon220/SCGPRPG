@@ -10,8 +10,6 @@ public class Anão extends EspeciePersonagem {
     @Override
     public void aplicarEspecie(Personagem personagem){
         personagem.setEspecie(new Anão());
-        System.out.println("Especie Anão aplicada com sucesso!");
-        System.out.println("---------------------------------------");
     }
 
 }
