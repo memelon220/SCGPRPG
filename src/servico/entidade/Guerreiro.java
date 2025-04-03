@@ -1,8 +1,19 @@
 package servico.entidade;
 
 public class Guerreiro extends ClassePersonagem {
-    public Guerreiro() {
+    private Personagem dono;
+
+    public Guerreiro(Personagem dono) {
         super("Guerreiro");
+        this.dono = dono;
+    }
+
+    @Override
+    public void aplicarClasse(Personagem dono) {
+        dono.setClasse(new Guerreiro(dono));
+        dono.setVidaMax(dono.getVidaMax() + 10);
+        dono.setForca(dono.getForca() + 2);
+        dono.setConstituicao(dono.getConstituicao() + 2);
     }
 
     @Override
@@ -12,12 +23,13 @@ public class Guerreiro extends ClassePersonagem {
         alvo.setVidaAtual(alvo.getVidaAtual() - dano);
     }
 
-    @Override
-    public void aplicarClasse(Personagem personagem) {
-        personagem.setClasse(new Guerreiro());
-        personagem.setVidaMax(personagem.getVidaMax() + 10);
-        personagem.setForca(personagem.getForca() + 2);
-        personagem.setConstituicao(personagem.getConstituicao() + 2);
+    public void habilidadeEspecial(Personagem dono, Personagem alvo) {
+        Dado dado = new Dado(12);
+        int dano = dado.rolarDado(1);
+        alvo.setVidaAtual(alvo.getVidaAtual() - dano);
+        dono.setVidaAtual(dono.getVidaAtual() + dano/2);
+        if (dono.getVidaAtual() > dono.getVidaMax()){
+            dono.setVidaAtual(dono.getVidaMax());
+        }
     }
-
 }
