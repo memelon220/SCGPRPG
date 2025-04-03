@@ -8,10 +8,7 @@ import servico.entidade.Personagem;
 public class Main {
     public static void main(String[] args) {
      Personagem personagem = new Personagem("Goku", true);
-     personagem.exibirFicha();
      personagem.adicionarXP(610);
-     personagem.exibirXP();
-     personagem.exibirFicha();
      Dado dado = new Dado(20);
      System.out.println("---------------------------------------");
 

@@ -15,8 +15,8 @@ class RepositorioJogadoresArrayListTest {
     @BeforeEach
     void setUp() {
         repTeste = new RepositorioJogadoresArrayList();
-        jTeste_1 = new Jogador("Raphael", 18, "123456");
-        jTeste_2 = new Jogador("Luigi", 19, "654321");
+        jTeste_1 = new Jogador("Raphael", 18);
+        jTeste_2 = new Jogador("Luigi", 19);
     }
 
     @Test
