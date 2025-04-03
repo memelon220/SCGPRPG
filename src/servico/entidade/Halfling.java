@@ -9,7 +9,5 @@ public class Halfling extends EspeciePersonagem{
     @Override
     public void aplicarEspecie(Personagem personagem) {
         personagem.setEspecie(new Halfling());
-        System.out.println("Especie Halfling aplicada com sucesso!");
-        System.out.println("---------------------------------------");
     }
 }

@@ -8,8 +8,6 @@ public class Draconato extends EspeciePersonagem{
     @Override
     public void aplicarEspecie(Personagem personagem) {
         personagem.setEspecie(new Draconato());
-        System.out.println("Especie Draconato aplicada com sucesso!");
-        System.out.println("---------------------------------------");
     }
 
 

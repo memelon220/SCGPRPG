@@ -8,7 +8,5 @@ public class Humano extends EspeciePersonagem{
     @Override
     public void aplicarEspecie(Personagem personagem) {
         personagem.setEspecie(new Humano());
-        System.out.println("Especie Humano aplicada com sucesso!");
-        System.out.println("---------------------------------------");
     }
 }

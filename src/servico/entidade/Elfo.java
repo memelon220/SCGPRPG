@@ -8,7 +8,5 @@ public class Elfo extends EspeciePersonagem {
     @Override
     public void aplicarEspecie(Personagem personagem) {
         personagem.setEspecie(new Elfo());
-        System.out.println("Especie Elfo aplicada com sucesso!");
-        System.out.println("---------------------------------------");
     }
 }
