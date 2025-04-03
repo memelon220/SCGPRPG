@@ -10,6 +10,7 @@ public class Personagem {
     private static int vidaMax, manaMax;
     private static int totalXP = 0;
     private String nome;
+    private final String ID;
     private int forca, destreza, constituicao, inteligencia, sabedoria, carisma;
     private ClassePersonagem classe;
     private EspeciePersonagem especie;
@@ -17,6 +18,9 @@ public class Personagem {
     boolean randomizar;
 
     public Personagem(String nome, boolean randomizar) {
+        Random random = new Random();
+        int numero = random.nextInt(1000000);
+        this.ID = String.format("P%06d", numero);
         this.XP = 0;
         nivel = 1;
         this.nome = nome;
@@ -25,13 +29,11 @@ public class Personagem {
     }
 
     public void adicionarXP(int v) {
-        System.out.println("Você recebeu " + v + " Pontos de Experiência");
         XP += v;
         while (XP >= 100) {
             XP -= 100;
             nivel++;
             vidaMax++;
-            System.out.println("Subiu de nível! Nível atual: " + nivel);
         }
     }
 
@@ -44,23 +46,17 @@ public class Personagem {
             inteligencia = random.nextInt(8, 19);
             carisma = random.nextInt(8, 19);
         } else {
-            System.out.println("Digite o valor de força: ");
             forca = sc.nextInt();
-            System.out.println("Digite o valor de destreza: ");
             destreza = sc.nextInt();
-            System.out.println("Digite o valor de constituição: ");
             constituicao = sc.nextInt();
-            System.out.println("Digite o valor de inteligência: ");
             inteligencia = sc.nextInt();
-            System.out.println("Digite o valor de sabedoria: ");
             sabedoria = sc.nextInt();
-            System.out.println("Digite o valor de carisma: ");
             carisma = sc.nextInt();
         }
         definirSecundarios();
     }
 
-    public int calcularModificador(int atributo){
+    public int calcularModificador(int atributo) {
         int aux = (int) Math.floor((atributo - 10) / 2);
         return aux;
     }
@@ -69,7 +65,7 @@ public class Personagem {
         vidaMax = 10 + ((constituicao - 10) / 2);
         magia = 8 + ((inteligencia - 10) / 2);
     }
-
+/*
     public void exibirFicha() {
         System.out.printf("Nome: %s | Nível: %d | Classe: %s | Especie: %s| XP: %d | Vida Máxima: %d | Vida Atual: %d | Magia: %d%n", nome, nivel, this.classe.getNomeClasse(), this.especie.getNome(), XP, vidaMax, vidaAtual, magia);
         System.out.println("|Atributos|");
@@ -81,7 +77,7 @@ public class Personagem {
         System.out.println("XP: " + XP);
         System.out.println("Nível: " + nivel);
     }
-
+*/
 
     public int getXP() {
         return XP;
@@ -227,4 +223,7 @@ public class Personagem {
         this.jogador = jogador;
     }
 
+    public String getID() {
+        return ID;
+    }
 }

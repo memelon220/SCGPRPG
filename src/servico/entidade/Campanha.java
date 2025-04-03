@@ -1,29 +1,30 @@
 package servico.entidade;
-
 import java.util.ArrayList;
 
 public class Campanha {
 
     private String nome;
-    private String ID;
+    private final String ID;
     private String descricao;
     private String dataInicio;
     private String dataFim;
-    private String local;
-    private String status;
+    private String status; //Em andamento, em sessão, finalizada, etc.
+    private Narrador narrador;
     private ArrayList<Jogador> jogadores;
     private ArrayList<Personagem> personagens;
 
-    public Campanha(String nome, String ID, String descricao, String dataInicio, String local, String status){
+    public Campanha(Narrador narrador, String nome, String descricao, String dataInicio, String status){
+        this.narrador = narrador;
         this.nome = nome;
-        this.ID = ID;
         this.descricao = descricao;
         this.dataInicio = dataInicio;
         this.dataFim = null;
-        this.local = local;
         this.status = status;
         this.jogadores = new ArrayList<Jogador>();
         this.personagens = new ArrayList<Personagem>();
+        int numeracao = Integer.parseInt(narrador.getID().substring(1)) + narrador.getListaCampanhas().size();
+        //faz o ID de campanha com base no ID de narrador adicionando o número de campanhas que este narrador tem.
+        this.ID = String.format("C%06d", numeracao);
     }
 
     public String getNome() {
@@ -36,10 +37,6 @@ public class Campanha {
 
     public String getID() {
         return ID;
-    }
-
-    public void setID(String ID) {
-        this.ID = ID;
     }
 
     public String getDescricao() {
@@ -66,19 +63,31 @@ public class Campanha {
         this.dataFim = dataFim;
     }
 
-    public String getLocal() {
-        return local;
-    }
-
-    public void setLocal(String local) {
-        this.local = local;
-    }
-
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Narrador getNarrador() {
+        return narrador;
+    }
+
+    public ArrayList<Jogador> getJogadores() {
+        return jogadores;
+    }
+
+    public void setJogadores(ArrayList<Jogador> jogadores) {
+        this.jogadores = jogadores;
+    }
+
+    public ArrayList<Personagem> getPersonagens() {
+        return personagens;
+    }
+
+    public void setPersonagens(ArrayList<Personagem> personagens) {
+        this.personagens = personagens;
     }
 }

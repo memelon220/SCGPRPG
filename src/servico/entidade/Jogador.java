@@ -1,4 +1,5 @@
 package servico.entidade;
+import java.util.Random;
 import java.util.ArrayList;
 
 public class Jogador{
@@ -8,17 +9,18 @@ public class Jogador{
     protected int idade;
     protected String ID;
 
-    public Jogador(String nome, int idade, String ID){
+    public Jogador(String nome, int idade){
         this.personagens = new ArrayList<Personagem>() ;
         this.nome = nome;
         this.idade = idade;
-        this.ID = ID;
+        Random random = new Random();
+        int numero = random.nextInt(1000000);
+        this.ID = String.format("J%06d", numero);
     }
 
     public void adicionarPersonagem(String nome, boolean randomizar){
         Personagem personagem = new Personagem(nome, randomizar);
         this.personagens.add(personagem);
-        System.out.println("dados.Personagem "+ nome +" adicionado com sucesso!");
     }
 
     public String getID() {
