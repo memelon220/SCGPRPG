@@ -46,4 +46,12 @@ public class Jogador{
     public void setIdade(int idade) {
         this.idade = idade;
     }
+
+    public ArrayList getPersonagens() {
+        return personagens;
+    }
+
+    public ArrayList setPersonagens(ArrayList personagens) {
+        return this.personagens = personagens;
+    }
 }

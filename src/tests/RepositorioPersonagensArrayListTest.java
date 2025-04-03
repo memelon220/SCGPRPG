@@ -22,8 +22,8 @@ class RepositorioPersonagensArrayListTest {
     @BeforeEach
     void setUp() {
         repTeste = new RepositorioPersonagensArrayList();
-        jTeste_1 = new Jogador("Raphael", 18, "123456");
-        jTeste_2 = new Jogador("Luigi", 19, "654321");
+        jTeste_1 = new Jogador("Raphael", 18);
+        jTeste_2 = new Jogador("Luigi", 19);
         pTeste_1 = new Personagem("Link", true);
         pTeste_2 = new Personagem("Zelda", true);
     }
