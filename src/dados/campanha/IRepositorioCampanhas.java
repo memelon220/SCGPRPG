@@ -2,6 +2,7 @@ package dados.campanha;
 
 import servico.entidade.Campanha;
 
+@SuppressWarnings("unused")
 public interface IRepositorioCampanhas {
 
     void adicionar(Campanha campanha);

@@ -2,6 +2,7 @@ package dados.jogador;
 
 import servico.entidade.Jogador;
 
+@SuppressWarnings("unused")
 public interface IRepositorioJogadores {
 
     void adicionar(Jogador jogador);

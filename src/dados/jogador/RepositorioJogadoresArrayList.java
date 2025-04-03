@@ -62,4 +62,9 @@ public class RepositorioJogadoresArrayList implements IRepositorioJogadores {
         }
         return flag;
     }
+
+    public ArrayList<Jogador> getArrayJogadores() {
+        return arrayJogadores;
+    }
+
 }

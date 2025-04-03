@@ -63,4 +63,8 @@ public class RepositorioCampanhasArrayList implements IRepositorioCampanhas {
         return flag;
     }
 
+    public ArrayList<Campanha> getArrayCampanhas() {
+        return arrayCampanhas;
+    }
+
 }

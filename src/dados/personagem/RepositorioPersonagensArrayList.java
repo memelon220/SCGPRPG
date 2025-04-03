@@ -9,7 +9,7 @@ public class RepositorioPersonagensArrayList implements IRepositorioPersonagens 
     private ArrayList<Personagem> arrayPersonagens;
 
     public RepositorioPersonagensArrayList(){
-        arrayPersonagens = new ArrayList<Personagem>();
+        arrayPersonagens = new ArrayList<>();
     }
 
     @Override
