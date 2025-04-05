@@ -21,10 +21,26 @@ public class Jogador implements Serializable{
         this.ID = String.format("J%06d", numero);
     }
 
-    public void adicionarPersonagem(String nome, boolean randomizar){
-        Personagem personagem = new Personagem(nome, randomizar);
+    public void adicionarPersonagem(String nome){
+        Personagem personagem = new Personagem(nome);
         this.personagens.add(personagem);
     }
+
+    public void adicionarPersonagem(String nome, int nivel){
+        Personagem personagem = new Personagem(nome, nivel);
+        this.personagens.add(personagem);
+    }
+
+    public void adicionarPersonagem(String nome, int forca, int destreza, int constituicao, int inteligencia, int sabedoria, int carisma){
+        Personagem personagem = new Personagem(nome, forca, destreza, constituicao, inteligencia, sabedoria, carisma);
+        this.personagens.add(personagem);
+    }
+
+    public void adicionarPersonagem(String nome, int nivel, int forca, int destreza, int constituicao, int inteligencia, int sabedoria, int carisma ){
+        Personagem personagem = new Personagem(nome, nivel, forca, destreza, constituicao, inteligencia, sabedoria, carisma);
+        this.personagens.add(personagem);
+    }
+
 
     public String getID() {
         return ID;

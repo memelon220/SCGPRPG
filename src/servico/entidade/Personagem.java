@@ -2,13 +2,11 @@ package servico.entidade;
 
 import java.io.Serializable;
 import java.util.Random;
-import java.util.Scanner;
 
 public class Personagem implements Serializable {
 
     private static final long serialVersionUID = 1L; // Versão inicial
 
-    Scanner sc = new Scanner(System.in);
     private Jogador jogador;
     private int XP, nivel, vidaAtual, manaAtual, magia;
     private static int vidaMax, manaMax;
@@ -19,17 +17,45 @@ public class Personagem implements Serializable {
     private ClassePersonagem classe;
     private EspeciePersonagem especie;
     private final Random random = new Random();
-    boolean randomizar;
 
-    public Personagem(String nome, boolean randomizar) {
+    public Personagem(String nome) {
         Random random = new Random();
         int numero = random.nextInt(1000000);
         this.ID = String.format("P%06d", numero);
         this.XP = 0;
         nivel = 1;
         this.nome = nome;
-        this.randomizar = randomizar;
-        definirAtributos(randomizar);
+        definirAtributos();
+    }
+
+    public Personagem(String nome, int nivel){
+        Random random = new Random();
+        int numero = random.nextInt(1000000);
+        this.ID = String.format("P%06d", numero);
+        this.XP = 0;
+        this.nivel = nivel;
+        this.nome = nome;
+        definirAtributos();
+    }
+
+    public Personagem(String nome, int forca, int destreza, int constituicao, int inteligencia, int sabedoria, int carisma) {
+        Random random = new Random();
+        int numero = random.nextInt(1000000);
+        this.ID = String.format("P%06d", numero);
+        this.XP = 0;
+        nivel = 1;
+        this.nome = nome;
+        definirAtributos(forca, destreza, constituicao, inteligencia, sabedoria, carisma);
+    }
+
+    public Personagem(String nome, int nivel, int forca, int destreza, int constituicao, int inteligencia, int sabedoria, int carisma) {
+        Random random = new Random();
+        int numero = random.nextInt(1000000);
+        this.ID = String.format("P%06d", numero);
+        this.XP = 0;
+        this.nivel = nivel;
+        this.nome = nome;
+        definirAtributos(forca, destreza, constituicao, inteligencia, sabedoria, carisma);
     }
 
     public void adicionarXP(int v) {
@@ -41,24 +67,25 @@ public class Personagem implements Serializable {
         }
     }
 
-    public void definirAtributos(boolean opc) {
-        if (opc) {
+    public void definirAtributos(){
             forca = random.nextInt(8, 19);
             destreza = random.nextInt(8, 19);
             constituicao = random.nextInt(8, 19);
             sabedoria = random.nextInt(8, 19);
             inteligencia = random.nextInt(8, 19);
             carisma = random.nextInt(8, 19);
-        } else {
-            forca = sc.nextInt();
-            destreza = sc.nextInt();
-            constituicao = sc.nextInt();
-            inteligencia = sc.nextInt();
-            sabedoria = sc.nextInt();
-            carisma = sc.nextInt();
+            definirSecundarios();
         }
-        definirSecundarios();
-    }
+
+   public void definirAtributos(int forca, int destreza, int constituicao,  int inteligencia, int sabedoria, int carisma){
+                this.forca = forca;
+                this.destreza = destreza;
+                this.constituicao = constituicao;
+                this.inteligencia = inteligencia;
+                this.sabedoria = sabedoria;
+                this.carisma = carisma;
+                definirSecundarios();
+            }
 
     public int calcularModificador(int atributo) {
         int aux = (int) Math.floor((atributo - 10) / 2);

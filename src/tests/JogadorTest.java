@@ -37,8 +37,8 @@ public class JogadorTest {
 
     @Test
     void testAdicionarPersonagem(){
-        jogador1.adicionarPersonagem("Vlaad", true);
-        jogador2.adicionarPersonagem("Furiae", true);
+        jogador1.adicionarPersonagem("Vlaad");
+        jogador2.adicionarPersonagem("Furiae", 12, 13, 14, 15, 16, 17);
         assertNotNull(jogador1.getPersonagens());
         assertNotEquals(2, jogador1.getPersonagens().size());
         assertEquals(1, jogador2.getPersonagens().size());
