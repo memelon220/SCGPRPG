@@ -1,4 +1,10 @@
 package servico.excecao.campanha;
 
-public class CampanhaJaExisteException {
+public class CampanhaJaExisteException extends CampanhaException {
+
+    public CampanhaJaExisteException() {
+        super("Essa campanha ja existe e nao pode ser adicionada novamente.");
+    }
+
+
 }

@@ -15,8 +15,8 @@ class RepositorioPersonagensArrayListTest {
     @BeforeEach
     void setUp() {
         repTeste = new RepositorioPersonagensArrayList();
-        pTeste_1 = new Personagem("Link", true);
-        pTeste_2 = new Personagem("Zelda", true);
+        pTeste_1 = new Personagem("Link");
+        pTeste_2 = new Personagem("Zelda");
     }
 
     @Test
