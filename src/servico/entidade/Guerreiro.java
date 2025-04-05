@@ -9,34 +9,43 @@ public class Guerreiro extends ClassePersonagem {
     }
 
     @Override
-    public void aplicarClasse(Personagem dono) {
+    public void aplicarClasse() {
         dono.setClasse(new Guerreiro(dono));
 
-        dono.setVidaMax(dono.getVidaMax() + 10);
         dono.setForca(dono.getForca() + 2);
-
         dono.setConstituicao(dono.getConstituicao() + 2);
+
+        dono.setVidaAtual(dono.getVidaAtual() + 11);
+        dono.setVidaMax(dono.getVidaMax() + 11);
     }
 
     @Override
     public void Atacar(Personagem alvo) {
-        Dado dado = new Dado(8);
-        int dano = dado.rolarDado(1) + (dono.getForca() - 10) / 2;
-        alvo.setVidaAtual(alvo.getVidaAtual() - dano);
+
+        int acerto = d20.rolarDado(1) + dono.calcularModificador(dono.getForca());
+
+        if (acerto >= alvo.getClasseResistencia()) {
+            int dano = d8.rolarDado(1) + dono.calcularModificador(dono.getForca());
+            alvo.setVidaAtual(alvo.getVidaAtual() - dano);
+        }
     }
 
-    public void habilidadeEspecial(Personagem dono, Personagem alvo) {
-        Dado dado = new Dado(12);
-        int dano = dado.rolarDado(1) + dono.calcularModificador(dono.getForca());
+    public void habilidadeEspecial(Personagem alvo) {
 
-        //Remove da vida do alvo o dano rolado
-        alvo.setVidaAtual(alvo.getVidaAtual() - dano);
+        int acerto = d20.rolarDado(1) + dono.calcularModificador(dono.getForca());
 
-        //Adiciona metade do dano aplicado no alvo como vida no dono da classe se a soma for maior que a vida máxima,
-        //a vida vai pro máximo sem ultrapassar o limite
-        dono.setVidaAtual(Math.min(
-                dono.getVidaAtual() + (dano/2),
-                dono.getVidaMax()
-        ));
+        if (acerto >= alvo.getClasseResistencia()) {
+            int dano = d12.rolarDado(1) + dono.calcularModificador(dono.getForca());
+
+            //Remove da vida do alvo o dano rolado
+            alvo.setVidaAtual(alvo.getVidaAtual() - dano);
+
+            //Adiciona metade do dano aplicado no alvo como vida no dono da classe se a soma for maior que a vida máxima,
+            //a vida vai pro máximo sem ultrapassar o limite
+            dono.setVidaAtual(Math.min(
+                    dono.getVidaAtual() + (dano/2),
+                    dono.getVidaMax()
+            ));
+        }
     }
 }
