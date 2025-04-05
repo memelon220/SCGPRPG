@@ -8,7 +8,7 @@ public class Personagem implements Serializable {
     private static final long serialVersionUID = 1L; // Versão inicial
 
     private Jogador jogador;
-    private int XP, nivel, vidaAtual, manaAtual, magia;
+    private int XP, nivel, vidaAtual, manaAtual, magia, classeResistencia;
     private static int vidaMax, manaMax;
     private static int totalXP = 0;
     private String nome;
@@ -93,8 +93,9 @@ public class Personagem implements Serializable {
     }
 
     public void definirSecundarios() {
-        vidaMax = 10 + ((constituicao - 10) / 2);
-        magia = 8 + ((inteligencia - 10) / 2);
+        vidaMax = 10 + calcularModificador(constituicao);
+        magia = 8 + calcularModificador(inteligencia);
+        classeResistencia = 10 + calcularModificador(destreza);
     }
 /*
     public void exibirFicha() {
@@ -116,6 +117,14 @@ public class Personagem implements Serializable {
 
     public void setXP(int XP) {
         this.XP = XP;
+    }
+
+    public int getClasseResistencia(){
+        return classeResistencia;
+    }
+
+    public void setClasseResistencia(int cr){
+        this.classeResistencia = cr;
     }
 
     public int getNivel() {

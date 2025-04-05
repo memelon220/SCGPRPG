@@ -8,40 +8,43 @@ public class Ladino extends ClassePersonagem {
     }
 
     @Override
-    public void aplicarClasse(Personagem dono) {
-        dono.setClasse(new Ladino(dono));
+    public void aplicarClasse() {
+        this.dono = dono;
+        dono.setClasse(this);
 
+        // Ajuste de atributos
         dono.setVidaMax(dono.getVidaMax() - 5);
-        dono.setVidaAtual(dono.getVidaAtual() - 5);
-
-        dono.setInteligencia(dono.getDestreza() + 2);
-        dono.setInteligencia(dono.getInteligencia() + 2);
+        dono.setVidaAtual(Math.max(1, dono.getVidaAtual() - 5));
+        dono.setDestreza(dono.getDestreza() + 4);
     }
 
     @Override
     public void Atacar(Personagem alvo) {
-        Dado dado = new Dado(10);
-        int dano = dado.rolarDado(1) + dono.calcularModificador(dono.getForca());
-        alvo.setVidaAtual(alvo.getVidaAtual() - dano);
+        int acerto = d20.rolarDado(1) + dono.calcularModificador(dono.getDestreza());
+
+        if(acerto >= alvo.getClasseResistencia()) {
+            int dano = d8.rolarDado(1) + dono.calcularModificador(dono.getDestreza());
+            alvo.setVidaAtual(alvo.getVidaAtual() - dano);
+        }
     }
 
     @Override
-    public void habilidadeEspecial(Personagem dono, Personagem alvo){
-        Dado dadoCrit = new Dado(20);
-        Dado dadoDano = new Dado(12);
+    public void habilidadeEspecial(Personagem alvo) {
+        int crit = d20.rolarDado(1);
+        int dano = d12.rolarDado(2) + dono.calcularModificador(dono.getDestreza());
+        int acerto = d20.rolarDado(1);
 
-        int dano = dadoDano.rolarDado(2) + dono.calcularModificador(dono.getDestreza());
-        int crit = dadoCrit.rolarDado(1);
 
-        if(crit >= 16){
-            dano *= 3;
+        if (acerto >= alvo.getClasseResistencia()) {
+            if(crit >= 16) {
+                dano *= 3;
+                dono.setVidaAtual(Math.min(
+                        dono.getVidaAtual() + 5,
+                        dono.getVidaMax()
+                ));
+            }
 
-            dono.setVidaAtual(Math.min(
-                    dono.getVidaAtual() + 5,
-                    dono.getVidaMax()
-            ));
+            alvo.setVidaAtual(alvo.getVidaAtual() - dano);
         }
-        alvo.setVidaAtual(alvo.getVidaAtual() - dano);
     }
-
 }

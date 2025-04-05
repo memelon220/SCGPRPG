@@ -1,44 +1,41 @@
 package servico.entidade;
 
-public class Clerigo extends ClassePersonagem{
+public class Clerigo extends ClassePersonagem {
     private Personagem dono;
 
-    public Clerigo(Personagem dono){
+    public Clerigo(Personagem dono) {
         super("Clérigo");
-        this.dono = dono;
     }
 
-
     @Override
-    public void aplicarClasse(Personagem dono) {
+    public void aplicarClasse() {
         dono.setClasse(new Clerigo(dono));
 
         dono.setMagia(dono.getMagia() + 10);
         dono.setManaAtual(dono.getManaAtual() + 10);
-
-        dono.setVidaMax(dono.getVidaMax()+10);
-        dono.setVidaAtual(dono.getVidaAtual()+10);
-
+        dono.setVidaMax(dono.getVidaMax() + 10);
+        dono.setVidaAtual(Math.min(dono.getVidaAtual() + 10, dono.getVidaMax()));
         dono.setSabedoria(dono.getSabedoria() + 2);
         dono.setCarisma(dono.getCarisma() + 2);
     }
 
     @Override
     public void Atacar(Personagem alvo) {
-        Dado dado = new Dado(8);
-        int dano = dado.rolarDado(1) + dono.calcularModificador(dono.getForca());
-        alvo.setVidaAtual(alvo.getVidaAtual() - dano);
+        int acerto = d20.rolarDado(1) + dono.calcularModificador(dono.getForca());
+
+        if(acerto >= alvo.getClasseResistencia()) {
+            int dano = d6.rolarDado(1) + dono.calcularModificador(dono.getCarisma());
+            alvo.setVidaAtual(alvo.getVidaAtual() - dano);
+        }
     }
 
     @Override
-    public void habilidadeEspecial(Personagem dono, Personagem alvo) {
-        Dado dado = new Dado(8);
-        int cura = dado.rolarDado(2) + dono.calcularModificador(dono.getSabedoria()); // Cura base + bônus de sabedoria
+    public void habilidadeEspecial(Personagem alvo) {
 
-        alvo.setVidaAtual(Math.min(
-                alvo.getVidaAtual() + cura,
-                alvo.getVidaMax()
-        ));
-
+        if(dono.getManaAtual() >= 5) {
+            int cura = d8.rolarDado(2) + dono.calcularModificador(dono.getSabedoria());
+            alvo.setVidaAtual(Math.min(alvo.getVidaAtual() + cura, alvo.getVidaMax()));
+            dono.setManaAtual(dono.getManaAtual() - 5);
+        }
     }
 }
