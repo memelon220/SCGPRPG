@@ -10,7 +10,10 @@ public class Mago extends ClassePersonagem {
     @Override
     public void aplicarClasse(Personagem dono) {
         dono.setClasse(new Mago(dono));
-        dono.setVidaMax(dono.getVidaMax() + 6);
+
+        dono.setMagia(dono.getMagia() + 10);
+        dono.setManaAtual(dono.getManaAtual() + 10);
+
         dono.setInteligencia(dono.getInteligencia() + 2);
         dono.setMagia(dono.getMagia() + 2);
     }

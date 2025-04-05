@@ -10,8 +10,10 @@ public class Ladino extends ClassePersonagem {
     @Override
     public void aplicarClasse(Personagem dono) {
         dono.setClasse(new Ladino(dono));
+
         dono.setVidaMax(dono.getVidaMax() - 5);
         dono.setVidaAtual(dono.getVidaAtual() - 5);
+
         dono.setInteligencia(dono.getDestreza() + 2);
         dono.setInteligencia(dono.getInteligencia() + 2);
     }
@@ -19,7 +21,7 @@ public class Ladino extends ClassePersonagem {
     @Override
     public void Atacar(Personagem alvo) {
         Dado dado = new Dado(10);
-        int dano = dado.rolarDado(1);// Rola um dado de 10 lados (1 a 10)
+        int dano = dado.rolarDado(1) + dono.calcularModificador(dono.getForca());
         alvo.setVidaAtual(alvo.getVidaAtual() - dano);
     }
 
@@ -28,15 +30,16 @@ public class Ladino extends ClassePersonagem {
         Dado dadoCrit = new Dado(20);
         Dado dadoDano = new Dado(12);
 
-        int dano = dadoDano.rolarDado(2);
+        int dano = dadoDano.rolarDado(2) + dono.calcularModificador(dono.getDestreza());
         int crit = dadoCrit.rolarDado(1);
 
         if(crit >= 16){
             dano *= 3;
-            dono.setVidaAtual(dono.getVidaAtual() + 5);
-            if (dono.getVidaAtual() > dono.getVidaMax()){
-                dono.setVidaAtual(dono.getVidaMax());
-            }
+
+            dono.setVidaAtual(Math.min(
+                    dono.getVidaAtual() + 5,
+                    dono.getVidaMax()
+            ));
         }
         alvo.setVidaAtual(alvo.getVidaAtual() - dano);
     }

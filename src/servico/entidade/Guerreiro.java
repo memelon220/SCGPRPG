@@ -11,25 +11,32 @@ public class Guerreiro extends ClassePersonagem {
     @Override
     public void aplicarClasse(Personagem dono) {
         dono.setClasse(new Guerreiro(dono));
+
         dono.setVidaMax(dono.getVidaMax() + 10);
         dono.setForca(dono.getForca() + 2);
+
         dono.setConstituicao(dono.getConstituicao() + 2);
     }
 
     @Override
     public void Atacar(Personagem alvo) {
         Dado dado = new Dado(8);
-        int dano = dado.rolarDado(1);// Rola um dado de 8 lados (1 a 8)
+        int dano = dado.rolarDado(1) + (dono.getForca() - 10) / 2;
         alvo.setVidaAtual(alvo.getVidaAtual() - dano);
     }
 
     public void habilidadeEspecial(Personagem dono, Personagem alvo) {
         Dado dado = new Dado(12);
-        int dano = dado.rolarDado(1);
+        int dano = dado.rolarDado(1) + dono.calcularModificador(dono.getForca());
+
+        //Remove da vida do alvo o dano rolado
         alvo.setVidaAtual(alvo.getVidaAtual() - dano);
-        dono.setVidaAtual(dono.getVidaAtual() + dano/2);
-        if (dono.getVidaAtual() > dono.getVidaMax()){
-            dono.setVidaAtual(dono.getVidaMax());
-        }
+
+        //Adiciona metade do dano aplicado no alvo como vida no dono da classe se a soma for maior que a vida máxima,
+        //a vida vai pro máximo sem ultrapassar o limite
+        dono.setVidaAtual(Math.min(
+                dono.getVidaAtual() + (dano/2),
+                dono.getVidaMax()
+        ));
     }
 }

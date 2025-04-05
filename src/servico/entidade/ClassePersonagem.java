@@ -21,4 +21,5 @@ public abstract class ClassePersonagem {
         this.nomeClasse = nomeClasse;
     }
 
+
 }
