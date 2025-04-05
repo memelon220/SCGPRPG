@@ -1,7 +1,10 @@
 package servico.entidade;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Campanha {
+public class Campanha implements Serializable {
+
+    private static final long serialVersionUID = 1L; //Versão Inicial
 
     private String nome;
     private final String ID;

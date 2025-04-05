@@ -1,9 +1,13 @@
 package servico.entidade;
 
+import java.io.Serializable;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Personagem {
+public class Personagem implements Serializable {
+
+    private static final long serialVersionUID = 1L; // Versão inicial
+
     Scanner sc = new Scanner(System.in);
     private Jogador jogador;
     private int XP, nivel, vidaAtual, manaAtual, magia;
@@ -226,4 +230,5 @@ public class Personagem {
     public String getID() {
         return ID;
     }
+
 }

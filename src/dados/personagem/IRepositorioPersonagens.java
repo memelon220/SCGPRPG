@@ -1,6 +1,5 @@
 package dados.personagem;
 
-import servico.entidade.Jogador;
 import servico.entidade.Personagem;
 
 @SuppressWarnings("unused")
@@ -9,8 +8,8 @@ public interface IRepositorioPersonagens {
     void adicionar(Personagem personagem);
     void remover(Personagem personagem);
     void atualizar(Personagem personagem1, Personagem personagem2);
-    Personagem buscar(Jogador j, String nome);
+    Personagem buscar(String p_Id);
     void listar();
-    boolean existe(Jogador j, String nome);
+    boolean existe(String p_Id);
 
 }

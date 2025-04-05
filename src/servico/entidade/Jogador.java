@@ -1,8 +1,11 @@
 package servico.entidade;
 import java.util.Random;
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Jogador{
+public class Jogador implements Serializable{
+
+    private static final long serialVersionUID = 1L; //Versão Inicial
 
     protected ArrayList<Personagem> personagens;
     protected String nome;

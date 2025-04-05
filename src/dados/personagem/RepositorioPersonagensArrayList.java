@@ -34,10 +34,10 @@ public class RepositorioPersonagensArrayList implements IRepositorioPersonagens 
     }
 
     @Override
-    public Personagem buscar(Jogador j, String nome) {
+    public Personagem buscar(String p_Id) {
         Personagem personagemProcurado = null;
         for (Personagem p : arrayPersonagens) {
-            if (j.getID().equals(p.getJogador().getID())) {
+            if (p.getID().equals(p_Id)) {
                 personagemProcurado = p;
                 break;
             }
@@ -53,10 +53,10 @@ public class RepositorioPersonagensArrayList implements IRepositorioPersonagens 
     }
 
     @Override
-    public boolean existe(Jogador j, String nome) {
+    public boolean existe(String p_Id) {
         boolean flag = false;
         for(Personagem p : arrayPersonagens){
-            if(j.getID().equals(p.getJogador().getID())){
+            if(p.getID().equals(p_Id)){
                 flag = true;
                 break;
             }
@@ -64,5 +64,7 @@ public class RepositorioPersonagensArrayList implements IRepositorioPersonagens 
         return flag;
     }
 
-
+    public ArrayList<Personagem> getArrayPersonagens() {
+        return arrayPersonagens;
+    }
 }
