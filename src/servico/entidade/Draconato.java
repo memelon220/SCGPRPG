@@ -2,7 +2,7 @@ package servico.entidade;
 
 public class Draconato extends EspeciePersonagem{
     public Draconato(){
-        super("Draconato", "Nascidos de dragões, como seu nome proclama, os draconatos caminham orgulhosamente por um mundo que os recebe com uma incompreensão assustadora.");
+        super("Draconato",  "\n" + "Nascidos de dragões, como seu nome proclama, os draconatos caminham orgulhosamente por um mundo que os recebe com uma incompreensão assustadora.");
     }
 
     @Override

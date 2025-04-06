@@ -2,8 +2,12 @@ package servico;
 
 import dados.campanha.IRepositorioCampanhas;
 import servico.entidade.Campanha;
+import servico.entidade.Jogador;
+import servico.entidade.Personagem;
 import servico.excecao.campanha.CampanhaJaExisteException;
 import servico.excecao.campanha.CampanhaNaoExisteException;
+import servico.excecao.jogador.JogadorNaoExisteException;
+import servico.excecao.personagem.PersonagemNaoExisteException;
 
 public class ServicoCampanha {
 
@@ -51,5 +55,21 @@ public class ServicoCampanha {
 
     }
 
+    public void adicionarJogadorPersonagem(Campanha campanha, Personagem personagem, Jogador jogador) throws CampanhaNaoExisteException, PersonagemNaoExisteException, JogadorNaoExisteException {
+        if(campanha == null){
+            throw new CampanhaNaoExisteException();
+        } else {
+            if(jogador == null){
+                throw new JogadorNaoExisteException();
+            } else {
+                campanha.adicionarJogador(jogador);
+            }
+            if(personagem == null){
+                throw new PersonagemNaoExisteException();
+            } else {
+                campanha.adicionarPersonagem(personagem);
+            }
+        }
+    }
 
 }

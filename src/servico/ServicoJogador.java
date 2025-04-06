@@ -4,6 +4,8 @@ import dados.jogador.IRepositorioJogadores;
 import servico.entidade.Jogador;
 import servico.excecao.jogador.JogadorNaoExisteException;
 import servico.excecao.jogador.JogadorJaExisteException;
+import servico.entidade.Personagem;
+import java.util.ArrayList;
 
 public class ServicoJogador {
 
@@ -49,4 +51,10 @@ public class ServicoJogador {
             repositorioJogadores.atualizar(jogador1, jogador2);
         }
     }
+
+    public ArrayList<Personagem> getPersonagensDoJogador(String j_id) throws JogadorNaoExisteException {
+        Jogador jogador = repositorioJogadores.buscar(j_id);
+        return jogador.getPersonagens();
+    }
+
 }

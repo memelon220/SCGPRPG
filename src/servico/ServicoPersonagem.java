@@ -4,6 +4,7 @@ import dados.personagem.IRepositorioPersonagens;
 import servico.entidade.Personagem;
 import servico.excecao.personagem.PersonagemNaoExisteException;
 import servico.excecao.personagem.PersonagemJaExisteException;
+
 public class ServicoPersonagem {
     private IRepositorioPersonagens repositorioPersonagens;
 

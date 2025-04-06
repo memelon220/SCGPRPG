@@ -1,6 +1,7 @@
 package servico.entidade;
 
 public class Guerreiro extends ClassePersonagem {
+
     private Personagem dono;
 
     public Guerreiro(Personagem dono) {

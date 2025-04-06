@@ -1,6 +1,7 @@
 package servico.entidade;
 
 public class Ladino extends ClassePersonagem {
+
     private Personagem dono;
     public Ladino(Personagem dono) {
         super("Ladino");
@@ -11,8 +12,6 @@ public class Ladino extends ClassePersonagem {
     public void aplicarClasse() {
         this.dono = dono;
         dono.setClasse(this);
-
-        // Ajuste de atributos
         dono.setVidaMax(dono.getVidaMax() - 5);
         dono.setVidaAtual(Math.max(1, dono.getVidaAtual() - 5));
         dono.setDestreza(dono.getDestreza() + 4);

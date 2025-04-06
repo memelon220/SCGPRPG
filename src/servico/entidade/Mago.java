@@ -14,7 +14,7 @@ private Personagem dono;
         dono.setClasse(new Mago(dono));
 
         dono.setInteligencia(dono.getInteligencia() + 2);
-        dono.setInteligencia(dono.getSabedoria() + 2);
+        dono.setSabedoria(dono.getSabedoria() + 2);
 
         dono.setMagia(dono.getMagia() + 11);
         dono.setManaAtual(dono.getManaAtual() + 11);

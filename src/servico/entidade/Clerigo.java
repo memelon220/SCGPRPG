@@ -38,4 +38,5 @@ public class Clerigo extends ClassePersonagem {
             dono.setManaAtual(dono.getManaAtual() - 5);
         }
     }
+
 }

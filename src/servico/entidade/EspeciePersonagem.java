@@ -1,6 +1,7 @@
 package servico.entidade;
 
 public abstract class EspeciePersonagem {
+
     private String nome;
     private String descricao;
 

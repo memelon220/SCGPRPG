@@ -93,4 +93,13 @@ public class Campanha implements Serializable {
     public void setPersonagens(ArrayList<Personagem> personagens) {
         this.personagens = personagens;
     }
+
+    public void adicionarJogador(Jogador jogador){
+        this.jogadores.add(jogador);
+    }
+
+    public void adicionarPersonagem(Personagem personagem){
+        this.personagens.add(personagem);
+    }
+
 }
