@@ -47,10 +47,6 @@ public class ServicoJogador {
             throw new JogadorNaoExisteException();
         } else {
             repositorioJogadores.atualizar(jogador1, jogador2);
+        }
     }
-
-}
-
-
-
 }

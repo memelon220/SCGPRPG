@@ -16,7 +16,7 @@ class RepositorioPersonagensArquivoTest {
     static void setUp() {
         new File("personagens.dat").delete();
         repositorio = new RepositorioPersonagensArquivo();
-        personagemTeste = new Personagem("Link", true);
+        personagemTeste = new Personagem("Link", 1);
     }
 
     @AfterAll
@@ -40,7 +40,7 @@ class RepositorioPersonagensArquivoTest {
     @Test
     void testAtualizar() {
         repositorio.adicionar(personagemTeste);
-        Personagem novoPersonagem = new Personagem("Atualizado1", true);
+        Personagem novoPersonagem = new Personagem("Atualizado1", 1);
         repositorio.atualizar(personagemTeste, novoPersonagem);
         Personagem recuperado = repositorio.buscar(novoPersonagem.getID());
         assertEquals("Atualizado1", recuperado.getNome());

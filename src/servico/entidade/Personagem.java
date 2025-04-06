@@ -1,10 +1,12 @@
 package servico.entidade;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Random;
 
 public class Personagem implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L; // Versão inicial
 
     private Jogador jogador;
@@ -18,15 +20,6 @@ public class Personagem implements Serializable {
     private EspeciePersonagem especie;
     private final Random random = new Random();
 
-    public Personagem(String nome) {
-        Random random = new Random();
-        int numero = random.nextInt(1000000);
-        this.ID = String.format("P%06d", numero);
-        this.XP = 0;
-        nivel = 1;
-        this.nome = nome;
-        definirAtributos();
-    }
 
     public Personagem(String nome, int nivel){
         Random random = new Random();
@@ -36,16 +29,6 @@ public class Personagem implements Serializable {
         this.nivel = nivel;
         this.nome = nome;
         definirAtributos();
-    }
-
-    public Personagem(String nome, int forca, int destreza, int constituicao, int inteligencia, int sabedoria, int carisma) {
-        Random random = new Random();
-        int numero = random.nextInt(1000000);
-        this.ID = String.format("P%06d", numero);
-        this.XP = 0;
-        nivel = 1;
-        this.nome = nome;
-        definirAtributos(forca, destreza, constituicao, inteligencia, sabedoria, carisma);
     }
 
     public Personagem(String nome, int nivel, int forca, int destreza, int constituicao, int inteligencia, int sabedoria, int carisma) {
@@ -88,8 +71,7 @@ public class Personagem implements Serializable {
             }
 
     public int calcularModificador(int atributo) {
-        int aux = (int) Math.floor((atributo - 10) / 2);
-        return aux;
+        return (int) (double) ((atributo - 10) / 2);
     }
 
     public void definirSecundarios() {
