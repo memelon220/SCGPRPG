@@ -5,8 +5,8 @@ public class Narrador extends Jogador{
     private ArrayList<Campanha> listaCampanhas;
     private Campanha campanhaAtual;
 
-    public Narrador(String nome, int idade) {
-        super(nome, idade);
+    public Narrador(String nome, int idade, String senha) {
+        super(nome, idade, senha);
         this.ID = "N" + this.ID.substring(1); //troca J por N
         this.listaCampanhas = new ArrayList<Campanha>();
         this.campanhaAtual = null;

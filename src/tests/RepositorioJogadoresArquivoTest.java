@@ -17,7 +17,7 @@ class RepositorioJogadoresArquivoTest {
     static void setUp() {
         new File("jogadores.dat").delete();
         repositorio = new RepositorioJogadoresArquivo();
-        jogadorTeste = new Jogador("Teste1", 18);
+        jogadorTeste = new Jogador("Teste1", 18, "123");
         jogadorTeste.setID(TEST_ID);
     }
 
@@ -42,7 +42,7 @@ class RepositorioJogadoresArquivoTest {
     @Test
     void testAtualizar() {
         repositorio.adicionar(jogadorTeste);
-        Jogador novoJogador = new Jogador("Atualizado", 20);
+        Jogador novoJogador = new Jogador("Atualizado", 20, "123");
         novoJogador.setID(TEST_ID);
         repositorio.atualizar(jogadorTeste, novoJogador);
         Jogador recuperado = repositorio.buscar(TEST_ID);

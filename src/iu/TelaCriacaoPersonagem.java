@@ -17,8 +17,6 @@ public class TelaCriacaoPersonagem {
         this.usuario = usuario;
     }
 
-//ALGUÉM ME TIRA DAQUI POR FAVOR
-
     public void solicitarDados(){
         System.out.println(">>>>Digite o nome de seu personagem<<<<");
         String nome = sc.nextLine();

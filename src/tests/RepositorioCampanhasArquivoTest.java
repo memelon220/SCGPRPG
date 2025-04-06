@@ -17,7 +17,7 @@ class RepositorioCampanhasArquivoTest {
     static void setUp() {
         new File("campanhas.dat").delete();
         repositorio = new RepositorioCampanhasArquivo();
-        campanhaTeste = new Campanha(new Narrador("Pedro", 20), "Aventura 1", "Uma aventura aí", "12/12/2025","Ativa");
+        campanhaTeste = new Campanha(new Narrador("Pedro", 20, "123"), "Aventura 1", "Uma aventura aí", "12/12/2025","Ativa");
     }
 
     @AfterAll
@@ -41,7 +41,7 @@ class RepositorioCampanhasArquivoTest {
     @Test
     void testAtualizar() {
         repositorio.adicionar(campanhaTeste);
-        Campanha novaCampanha = new Campanha(new Narrador("Pedro", 25), "Aventura 2", "Uma aventura aí pt 2", "12/12/2026", "Inativa");
+        Campanha novaCampanha = new Campanha(new Narrador("Pedro", 25, "123"), "Aventura 2", "Uma aventura aí pt 2", "12/12/2026", "Inativa");
         repositorio.atualizar(campanhaTeste, novaCampanha);
         Campanha recuperada = repositorio.buscar(novaCampanha.getID());
         assertEquals("Aventura 2", recuperada.getNome());

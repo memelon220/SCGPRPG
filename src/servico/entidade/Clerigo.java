@@ -15,6 +15,7 @@ public class Clerigo extends ClassePersonagem {
         dono.setManaAtual(dono.getManaAtual() + 10);
         dono.setVidaMax(dono.getVidaMax() + 10);
         dono.setVidaAtual(Math.min(dono.getVidaAtual() + 10, dono.getVidaMax()));
+
         dono.setSabedoria(dono.getSabedoria() + 2);
         dono.setCarisma(dono.getCarisma() + 2);
     }

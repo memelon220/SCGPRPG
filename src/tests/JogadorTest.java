@@ -16,9 +16,9 @@ public class JogadorTest {
 
     @BeforeEach
     void setUp(){
-        this.jogador1 = new Jogador("Carlos", 12);
-        this.jogador2 = new Jogador("Bianca", 19);
-        this.jogador3 = new Jogador("Samuel", 30);
+        this.jogador1 = new Jogador("Carlos", 12, "123");
+        this.jogador2 = new Jogador("Bianca", 19, "123");
+        this.jogador3 = new Jogador("Samuel", 30, "123");
     }
 
     @Test

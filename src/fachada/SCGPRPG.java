@@ -24,21 +24,22 @@ public class SCGPRPG {
         this.servicoCampanha = new ServicoCampanha(new RepositorioCampanhasArrayList());
     }
 
-    public void criarJogador(String nome, int idade, int jogadornarrador)
+    public String criarJogador(String nome, int idade, String senha, int jogadornarrador)
             throws JogadorJaExisteException, TipoJogadorNaoExisteException {
         Jogador jogador = null;
 
         switch (jogadornarrador) {
             case 1:
-                jogador = new Jogador(nome, idade);
+                jogador = new Jogador(nome, idade, senha);
                 break;
             case 2:
-                jogador = new Narrador(nome, idade);
+                jogador = new Narrador(nome, idade, senha);
                 break;
             default:
                 throw new TipoJogadorNaoExisteException();
         }
         servicoJogador.adicionar(jogador);
+        return jogador.getID();
     }
 
     public void removerJogador(String j_ID) throws JogadorNaoExisteException{
@@ -49,6 +50,9 @@ public class SCGPRPG {
         servicoJogador.atualizar(jogador1, jogador2);
     }
 
+    public Jogador buscarJogador(String j_id) throws JogadorNaoExisteException {
+        return servicoJogador.buscar(j_id);
+    }
 
     public void criarPersonagem(Jogador usuario, String nome, int nivel, int forca, int destreza,
                                 int constituicao, int inteligencia, int sabedoria, int carisma)
@@ -91,8 +95,14 @@ public class SCGPRPG {
     public void removerPersonagem(String p_ID) throws PersonagemNaoExisteException{
         Jogador jogador = servicoPersonagem.consultar(p_ID).getJogador();
         int index = jogador.getPersonagens().indexOf(servicoPersonagem.consultar(p_ID));
-        jogador.getPersonagens().remove(index);
+        ArrayList<Personagem> jogador_atualizar = jogador.getPersonagens();
+        jogador_atualizar.remove(index);
+        jogador.setPersonagens(jogador_atualizar);
         servicoPersonagem.remover(p_ID);
+    }
+
+    public void buscarPersonagem(String p_id) throws PersonagemNaoExisteException{
+        servicoPersonagem.consultar(p_id);
     }
 
     public void criarCampanha(Narrador narrador, String nome, String descricao,

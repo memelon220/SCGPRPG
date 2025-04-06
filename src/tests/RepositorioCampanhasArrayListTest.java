@@ -18,8 +18,8 @@ class RepositorioCampanhasArrayListTest {
     @BeforeEach
     void setUp() {
         repTeste = new RepositorioCampanhasArrayList();
-        cTeste_1 = new Campanha(new Narrador("Pedro", 20), "Aventura 1", "Uma aventura aí", "12/12/2025","Ativa");
-        cTeste_2 = new Campanha(new Narrador("Pedro", 25), "Aventura 2", "Uma aventura aí pt 2", "12/12/2026", "Inativa");
+        cTeste_1 = new Campanha(new Narrador("Pedro", 20, "123"), "Aventura 1", "Uma aventura aí", "12/12/2025","Ativa");
+        cTeste_2 = new Campanha(new Narrador("Pedro", 25, "123"), "Aventura 2", "Uma aventura aí pt 2", "12/12/2026", "Inativa");
     }
 
     @Test

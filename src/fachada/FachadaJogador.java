@@ -1,5 +1,6 @@
 package fachada;
 
+import servico.excecao.campanha.CampanhaNaoExisteException;
 import servico.excecao.jogador.JogadorNaoExisteException;
 import servico.excecao.personagem.PersonagemJaExisteException;
 import servico.entidade.*;
@@ -33,8 +34,8 @@ public class FachadaJogador {
         fachadaPrincipal.removerJogador(j_id);
     }
 
-    public void solicitarEntradaEmCampanha(String j_id, String p_id, String c_id) {
-
+    public void solicitarEntradaEmCampanha(String j_id, String p_id, String c_id) throws CampanhaNaoExisteException, PersonagemNaoExisteException, JogadorNaoExisteException{
+        fachadaPrincipal.solicitarEntradaEmCampanha(j_id, p_id, c_id);
     }
 
     public ArrayList<Personagem> pegarPersonagens(String j_id) throws JogadorNaoExisteException {
