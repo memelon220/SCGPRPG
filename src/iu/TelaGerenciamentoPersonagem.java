@@ -32,6 +32,8 @@ public class TelaGerenciamentoPersonagem {
             for(Personagem p : usuario.getPersonagens()){
                 System.out.println("ID: " + p.getID());
                 System.out.println("Nome:" + p.getNome());
+                System.out.println("Especie: " + p.getEspecie().getNome());
+                System.out.println("Classe: " + p.getClasse().getNomeClasse());
                 //System.out.println(p.getEspecie().getDescricao());
                 System.out.println("XP: " + p.getXP() + ", Nível: " + p.getNivel() + ", Vida: " + p.getVidaAtual() + "/" + p.getVidaMax() + ", Mana: " + p.getManaAtual() + "/" + p.getManaMax());
                 System.out.println("Força: " + p.getForca() + ", Destreza: " + p.getDestreza() + ", Constituição: " + p.getConstituicao() + ", Inteligência: " + p.getInteligencia() + ", Sabedoria: " + p.getSabedoria() + ", Carisma: " + p.getCarisma());

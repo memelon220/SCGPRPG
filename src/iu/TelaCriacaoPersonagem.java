@@ -69,22 +69,23 @@ public class TelaCriacaoPersonagem {
         System.out.println("4 - Clerigo");
         String resposta = sc.nextLine();
         String classe = "";
-        switch (resposta){
+        switch(resposta) {
             case "1":
                 classe = "mago";
                 break;
-                case "2":
-                    classe = "ladino";
-                    break;
-                    case "3":
-                        classe = "guerreiro";
-                        break;
-                        case "4":
-                            classe = "clerigo";
-                            default:
-                                System.out.println("Opcao invalida. Por favor, selecione numeros de 1 a 4 para fazer sua escolha");
-                                solicitarClasse();
-                                break;
+            case "2":
+                classe = "ladino";
+                break;
+            case "3":
+                classe = "guerreiro";
+                break;
+            case "4":
+                classe = "clerigo";
+                break;
+            default:
+                System.out.println("Opcao invalida. Por favor, selecione numeros de 1 a 4 para fazer sua escolha");
+                solicitarClasse();
+                break;
         }
     return classe;
     }
@@ -97,6 +98,8 @@ public class TelaCriacaoPersonagem {
         System.out.println("3 - Elfo");
         System.out.println("4 - Anao");
         System.out.println("5 - Draconato");
+        System.out.println("6 - Ler Descricao");
+        EspeciePersonagem descricao = null;
         String resposta = sc.nextLine();
         String especie = "";
         switch (resposta) {
@@ -115,15 +118,64 @@ public class TelaCriacaoPersonagem {
             case "5":
                 especie = "draconato";
                 break;
+            case "6":
+                exibirDescricao();
+                solicitarEspecie();
+                break;
             default:
-                System.out.println("Opcao invalida. Por favor, escolha um numero de 1 a 5 para fazer sua escolha");
+                System.out.println("Opcao invalida. Por favor, escolha um numero de 1 a 6 para fazer sua escolha");
                 solicitarEspecie();
                 break;
         }
         return especie;
     }
 
-
+private void exibirDescricao(){
+    System.out.println(">>>>Qual Especie voce quer ler a descricao?<<<<");
+    System.out.println("1 - Humano");
+    System.out.println("2 - Halfling");
+    System.out.println("3 - Elfo");
+    System.out.println("4 - Anao");
+    System.out.println("5 - Draconato");
+    EspeciePersonagem descricao;
+    String resposta = sc.nextLine();
+    switch (resposta){
+        case "1":
+            descricao = new Humano();
+            System.out.println(descricao.getDescricao());
+            break;
+        case "2":
+            descricao = new Halfling();
+            System.out.println(descricao.getDescricao());
+            break;
+        case "3":
+            descricao = new Elfo();
+            System.out.println(descricao.getDescricao());
+            break;
+        case "4":
+            descricao = new Anão();
+            System.out.println(descricao.getDescricao());
+            break;
+        case "5":
+            descricao = new Draconato();
+            System.out.println(descricao.getDescricao());
+            break;
+        default:
+            System.out.println("Opcao invalida. Escolha um numero de 1 a 5 para escolher a descricao que voce deseja ler.");
+            exibirDescricao();
+            break;
+    }
+    System.out.println("Gostaria de ler mais uma descricao? S/N");
+    resposta = sc.nextLine().toUpperCase();
+    switch (resposta){
+        case "S":
+            exibirDescricao();
+            break;
+            case "N":
+                System.out.println("Voltando a tela de criacao...");
+                break;
+    }
+}
     private int lerAtributo(String atributo) {
         int valor;
         do {

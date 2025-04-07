@@ -5,6 +5,7 @@ public class Clerigo extends ClassePersonagem {
 
     public Clerigo(Personagem dono) {
         super("Clérigo");
+        this.dono = dono;
     }
 
     @Override
