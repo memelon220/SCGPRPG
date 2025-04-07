@@ -15,7 +15,7 @@ public class TelaLogin {
         this.sc = new Scanner(System.in);
         this.fachada = fachada;
     }
-    public Jogador logar() {
+    public Jogador logar(){
         System.out.println(">>>>Para logar, por favor digite as informações necessárias!<<<<");
         System.out.println("Digite seu ID:");
         String id = sc.nextLine();

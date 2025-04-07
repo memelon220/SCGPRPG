@@ -2,6 +2,7 @@ package iu;
 
 import fachada.SCGPRPG;
 import servico.excecao.jogador.JogadorJaExisteException;
+import servico.excecao.jogador.JogadorSenhaInvalidaException;
 import servico.excecao.jogador.TipoJogadorNaoExisteException;
 
 import java.util.Scanner;
@@ -48,6 +49,10 @@ public class TelaCadastroUsuario {
                     } catch (TipoJogadorNaoExisteException e) {
                         System.out.println(e.getMessage());
                         System.out.println("Por favor, escolha um tipo de conta válida (1 ou 2). A operacao de cadastro ira reiniciar.");
+                        solicitarDados();
+                    } catch (JogadorSenhaInvalidaException e){
+                        System.out.println(e.getMessage());
+                        System.out.println("A operacao de cadastro ira reiniciar");
                         solicitarDados();
                     }
 

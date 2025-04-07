@@ -41,17 +41,17 @@ public class TelaPrincipal {
                 System.out.println("1 - Cadastrar Usuario");
                 System.out.println("2 - Login");
                 System.out.println("0 - Sair");
-                int opcao = sc.nextInt();
+                String opcao = sc.nextLine();
 
                 switch (opcao) {
-                    case 0:
+                    case "0":
                         System.out.println("Obrigado por jogar o SCGPRPG!");
                         flag = false;
                         break;
-                    case 1:
+                    case "1":
                         telaCadastroUsuario.solicitarDados();
                         break;
-                    case 2:
+                    case "2":
                         usuario = telaLogin.logar();
                         if (usuario != null) {
                             System.out.println("Login realizado com sucesso!");
@@ -74,13 +74,13 @@ public class TelaPrincipal {
                         System.out.println("3 - Solicitar Entrada em Campanha");
                         System.out.println("4 - Campanhas Que Estou Participando");
                         System.out.println("0 - Sair");
-                        int opcao = sc.nextInt();
+                        String opcao = sc.nextLine();
                         switch (opcao) {
-                            case 1:
+                            case "1":
                                 telaCriacaoPersonagem = new TelaCriacaoPersonagem(fachada, usuario);
                                 telaCriacaoPersonagem.solicitarDados();
                                 break;
-                            case 2:
+                            case "2":
                                 telaGerenciamentoPersonagem = new TelaGerenciamentoPersonagem(fachada, usuario);
                                 System.out.println(">>>> Personagens Atuais <<<<");
                                 telaGerenciamentoPersonagem.listarPersonagens();
@@ -88,19 +88,19 @@ public class TelaPrincipal {
                                 System.out.println("1 - Atualizar Personagem");
                                 System.out.println("2 - Remover Personagem");
                                 System.out.println("0 - Voltar");
-                                opcao = sc.nextInt();
+                                opcao = sc.nextLine();
                                 sc.nextLine();
                                 switch (opcao) {
-                                    case 1:
+                                    case "1":
                                     telaGerenciamentoPersonagem.atualizarPersonagem();
                                         break;
-                                    case 2:
+                                    case "2":
                                         break;
-                                    case 0:
+                                    case "0":
                                         break;
                                 }
                                 break;
-                            case 0:
+                            case "0":
                                 login = false;
                                 System.out.println("Saindo da conta...");
                                 break;
@@ -114,9 +114,9 @@ public class TelaPrincipal {
                         System.out.println("3 - Criar Personagem");
                         System.out.println("4 - Gerenciar Personagens Existentes");
                         System.out.println("0 - Sair");
-                        int opcao = sc.nextInt();
+                        String opcao = sc.nextLine();
                         switch (opcao) {
-                            case 0:
+                            case "0":
                                 login = false;
                                 System.out.println("Saindo da conta...");
                                 break;
@@ -127,7 +127,7 @@ public class TelaPrincipal {
                 }
 
             }
-            
+
         }
     }
 

@@ -16,10 +16,11 @@ public class FachadaJogador {
     }
 
     public void criarPersonagem(Jogador jogador, String nome, int nivel, int forca, int destreza,
-                                int constituicao, int inteligencia, int sabedoria, int carisma)
+                                int constituicao, int inteligencia, int sabedoria, int carisma,
+                                String classe, String especie)
             throws PersonagemJaExisteException, IllegalArgumentException {
         fachadaPrincipal.criarPersonagem(jogador, nome, nivel, forca, destreza, constituicao,
-                inteligencia, sabedoria, carisma);
+                inteligencia, sabedoria, carisma, classe, especie);
     }
 
     public void atualizarPersonagem(Personagem personagem1, Personagem personagem2) throws PersonagemNaoExisteException {

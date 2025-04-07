@@ -25,12 +25,16 @@ public class SCGPRPG {
     }
 
     public String criarJogador(String nome, int idade, String senha, int jogadornarrador)
-            throws JogadorJaExisteException, TipoJogadorNaoExisteException {
+            throws JogadorJaExisteException, TipoJogadorNaoExisteException, JogadorSenhaInvalidaException {
         Jogador jogador = null;
+
+        if(senha.length() < 8){
+            throw new JogadorSenhaInvalidaException();
+        }
 
         switch (jogadornarrador) {
             case 1:
-                jogador = new Jogador(nome, idade, senha);
+                    jogador = new Jogador(nome, idade, senha);
                 break;
             case 2:
                 jogador = new Narrador(nome, idade, senha);
@@ -55,7 +59,7 @@ public class SCGPRPG {
     }
 
     public void criarPersonagem(Jogador usuario, String nome, int nivel, int forca, int destreza,
-                                int constituicao, int inteligencia, int sabedoria, int carisma)
+                                int constituicao, int inteligencia, int sabedoria, int carisma, String classe, String especie)
             throws PersonagemJaExisteException, IllegalArgumentException{
 
         if(nivel < 0 || nivel > 20){
@@ -64,15 +68,46 @@ public class SCGPRPG {
                 inteligencia < 8 || inteligencia > 18 || sabedoria < 8 || sabedoria > 18 || carisma < 8 || carisma > 18){
             throw new IllegalArgumentException("Por favor, escolha valores para os atributos de seu personagem de 8 a 18");
         }
-
         Personagem personagem = new Personagem(nome, nivel, forca, destreza, constituicao,
-        inteligencia, sabedoria, carisma);
+                inteligencia, sabedoria, carisma);
+
+        if (classe == "mago"){
+            Mago mago = new Mago(personagem);
+            mago.aplicarClasse();
+        }
+        else if (classe == "ladino"){
+            Ladino ladino = new Ladino(personagem);
+            ladino.aplicarClasse();
+        }else if(classe == "guerreiro"){
+            Guerreiro guerreiro = new Guerreiro(personagem);
+            guerreiro.aplicarClasse();
+        }else if(classe == "clerigo"){
+            Clerigo clerigo = new Clerigo(personagem);
+            clerigo.aplicarClasse();
+        }
+
+        if (especie == "humano"){
+            Humano classe_personagem = new Humano();
+            classe_personagem.aplicarEspecie(personagem);
+        } else if(especie == "halfling"){
+            Halfling classe_personagem = new Halfling();
+            classe_personagem.aplicarEspecie(personagem);
+        }else if(especie == "elfo"){
+            Elfo classe_personagem = new Elfo();
+            classe_personagem.aplicarEspecie(personagem);
+        }else if(especie == "anao"){
+            Anão classe_personagem = new Anão();
+            classe_personagem.aplicarEspecie(personagem);
+        }else if(especie == "draconato"){
+            Draconato classe_personagem = new Draconato();
+            classe_personagem.aplicarEspecie(personagem);
+        }
 
         usuario.adicionarPersonagem(personagem);
         servicoPersonagem.adicionar(personagem);
     }
 
-    public void criarPersonagem(Jogador usuario, String nome, int nivel)
+    public void criarPersonagem(Jogador usuario, String nome, int nivel, String classe, String especie)
             throws PersonagemJaExisteException, IllegalArgumentException{
         if(nivel < 0 || nivel > 20){
             throw new IllegalArgumentException("Por favor, escolha um nivel de 0 a 20");
@@ -82,6 +117,38 @@ public class SCGPRPG {
 
         usuario.adicionarPersonagem(personagem);
         servicoPersonagem.adicionar(personagem);
+
+        if (classe == "mago"){
+            Mago mago = new Mago(personagem);
+            mago.aplicarClasse();
+        }
+        else if (classe == "ladino"){
+            Ladino ladino = new Ladino(personagem);
+            ladino.aplicarClasse();
+        }else if(classe == "guerreiro"){
+            Guerreiro guerreiro = new Guerreiro(personagem);
+            guerreiro.aplicarClasse();
+        }else if(classe == "clerigo"){
+            Clerigo clerigo = new Clerigo(personagem);
+            clerigo.aplicarClasse();
+        }
+
+        if (especie == "humano"){
+            Humano classe_personagem = new Humano();
+            classe_personagem.aplicarEspecie(personagem);
+        } else if(especie == "halfling"){
+            Halfling classe_personagem = new Halfling();
+            classe_personagem.aplicarEspecie(personagem);
+        }else if(especie == "elfo"){
+            Elfo classe_personagem = new Elfo();
+            classe_personagem.aplicarEspecie(personagem);
+        }else if(especie == "anao"){
+            Anão classe_personagem = new Anão();
+            classe_personagem.aplicarEspecie(personagem);
+        }else if(especie == "draconato"){
+            Draconato classe_personagem = new Draconato();
+            classe_personagem.aplicarEspecie(personagem);
+        }
     }
 
     public void atualizarPersonagem(Personagem personagem1, Personagem personagem2)

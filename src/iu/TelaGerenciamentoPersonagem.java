@@ -60,7 +60,7 @@ public class TelaGerenciamentoPersonagem {
                 System.out.println(e.getMessage());
                 return;
             }
-            System.out.println(escolhido);
+            System.out.println(escolhido.getNome());
             System.out.println(">>>> O que deseja atualizar? <<<<");
             System.out.println("1 - Atualizar nome");
             System.out.println("2 - Atualizar classe");
