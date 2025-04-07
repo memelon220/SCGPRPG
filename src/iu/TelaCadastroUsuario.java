@@ -38,10 +38,8 @@ public class TelaCadastroUsuario {
                 String senha = sc.nextLine();
                 boolean flag = false;
 
-                while (!flag) {
                     try {
                         String id = fachada.criarJogador(nome, idade, senha, narradorJogador);
-                        flag = true;
                         System.out.println("Conta criada com sucesso!");
                         System.out.println("Seu ID: "+id+", lembre-se dele, será necessário para logar!");
                     } catch (JogadorJaExisteException e) {
@@ -52,7 +50,7 @@ public class TelaCadastroUsuario {
                         System.out.println("Por favor, escolha um tipo de conta válida (1 ou 2). A operacao de cadastro ira reiniciar.");
                         solicitarDados();
                     }
-                }
+
                 break;
         }
 

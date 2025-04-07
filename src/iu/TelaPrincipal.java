@@ -33,35 +33,75 @@ public class TelaPrincipal {
 
     public void iniciar() {
         boolean flag = true;
+        boolean login = false;
         System.out.println("Bem vindo ao SCGPRPG!");
         while(flag){
-            System.out.println(">>>> Menu de operações <<<<");
-            System.out.println("1 - Cadastrar Usuario");
-            System.out.println("2 - Login");
-            System.out.println("0 - Sair");
-            int opcao = sc.nextInt();
-            switch (opcao) {
-                case 0:
-                    System.out.println("Obrigado por jogar o SCGPRPG!");
-                    flag = false;
-                    break;
-                case 1:
-                    telaCadastroUsuario.solicitarDados();
-                    break;
-                case 2:
-                    usuario = telaLogin.logar();
-                    if(usuario != null) {
-                        System.out.println("Login realizado com sucesso!");
-                    }else {
-                        System.out.println("ID ou senha incorretos. Por favor, verifique as informacoes e  tente novamente");
-                    }
-                        break;
-                default:
-                    System.out.println("Opcao invalida. Por favor, tente novamente");
-                    iniciar();
-                    break;
-            }
+            if (!login) {
+                System.out.println(">>>> Menu de operações <<<<");
+                System.out.println("1 - Cadastrar Usuario");
+                System.out.println("2 - Login");
+                System.out.println("0 - Sair");
+                int opcao = sc.nextInt();
 
+                switch (opcao) {
+                    case 0:
+                        System.out.println("Obrigado por jogar o SCGPRPG!");
+                        flag = false;
+                        break;
+                    case 1:
+                        telaCadastroUsuario.solicitarDados();
+                        break;
+                    case 2:
+                        usuario = telaLogin.logar();
+                        if (usuario != null) {
+                            System.out.println("Login realizado com sucesso!");
+                            login = true;
+                        } else {
+                            System.out.println("ID ou senha incorretos. Por favor, verifique as informacoes e  tente novamente");
+                        }
+                        break;
+                    default:
+                        System.out.println("Opcao invalida. Por favor, tente novamente");
+                        iniciar();
+                        break;
+                }
+            }else {
+                if(this.usuario.getID().charAt(0) == 'J'){
+                    System.out.println(">>>> Menu de operações <<<<");
+                    System.out.println("1 - Criar Personagem");
+                    System.out.println("2 - Gerenciar Personagens Existentes");
+                    System.out.println("3 - Solicitar Entrada em Campanha");
+                    System.out.println("4 - Campanhas Que Estou Participando");
+                    System.out.println("0 - Sair");
+                    int opcao = sc.nextInt();
+                    switch (opcao) {
+                        case 0:
+                            login = false;
+                            System.out.println("Saindo da conta...");
+                            break;
+                        default:
+                            break;
+                    }
+                }else{
+                    System.out.println(">>>> Menu de operações <<<<");
+                    System.out.println("1 - Criar Campanha");
+                    System.out.println("2 - Gerenciar Campanhas Existentes");
+                    System.out.println("3 - Criar Personagem");
+                    System.out.println("4 - Gerenciar Personagens Existentes");
+                    System.out.println("0 - Sair");
+                    int opcao = sc.nextInt();
+                    switch (opcao) {
+                        case 0:
+                            login = false;
+                            System.out.println("Saindo da conta...");
+                            break;
+                            default:
+                                break;
+                    }
+                }
+
+
+            }
             
         }
     }

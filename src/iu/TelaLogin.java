@@ -22,20 +22,18 @@ public class TelaLogin {
         System.out.println("Digite sua senha:");
         String senha = sc.nextLine();
         try {
-            Jogador jogador = fachada.buscarJogador(id);
+            Jogador usuario = fachada.buscarJogador(id);
 
-            if (jogador.getID().charAt(0) == 'J') {
-                if (jogador.getSenha().equals(senha)) {
-                    return jogador;
+            if (usuario.getID().charAt(0) == 'J' || usuario.getID().charAt(0) == 'N') {
+                if (usuario.getSenha().equals(senha)) {
+                    return usuario;
                 } else {
                     System.out.println("Senha incorreta!");
                     return null;
                 }
-            } else {
-                System.out.println("ID inválido.");
             }
         } catch (JogadorNaoExisteException e) {
-            System.out.println("Jogador com ID informado não existe.");
+            System.out.println("Usuario com ID informado não existe.");
         }
         return null;
     }
