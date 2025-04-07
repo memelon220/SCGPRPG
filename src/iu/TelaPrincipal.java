@@ -18,6 +18,7 @@ public class TelaPrincipal {
     private TelaCadastroUsuario telaCadastroUsuario;
     private TelaCriacaoPersonagem telaCriacaoPersonagem;
     private TelaLogin telaLogin;
+    private TelaGerenciamentoPersonagem telaGerenciamentoPersonagem;
 
     public TelaPrincipal(SCGPRPG fachada) {
         this.sc = new Scanner(System.in);
@@ -26,7 +27,6 @@ public class TelaPrincipal {
         this.fachadaJogador = new FachadaJogador(fachada);
         this.fachadaNarrador = new FachadaNarrador(fachada);
         this.telaCadastroUsuario = new TelaCadastroUsuario(fachada);
-        this.telaCriacaoPersonagem = new TelaCriacaoPersonagem(fachada, usuario);
         this.telaLogin = new TelaLogin(fachada);
     }
 
@@ -65,41 +65,66 @@ public class TelaPrincipal {
                         iniciar();
                         break;
                 }
-            }else {
-                if(this.usuario.getID().charAt(0) == 'J'){
-                    System.out.println(">>>> Menu de operações <<<<");
-                    System.out.println("1 - Criar Personagem");
-                    System.out.println("2 - Gerenciar Personagens Existentes");
-                    System.out.println("3 - Solicitar Entrada em Campanha");
-                    System.out.println("4 - Campanhas Que Estou Participando");
-                    System.out.println("0 - Sair");
-                    int opcao = sc.nextInt();
-                    switch (opcao) {
-                        case 0:
-                            login = false;
-                            System.out.println("Saindo da conta...");
-                            break;
-                        default:
-                            break;
-                    }
-                }else{
-                    System.out.println(">>>> Menu de operações <<<<");
-                    System.out.println("1 - Criar Campanha");
-                    System.out.println("2 - Gerenciar Campanhas Existentes");
-                    System.out.println("3 - Criar Personagem");
-                    System.out.println("4 - Gerenciar Personagens Existentes");
-                    System.out.println("0 - Sair");
-                    int opcao = sc.nextInt();
-                    switch (opcao) {
-                        case 0:
-                            login = false;
-                            System.out.println("Saindo da conta...");
-                            break;
+            } else {
+                while (login) {
+                    if (this.usuario.getID().charAt(0) == 'J') {
+                        System.out.println(">>>> Menu de operações <<<<");
+                        System.out.println("1 - Criar Personagem");
+                        System.out.println("2 - Gerenciar Personagens Existentes");
+                        System.out.println("3 - Solicitar Entrada em Campanha");
+                        System.out.println("4 - Campanhas Que Estou Participando");
+                        System.out.println("0 - Sair");
+                        int opcao = sc.nextInt();
+                        switch (opcao) {
+                            case 1:
+                                telaCriacaoPersonagem = new TelaCriacaoPersonagem(fachada, usuario);
+                                telaCriacaoPersonagem.solicitarDados();
+                                break;
+                            case 2:
+                                telaGerenciamentoPersonagem = new TelaGerenciamentoPersonagem(fachada, usuario);
+                                System.out.println(">>>> Personagens Atuais <<<<");
+                                telaGerenciamentoPersonagem.listarPersonagens();
+                                System.out.println(">>>> Menu de gerenciamento de personagens <<<<");
+                                System.out.println("1 - Atualizar Personagem");
+                                System.out.println("2 - Remover Personagem");
+                                System.out.println("0 - Voltar");
+                                opcao = sc.nextInt();
+                                sc.nextLine();
+                                switch (opcao) {
+                                    case 1:
+                                    telaGerenciamentoPersonagem.atualizarPersonagem();
+                                        break;
+                                    case 2:
+                                        break;
+                                    case 0:
+                                        break;
+                                }
+                                break;
+                            case 0:
+                                login = false;
+                                System.out.println("Saindo da conta...");
+                                break;
                             default:
                                 break;
+                        }
+                    } else {
+                        System.out.println(">>>> Menu de operações <<<<");
+                        System.out.println("1 - Criar Campanha");
+                        System.out.println("2 - Gerenciar Campanhas Existentes");
+                        System.out.println("3 - Criar Personagem");
+                        System.out.println("4 - Gerenciar Personagens Existentes");
+                        System.out.println("0 - Sair");
+                        int opcao = sc.nextInt();
+                        switch (opcao) {
+                            case 0:
+                                login = false;
+                                System.out.println("Saindo da conta...");
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 }
-
 
             }
             

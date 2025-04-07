@@ -10,5 +10,4 @@ public class Draconato extends EspeciePersonagem{
         personagem.setEspecie(new Draconato());
     }
 
-
 }

@@ -15,4 +15,5 @@ public class Main {
         TelaPrincipal Tela = new TelaPrincipal(new SCGPRPG());
         Tela.iniciar();
     }
+
 }

@@ -23,7 +23,6 @@ public class TelaLogin {
         String senha = sc.nextLine();
         try {
             Jogador usuario = fachada.buscarJogador(id);
-
             if (usuario.getID().charAt(0) == 'J' || usuario.getID().charAt(0) == 'N') {
                 if (usuario.getSenha().equals(senha)) {
                     return usuario;

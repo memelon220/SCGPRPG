@@ -21,6 +21,17 @@ private Personagem dono;
     }
 
     @Override
+    public void retirarClasse(){
+        dono.setInteligencia(dono.getInteligencia() - 2);
+        dono.setSabedoria(dono.getSabedoria() - 2);
+
+        dono.setMagia(dono.getMagia() - 11);
+        dono.setManaAtual(dono.getManaAtual() - 11);
+        dono.setClasse(null);
+        this.dono = null;
+    }
+
+    @Override
     public void Atacar(Personagem alvo) {
         int acerto = d20.rolarDado(1) + dono.calcularModificador(dono.getForca());
         int dano = d8.rolarDado(1) + dono.calcularModificador(dono.getForca());

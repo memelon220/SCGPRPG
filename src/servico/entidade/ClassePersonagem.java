@@ -16,6 +16,7 @@ public abstract class ClassePersonagem {
 
     public abstract void Atacar(Personagem alvo);
     public abstract void aplicarClasse();
+    public abstract void retirarClasse();
     public abstract void habilidadeEspecial(Personagem alvo);
 
     //getters e setters

@@ -21,6 +21,20 @@ public class Clerigo extends ClassePersonagem {
     }
 
     @Override
+    public void retirarClasse(){
+        dono.setMagia(dono.getMagia() - 10);
+        dono.setManaAtual(dono.getManaAtual() - 10);
+        dono.setVidaMax(dono.getVidaMax() - 10);
+        dono.setVidaAtual(Math.min(dono.getVidaAtual() - 10, dono.getVidaMax()));
+
+        dono.setSabedoria(dono.getSabedoria() + 2);
+        dono.setCarisma(dono.getCarisma() - 2);
+
+        dono.setClasse(null);
+        this.dono = null;
+    }
+
+    @Override
     public void Atacar(Personagem alvo) {
         int acerto = d20.rolarDado(1) + dono.calcularModificador(dono.getForca());
 

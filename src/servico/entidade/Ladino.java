@@ -18,6 +18,15 @@ public class Ladino extends ClassePersonagem {
     }
 
     @Override
+    public void retirarClasse() {
+        dono.setVidaMax(dono.getVidaMax() + 5);
+        dono.setVidaAtual(dono.getVidaAtual() + 5);
+        dono.setDestreza(dono.getDestreza() - 4);
+        dono.setClasse(null);
+        this.dono = null;
+    }
+
+    @Override
     public void Atacar(Personagem alvo) {
         int acerto = d20.rolarDado(1) + dono.calcularModificador(dono.getDestreza());
 

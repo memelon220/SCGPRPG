@@ -21,6 +21,17 @@ public class Guerreiro extends ClassePersonagem {
     }
 
     @Override
+    public void retirarClasse(){
+        dono.setForca(dono.getForca() - 2);
+        dono.setConstituicao(dono.getConstituicao() - 2);
+
+        dono.setVidaAtual(dono.getVidaAtual() - 11);
+        dono.setVidaMax(dono.getVidaMax() - 11);
+        dono.setClasse(null);
+        this.dono = null;
+    }
+
+    @Override
     public void Atacar(Personagem alvo) {
 
         int acerto = d20.rolarDado(1) + dono.calcularModificador(dono.getForca());
