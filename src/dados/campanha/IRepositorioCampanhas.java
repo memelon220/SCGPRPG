@@ -2,6 +2,8 @@ package dados.campanha;
 
 import servico.entidade.Campanha;
 
+import java.util.ArrayList;
+
 @SuppressWarnings("unused")
 public interface IRepositorioCampanhas {
 
@@ -11,5 +13,6 @@ public interface IRepositorioCampanhas {
     Campanha buscar(String c_Id);
     void listar();
     boolean existe(String c_Id);
+    ArrayList<Campanha> listarTodas();
 
 }

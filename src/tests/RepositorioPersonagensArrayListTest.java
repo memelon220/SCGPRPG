@@ -52,7 +52,7 @@ class RepositorioPersonagensArrayListTest {
     @Test
     void testAtualizarPersonagem(){
         repTeste.adicionar(pTeste_1);
-        repTeste.atualizar(pTeste_1, pTeste_2);
+        repTeste.atualizar(pTeste_1, pTeste_2.getID());
         Personagem personagemRecuperado = repTeste.buscar(pTeste_2.getID());
         assertNotNull(personagemRecuperado, "Personagem não foi adicionado");
         assertEquals(pTeste_2.getID(), personagemRecuperado.getID());

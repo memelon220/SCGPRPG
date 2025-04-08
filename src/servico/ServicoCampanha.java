@@ -5,9 +5,12 @@ import servico.entidade.Campanha;
 import servico.entidade.Jogador;
 import servico.entidade.Personagem;
 import servico.excecao.campanha.CampanhaJaExisteException;
+import servico.excecao.campanha.CampanhaLotadaException;
 import servico.excecao.campanha.CampanhaNaoExisteException;
 import servico.excecao.jogador.JogadorNaoExisteException;
 import servico.excecao.personagem.PersonagemNaoExisteException;
+
+import java.util.ArrayList;
 
 public class ServicoCampanha {
 
@@ -45,6 +48,10 @@ public class ServicoCampanha {
         }
     }
 
+    public ArrayList<Campanha> listarTodas(){
+        return repositorioCampanhas.listarTodas();
+    }
+
     public void atualizar(Campanha campanha1, Campanha campanha2) throws CampanhaNaoExisteException{
         Campanha campanha = repositorioCampanhas.buscar(campanha1.getID());
         if(campanha == null){
@@ -55,7 +62,8 @@ public class ServicoCampanha {
 
     }
 
-    public void adicionarJogadorPersonagem(Campanha campanha, Personagem personagem, Jogador jogador) throws CampanhaNaoExisteException, PersonagemNaoExisteException, JogadorNaoExisteException {
+    public void adicionarJogadorPersonagem(Campanha campanha, Personagem personagem, Jogador jogador)
+            throws CampanhaNaoExisteException, PersonagemNaoExisteException, JogadorNaoExisteException, CampanhaLotadaException {
         if(campanha == null){
             throw new CampanhaNaoExisteException();
         } else {

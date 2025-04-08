@@ -1,7 +1,9 @@
 package fachada;
 
+import servico.excecao.campanha.CampanhaLotadaException;
 import servico.excecao.campanha.CampanhaNaoExisteException;
 import servico.excecao.jogador.JogadorNaoExisteException;
+import servico.excecao.jogador.SolicitacaoJaExisteException;
 import servico.excecao.personagem.PersonagemJaExisteException;
 import servico.entidade.*;
 import servico.excecao.personagem.*;
@@ -23,8 +25,8 @@ public class FachadaJogador {
                 inteligencia, sabedoria, carisma, classe, especie);
     }
 
-    public void atualizarPersonagem(Personagem personagem1, Personagem personagem2) throws PersonagemNaoExisteException {
-        fachadaPrincipal.atualizarPersonagem(personagem1, personagem2);
+    public void atualizarPersonagem(Personagem personagem, String p_id) throws PersonagemNaoExisteException {
+        fachadaPrincipal.atualizarPersonagem(personagem, p_id);
     }
 
     public void removerPersonagem(String p_ID) throws PersonagemNaoExisteException {
@@ -35,7 +37,9 @@ public class FachadaJogador {
         fachadaPrincipal.removerJogador(j_id);
     }
 
-    public void solicitarEntradaEmCampanha(String j_id, String p_id, String c_id) throws CampanhaNaoExisteException, PersonagemNaoExisteException, JogadorNaoExisteException{
+    public void solicitarEntradaEmCampanha(String j_id, String p_id, String c_id) throws CampanhaNaoExisteException,
+            PersonagemNaoExisteException, JogadorNaoExisteException, CampanhaLotadaException,
+            PersonagemNaoPertenceAoJogadorException, SolicitacaoJaExisteException {
         fachadaPrincipal.solicitarEntradaEmCampanha(j_id, p_id, c_id);
     }
 

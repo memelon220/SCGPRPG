@@ -17,7 +17,6 @@ public class TelaCriacaoPersonagem {
     }
 
     public void solicitarDados(){
-        Personagem personagem_criado = null;
         System.out.println(">>>>Digite o nome de seu personagem<<<<");
         String nome = sc.nextLine();
         System.out.println("Em que nivel voce gostaria de comecar com este personagem?");
@@ -27,7 +26,6 @@ public class TelaCriacaoPersonagem {
         String classe = solicitarClasse();
         System.out.println("Gostaria de digitar os valores dos atributos do personagem? (S/N)");
         String resposta = sc.nextLine().toUpperCase(); // Normaliza a entrada para evitar problemas de case sensitivity
-
 
         switch (resposta){
             case "S":
@@ -101,7 +99,7 @@ public class TelaCriacaoPersonagem {
         System.out.println("6 - Ler Descricao");
         EspeciePersonagem descricao = null;
         String resposta = sc.nextLine();
-        String especie = "";
+        String especie = null;
         switch (resposta) {
             case "1":
                 especie = "humano";

@@ -11,7 +11,7 @@ public class Personagem implements Serializable {
 
     private Jogador jogador;
     private int XP, nivel, vidaAtual, manaAtual, classeResistencia;
-    private static int vidaMax, manaMax;
+    private int vidaMax, manaMax;
     private static int totalXP = 0;
     private String nome;
     private final String ID;
@@ -132,7 +132,7 @@ public class Personagem implements Serializable {
     }
 
     public void setVidaMax(int vidaMax) {
-        Personagem.vidaMax = vidaMax;
+        this.vidaMax = vidaMax;
     }
 
     public int getManaMax() {
@@ -215,11 +215,11 @@ public class Personagem implements Serializable {
         this.manaAtual = manaAtual;
     }
 
-    public static int getTotalXP() {
+    public int getTotalXP() {
         return totalXP;
     }
 
-    public static void setTotalXP(int totalXP) {
+    public void setTotalXP(int totalXP) {
         Personagem.totalXP = totalXP;
     }
 
