@@ -16,7 +16,7 @@ public class Jogador implements Serializable{
     protected int idade;
     protected String ID;
     protected String senha;
-    private ArrayList<String> notificacoes = new ArrayList<>();
+    protected ArrayList<String> notificacoes = new ArrayList<>();
     private ArrayList<Convite> convitesRecebidos = new ArrayList<>();
 
     public Jogador(String nome, int idade, String senha){
@@ -108,7 +108,7 @@ public class Jogador implements Serializable{
     }
 
     public ArrayList<String> getNotificacoes() {
-        return (ArrayList<String>) Collections.unmodifiableList(notificacoes);
+        return new ArrayList<>(this.notificacoes);
     }
 
     public ArrayList<Personagem> setPersonagens(ArrayList personagens) {

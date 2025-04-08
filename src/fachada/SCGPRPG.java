@@ -174,8 +174,10 @@ public class SCGPRPG {
     }
 
     public void criarCampanha(Narrador narrador, String nome, String descricao
-            , String status, int limite_jogadores) throws CampanhaJaExisteException{
-
+            , String status, int limite_jogadores) throws CampanhaJaExisteException, IllegalArgumentException{
+        if(limite_jogadores <= 0){
+            throw new IllegalArgumentException("Voce precisa adicionar pelo menos 1 jogador em sua campanha!");
+        }
         Campanha campanha = new Campanha(narrador, nome, descricao, status, limite_jogadores);
         servicoCampanha.adicionar(campanha);
         narrador.adicionarCampanha(campanha);
@@ -193,11 +195,10 @@ public class SCGPRPG {
     public void solicitarEntradaEmCampanha(String jogadorID, String personagemID, String campanhaID)
             throws CampanhaNaoExisteException, PersonagemNaoExisteException, JogadorNaoExisteException,
             CampanhaLotadaException, PersonagemNaoPertenceAoJogadorException,
-            SolicitacaoJaExisteException {
+            SolicitacaoJaExisteException, JogadorJaEstaNaCampanhaException{
         Campanha campanha = servicoCampanha.buscar(campanhaID);
         Jogador jogador = servicoJogador.buscar(jogadorID);
         Personagem personagem = servicoPersonagem.consultar(personagemID);
-
         if (!personagem.getJogador().getID().equals(jogadorID)) {
             throw new PersonagemNaoPertenceAoJogadorException();
         }
@@ -328,11 +329,11 @@ public class SCGPRPG {
                 personagem
         );
 
-        campanha.adicionarConvite(novoConvite);
+        jogador.receberConvite(novoConvite);
     }
 
     public void responderConvite(String jogadorId, String conviteId, boolean aceitar)
-            throws ConviteNaoExisteException {
+            throws ConviteNaoExisteException, CampanhaNaoExisteException, CampanhaLotadaException {
 
         Convite convite = buscarConvitePorId(conviteId);
 
@@ -345,9 +346,17 @@ public class SCGPRPG {
                     convite.getCampanha().getlimiteJogadores()) {
                 throw new ConviteNaoExisteException();
             }
-            convite.getCampanha().getJogadores().add(convite.getJogador());
             convite.setAceito(true);
-        } else {
+            convite.getCampanha().getJogadores().add(convite.getJogador());
+            Campanha campanha = buscarConvite(conviteId, jogadorId).getCampanha();
+            Campanha campanha_aux = buscarConvite(conviteId, jogadorId).getCampanha();
+            campanha_aux.adicionarJogador(convite.getJogador());
+            campanha_aux.adicionarPersonagem(convite.getPersonagem());
+            Narrador narrador = buscarConvite(conviteId, jogadorId).getCampanha().getNarrador();
+            narrador.atualizarCampanhaNarrador(campanha, campanha_aux);
+            atualizarCampanha(campanha, campanha_aux);
+
+            } else {
             convite.setRecusado(true);
         }
     }

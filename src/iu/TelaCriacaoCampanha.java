@@ -35,6 +35,10 @@ public class TelaCriacaoCampanha {
             System.out.println(e.getMessage());
             System.out.println("Ocorreu um erro com a geração automática de ID. Por favor, digite as informacoes novamente");
             solicitarDados();
+        }catch(IllegalArgumentException e){
+            System.out.println(e.getMessage());
+            System.out.println("Por favor, digite as informacoes novamente.");
+            solicitarDados();
         }
 
     }

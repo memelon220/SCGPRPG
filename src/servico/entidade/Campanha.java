@@ -2,6 +2,7 @@ package servico.entidade;
 import java.io.Serializable;
 import java.util.ArrayList;
 import servico.excecao.campanha.CampanhaLotadaException;
+import servico.excecao.campanha.JogadorJaEstaNaCampanhaException;
 import servico.excecao.jogador.JogadorNaoExisteException;
 import servico.excecao.personagem.PersonagemNaoPertenceAoJogadorException;
 
@@ -41,7 +42,7 @@ public class Campanha implements Serializable {
         }
 
 
-    public void adicionarSolicitacao(Solicitacao solicitacao) {
+    public void adicionarSolicitacao(Solicitacao solicitacao) throws JogadorJaEstaNaCampanhaException {
         solicitacoes.add(solicitacao);
     }
 

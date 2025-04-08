@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 import servico.entidade.Personagem;
 import servico.excecao.campanha.CampanhaLotadaException;
+import servico.excecao.campanha.JogadorJaEstaNaCampanhaException;
 import servico.excecao.jogador.JogadorNaoExisteException;
 import servico.excecao.jogador.SolicitacaoJaExisteException;
 import servico.excecao.personagem.PersonagemNaoPertenceAoJogadorException;
@@ -82,7 +83,7 @@ public class TelaSolicitacaoCampanha {
             System.out.println("Solicitação enviada com sucesso!");
 
         } catch (CampanhaLotadaException e) {
-            System.out.printf("Campanha lotada! (Limite: %d jogadores)\n", e.getLimite());
+            System.out.printf("Campanha lotada! (Limite: %d jogadores)\n Por favor, escolha outra campanha.", e.getLimite());
             System.out.println("O processo ira reiniciar...");
             solicitarEntrada();
         } catch (PersonagemNaoPertenceAoJogadorException e) {
@@ -91,6 +92,12 @@ public class TelaSolicitacaoCampanha {
             solicitarEntrada();
         } catch (SolicitacaoJaExisteException e) {
             System.out.println("Você já tem uma solicitação pendente para esta campanha!");
+            System.out.println("O processo ira reiniciar...");
+            solicitarEntrada();
+        } catch (JogadorJaEstaNaCampanhaException e){
+            System.out.println(e.getMessage());
+            System.out.println("Por favor, selecione uma campanha que voce nao participa" +
+                    "OU peca ao narrador para trocar seu personagem");
             System.out.println("O processo ira reiniciar...");
             solicitarEntrada();
         } catch (Exception e) {
