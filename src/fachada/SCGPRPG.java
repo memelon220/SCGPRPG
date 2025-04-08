@@ -170,10 +170,10 @@ public class SCGPRPG {
         return servicoPersonagem.consultar(p_id);
     }
 
-    public void criarCampanha(Narrador narrador, String nome, String descricao,
-                              String dataInicio, String status, int limite_jogadores) throws CampanhaJaExisteException{
+    public void criarCampanha(Narrador narrador, String nome, String descricao
+            , String status, int limite_jogadores) throws CampanhaJaExisteException{
 
-        Campanha campanha = new Campanha(narrador, nome, descricao, dataInicio, status, limite_jogadores);
+        Campanha campanha = new Campanha(narrador, nome, descricao, status, limite_jogadores);
         servicoCampanha.adicionar(campanha);
         narrador.adicionarCampanha(campanha);
     }

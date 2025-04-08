@@ -40,7 +40,9 @@ public class Narrador extends Jogador{
     public void atualizarCampanhaNarrador(Campanha campanha1, Campanha campanha2) throws CampanhaNaoExisteException {
         if(getListaCampanhas().contains(campanha1)){
             int i = getListaCampanhas().indexOf(campanha1);
-            getListaCampanhas().set(i, campanha2);
+            ArrayList<Campanha> campanha_aux = getListaCampanhas();
+            campanha_aux.set(i, campanha2);
+            setListaCampanhas(campanha_aux);
         }else{
             throw new CampanhaNaoExisteException();
         }

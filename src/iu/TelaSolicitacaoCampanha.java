@@ -1,8 +1,13 @@
 package iu;
 
 import fachada.SCGPRPG;
+import servico.entidade.Campanha;
 import servico.entidade.Jogador;
+
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import servico.entidade.Personagem;
 import servico.excecao.campanha.CampanhaLotadaException;
 import servico.excecao.jogador.JogadorNaoExisteException;
 import servico.excecao.jogador.SolicitacaoJaExisteException;
@@ -20,10 +25,23 @@ public class TelaSolicitacaoCampanha {
     }
 
     public void solicitarEntrada(){
-            System.out.println("\n--- CAMPANHAS DISPONÍVEIS ---");
+        if(fachada.listarCampanhasAbertas().isEmpty()) {
+            System.out.println("Nenhuma campanha aberta no momento. Tente novamente mais tarde!");
+            return;
+        }
+        try {
+            if (fachada.getPersonagensDoJogador(jogador.getID()).isEmpty()) {
+                System.out.println("Você não possui personagens cadastrados.");
+                return;
+            }
+        } catch (JogadorNaoExisteException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+        System.out.println("\n--- CAMPANHAS DISPONÍVEIS ---");
             fachada.listarCampanhasAbertas().forEach(c ->
                     System.out.printf(
-                            "%s (Vagas: %d/%d) | Narrador: %s\n | ID: %s",
+                            "%s (Vagas: %d/%d) | Narrador: %s\n | ID: %s\n",
                             c.getNome(),
                             c.getJogadores().size(),
                             c.getlimiteJogadores(),
@@ -32,8 +50,11 @@ public class TelaSolicitacaoCampanha {
                     )
             );
 
-        System.out.print("\nDigite o ID da Campanha que voce gostaria de participar: ");
+        System.out.print("\nDigite o ID da Campanha que voce gostaria de participar (Digite 0 para cancelar a operacao): ");
         String cId = sc.nextLine();
+        if(cId.equals("0")) {
+            return;
+        }
 
             System.out.println("\n--- SEUS PERSONAGENS ---");
         try {
@@ -49,9 +70,11 @@ public class TelaSolicitacaoCampanha {
             solicitarEntrada();
         }
 
-        System.out.print("\nDigite o ID do Personagem que voce gostaria de utilizar: ");
+        System.out.print("\nDigite o ID do Personagem que voce gostaria de utilizar (digite 0 para cancelar a operacao): ");
             String pId = sc.nextLine();
-
+            if(pId.equals("0")){
+                return;
+            }
 
         try{
             fachada.solicitarEntradaEmCampanha(jogador.getID(), pId, cId);
@@ -77,53 +100,3 @@ public class TelaSolicitacaoCampanha {
         }
     }
 }
-/*
-        public void solicitarEntrada() {
-            System.out.println("\n>>> SOLICITAR ENTRADA EM CAMPANHA <<<");
-            System.out.println("1 - Digitar informacoes");
-            System.out.println("0 - Voltar");
-            String opcao = sc.nextLine();
-            switch(opcao) {
-                case "0":
-                    break;
-
-                case "1":
-                    if (existemPersonagens(jogador.getPersonagens())) {
-                        try {
-                            System.out.println("\n>>> SOLICITAR ENTRADA EM CAMPANHA <<<");
-
-                            System.out.println("\nSeus personagens:");
-                            fachada.getPersonagensDoJogador(jogador.getID()).forEach(p ->
-                                    System.out.println("- " + p.getNome() + " (ID: " + p.getID() + ")"));
-
-                            System.out.print("\nID do personagem: ");
-                            String pId = sc.nextLine();
-
-                            System.out.print("ID da campanha: ");
-                            String cId = sc.nextLine();
-
-                            fachada.solicitarEntradaEmCampanha(jogador.getID(), pId, cId);
-                            System.out.println("Solicitação enviada com sucesso!");
-
-                        } catch (CampanhaLotadaException e) {
-                            System.out.println("Campanha cheia! Limite: " + e.getLimite() + " jogadores.");
-                            System.out.println("Por favor, escolha outra campanha ou cancele a operacao");
-                            solicitarEntrada();
-                        } catch (Exception e) {
-                            System.err.println("Erro na solicitação: " + e.getMessage());
-                            System.out.println("Por favor, verifique as informacoes e tente novamente.");
-                            solicitarEntrada();
-                        }
-                    } else {
-                        System.out.println("Voce precisa criar um personagem antes...");
-                    }
-                    break;
-            }
-        }
-        public boolean existemPersonagens(ArrayList<Personagem> arrayPersonagem){
-            return arrayPersonagem != null && !arrayPersonagem.isEmpty();
-        }
-
- */
-
-
