@@ -139,8 +139,10 @@ public class TelaPrincipal {
                                 opcao = sc.nextLine();
                                 switch (opcao) {
                                     case "1":
+                                        gerenciamentoCampanha.atualizarCampanha();
                                         break;
                                     case "2":
+                                        gerenciamentoCampanha.removerCampanha();
                                         break;
                                     case "3":
                                         new TelaGerenciamentoSolicitacoes(fachada, (Narrador) usuario).gerenciar();
