@@ -28,10 +28,9 @@ public class Campanha implements Serializable {
         this.jogadores = new ArrayList<Jogador>();
         this.personagens = new ArrayList<Personagem>();
         this.solicitacoes = new ArrayList<Solicitacao>();
-        int numeracao = Integer.parseInt(narrador.getID().substring(1)) + narrador.getListaCampanhas().size();
-        //faz o ID de campanha com base no ID de narrador adicionando o número de campanhas que este narrador tem.
-        this.ID = String.format("C%06d", numeracao)+ "-" + contadorID++;
-    }
+        this.ID = "C" + System.currentTimeMillis() + "-" + contadorID++;
+        }
+
 
     public void adicionarSolicitacao(Solicitacao solicitacao) {
         solicitacoes.add(solicitacao);
