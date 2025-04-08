@@ -12,7 +12,7 @@ public class Clerigo extends ClassePersonagem {
     public void aplicarClasse() {
         dono.setClasse(new Clerigo(dono));
 
-        dono.setMagia(dono.getMagia() + 10);
+        dono.setManaMax(dono.getManaMax() + 10);
         dono.setManaAtual(dono.getManaAtual() + 10);
         dono.setVidaMax(dono.getVidaMax() + 10);
         dono.setVidaAtual(Math.min(dono.getVidaAtual() + 10, dono.getVidaMax()));
@@ -23,7 +23,7 @@ public class Clerigo extends ClassePersonagem {
 
     @Override
     public void retirarClasse(){
-        dono.setMagia(dono.getMagia() - 10);
+        dono.setManaMax(dono.getManaMax() - 10);
         dono.setManaAtual(dono.getManaAtual() - 10);
         dono.setVidaMax(dono.getVidaMax() - 10);
         dono.setVidaAtual(Math.min(dono.getVidaAtual() - 10, dono.getVidaMax()));

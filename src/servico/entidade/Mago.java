@@ -16,7 +16,7 @@ private Personagem dono;
         dono.setInteligencia(dono.getInteligencia() + 2);
         dono.setSabedoria(dono.getSabedoria() + 2);
 
-        dono.setMagia(dono.getMagia() + 11);
+        dono.setManaMax(dono.getManaMax() + 11);
         dono.setManaAtual(dono.getManaAtual() + 11);
     }
 
@@ -25,7 +25,7 @@ private Personagem dono;
         dono.setInteligencia(dono.getInteligencia() - 2);
         dono.setSabedoria(dono.getSabedoria() - 2);
 
-        dono.setMagia(dono.getMagia() - 11);
+        dono.setManaMax(dono.getManaMax() - 11);
         dono.setManaAtual(dono.getManaAtual() - 11);
         dono.setClasse(null);
         this.dono = null;

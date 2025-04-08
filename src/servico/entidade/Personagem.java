@@ -10,7 +10,7 @@ public class Personagem implements Serializable {
     private static final long serialVersionUID = 1L; // Versão inicial
 
     private Jogador jogador;
-    private int XP, nivel, vidaAtual, manaAtual, magia, classeResistencia;
+    private int XP, nivel, vidaAtual, manaAtual, classeResistencia;
     private static int vidaMax, manaMax;
     private static int totalXP = 0;
     private String nome;
@@ -76,7 +76,9 @@ public class Personagem implements Serializable {
 
     public void definirSecundarios() {
         vidaMax = 10 + calcularModificador(constituicao);
-        magia = 8 + calcularModificador(inteligencia);
+        vidaAtual = vidaMax;
+        manaMax = 8 + calcularModificador(inteligencia);
+        manaAtual = manaMax;
         classeResistencia = 10 + calcularModificador(destreza);
     }
 /*
@@ -133,12 +135,12 @@ public class Personagem implements Serializable {
         Personagem.vidaMax = vidaMax;
     }
 
-    public int getMagia() {
-        return magia;
+    public int getManaMax() {
+        return manaMax;
     }
 
-    public void setMagia(int magia) {
-        this.magia = magia;
+    public void setManaMax(int manaMax) {
+        this.manaMax = manaMax;
     }
 
     public String getNome() {
@@ -211,14 +213,6 @@ public class Personagem implements Serializable {
 
     public void setManaAtual(int manaAtual) {
         this.manaAtual = manaAtual;
-    }
-
-    public static int getManaMax() {
-        return manaMax;
-    }
-
-    public static void setManaMax(int manaMax) {
-        Personagem.manaMax = manaMax;
     }
 
     public static int getTotalXP() {
