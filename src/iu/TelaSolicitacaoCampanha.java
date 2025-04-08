@@ -14,6 +14,7 @@ import servico.excecao.jogador.SolicitacaoJaExisteException;
 import servico.excecao.personagem.PersonagemNaoPertenceAoJogadorException;
 
 public class TelaSolicitacaoCampanha {
+
     private final SCGPRPG fachada;
     private final Jogador jogador;
     private final Scanner sc;

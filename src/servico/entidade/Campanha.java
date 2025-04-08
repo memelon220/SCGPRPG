@@ -2,6 +2,9 @@ package servico.entidade;
 import java.io.Serializable;
 import java.util.ArrayList;
 import servico.excecao.campanha.CampanhaLotadaException;
+import servico.excecao.jogador.JogadorNaoExisteException;
+import servico.excecao.personagem.PersonagemNaoPertenceAoJogadorException;
+
 import java.time.LocalDate;
 
 public class Campanha implements Serializable {
@@ -18,6 +21,7 @@ public class Campanha implements Serializable {
     private ArrayList<Jogador> jogadores;
     private ArrayList<Personagem> personagens;
     private ArrayList<Solicitacao> solicitacoes;
+    private ArrayList<Convite> convites;
     private int limite_jogadores;
     private static int contadorID = 1;
 
@@ -31,6 +35,7 @@ public class Campanha implements Serializable {
         this.jogadores = new ArrayList<Jogador>();
         this.personagens = new ArrayList<Personagem>();
         this.solicitacoes = new ArrayList<Solicitacao>();
+        this.convites = new ArrayList<Convite>();
         this.limite_jogadores = limite_jogadores;
         this.ID = "C" + System.currentTimeMillis() + "-" + contadorID++;
         }
@@ -40,8 +45,9 @@ public class Campanha implements Serializable {
         solicitacoes.add(solicitacao);
     }
 
-    public void enviarConvite(Jogador jogador, Personagem personagem) {
-        Convite convite = new Convite(this, personagem);
+    public void enviarConvite(Jogador jogador, Personagem personagem, Campanha campanha)
+            throws PersonagemNaoPertenceAoJogadorException, JogadorNaoExisteException {
+        Convite convite = new Convite(jogador.getID(), campanha, jogador, personagem);
         jogador.receberConvite(convite);
     }
 
@@ -132,6 +138,18 @@ public class Campanha implements Serializable {
 
     public boolean temVagas() {
         return jogadores.size() < limite_jogadores;
+    }
+
+    public ArrayList<Convite> getConvites() {
+        return convites;
+    }
+
+    public void adicionarConvite(Convite convite) {
+        this.convites.add(convite);
+    }
+
+    public void removerConvite(Convite convite) {
+        this.convites.remove(convite);
     }
 
 }

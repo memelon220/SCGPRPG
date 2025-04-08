@@ -1,5 +1,7 @@
 package servico.entidade;
 import servico.excecao.campanha.CampanhaNaoExisteException;
+import servico.excecao.jogador.JogadorNaoExisteException;
+import servico.excecao.personagem.PersonagemNaoPertenceAoJogadorException;
 
 import java.util.ArrayList;
 
@@ -53,8 +55,9 @@ public class Narrador extends Jogador{
     }
 
 
-    public void enviarConvite(Campanha campanha, Jogador jogador, Personagem personagem) {
-        campanha.enviarConvite(jogador, personagem);
+    public void enviarConvite(Campanha campanha, Jogador jogador, Personagem personagem)
+            throws PersonagemNaoPertenceAoJogadorException, JogadorNaoExisteException {
+        campanha.enviarConvite(jogador, personagem, campanha);
     }
 
     public ArrayList<Campanha> getListaCampanhas() {

@@ -75,10 +75,11 @@ public class TelaGerenciamentoCampanha {
                 System.out.println("Nome: " + j.getNome() + ", Idade: " + j.getIdade() + ", ID: " + j.getID());
                 System.out.print("Personagens:");
                 for(Personagem p : campanha.getPersonagens()){
+                    System.out.println("[ ");
                     if(p.getJogador().equals(j)){
-                        System.out.print(" " + p.getNome() + ", " + p.getID());
+                        System.out.print("Nome: "+ p.getNome() + ", ID: " + p.getID());
                     }
-                    System.out.println(" ]");
+                    System.out.println(" ] ");
                 }
             }
         } else {
