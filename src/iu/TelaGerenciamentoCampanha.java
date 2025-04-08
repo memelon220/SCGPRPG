@@ -42,14 +42,15 @@ public class TelaGerenciamentoCampanha {
 
     public void listarPersonagens(Campanha campanha){
         if(existemPersonagens(campanha.getPersonagens())){
-            System.out.println(">>>> Personagens <<<<");
+            System.out.println("\n>>>> Personagens <<<<");
             for(Personagem p : campanha.getPersonagens()){
+                System.out.println("---------------------");
                 System.out.println("Nome:" + p.getNome());
                 System.out.println("Especie: " + p.getEspecie().getNome());
                 System.out.println("Classe: " + p.getClasse().getNomeClasse());
                 System.out.println("XP: " + p.getXP() + ", Nível: " + p.getNivel() + ", Vida: " + p.getVidaAtual() + "/" + p.getVidaMax() + ", Mana: " + p.getManaAtual() + "/" + p.getManaMax());
                 System.out.println("Força: " + p.getForca() + ", Destreza: " + p.getDestreza() + ", Constituição: " + p.getConstituicao() + ", Inteligência: " + p.getInteligencia() + ", Sabedoria: " + p.getSabedoria() + ", Carisma: " + p.getCarisma());
-                System.out.println("---------------------");
+                System.out.println("---------------------\n");
             }
         } else {
             System.out.println("Nenhum personagem foi adicionado...");
@@ -80,6 +81,9 @@ public class TelaGerenciamentoCampanha {
                 System.out.println("ID: " + c.getID());
                 System.out.println("Nome: " + c.getNome() + ", Status: " + c.getStatus());
                 System.out.println("Descrição: " + c.getDescricao());
+                if(c.getDataFim() == null){
+                    System.out.println("Data de início: " + c.getDataInicio() + ", Data de fim: Campanha em andamento");
+                }
                 System.out.println("Data de início: " + c.getDataInicio() + ", Data de fim: " + c.getDataFim());
                 listarPersonagens(c);
                 listarJogadores(c);

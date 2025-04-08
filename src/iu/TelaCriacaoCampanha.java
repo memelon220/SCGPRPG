@@ -30,7 +30,7 @@ public class TelaCriacaoCampanha {
         int limite_jogadores = sc.nextInt();
         sc.nextLine();
         try {
-            fachada.criarCampanha(usuario, nome, descricao, dataInicio, "Em andamento", limite_jogadores);
+            fachada.criarCampanha(usuario, nome, descricao, dataInicio, "ABERTA", limite_jogadores);
             System.out.println("Campanha criada com sucesso!");
         }catch(CampanhaJaExisteException e){
             System.out.println(e.getMessage());

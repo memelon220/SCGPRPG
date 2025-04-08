@@ -1,4 +1,6 @@
 package servico.entidade;
+import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.Random;
 import java.util.ArrayList;
 import java.io.Serializable;
@@ -14,6 +16,7 @@ public class Jogador implements Serializable{
     protected int idade;
     protected String ID;
     protected String senha;
+    private ArrayList<String> notificacoes = new ArrayList<>();
 
     public Jogador(String nome, int idade, String senha){
         this.personagens = new ArrayList<Personagem>() ;
@@ -23,11 +26,16 @@ public class Jogador implements Serializable{
         int numero = random.nextInt(1000000);
         this.ID = String.format("J%06d", numero) + "-" + contadorID++;
         this.senha = senha;
+        this.notificacoes = new ArrayList<>();
     }
 
     public void adicionarPersonagem(Personagem personagem){
         this.personagens.add(personagem);
         personagem.setJogador(this);
+    }
+
+    public void adicionarNotificacao(String mensagem) {
+        notificacoes.add(LocalDateTime.now() + " | " + mensagem);
     }
 
     public void receberConvite(Convite convite) {
@@ -87,6 +95,10 @@ public class Jogador implements Serializable{
 
     public ArrayList<Personagem> getPersonagens() {
         return personagens;
+    }
+
+    public ArrayList<String> getNotificacoes() {
+        return (ArrayList<String>) Collections.unmodifiableList(notificacoes);
     }
 
     public ArrayList<Personagem> setPersonagens(ArrayList personagens) {

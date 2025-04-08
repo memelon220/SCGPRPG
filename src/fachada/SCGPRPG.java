@@ -11,6 +11,7 @@ import dados.campanha.RepositorioCampanhasArrayList;
 import dados.jogador.RepositorioJogadoresArrayList;
 import dados.personagem.RepositorioPersonagensArrayList;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class SCGPRPG {
 
@@ -165,8 +166,8 @@ public class SCGPRPG {
         servicoPersonagem.remover(p_ID);
     }
 
-    public void buscarPersonagem(String p_id) throws PersonagemNaoExisteException{
-        servicoPersonagem.consultar(p_id);
+    public Personagem buscarPersonagem(String p_id) throws PersonagemNaoExisteException{
+        return servicoPersonagem.consultar(p_id);
     }
 
     public void criarCampanha(Narrador narrador, String nome, String descricao,
@@ -174,6 +175,7 @@ public class SCGPRPG {
 
         Campanha campanha = new Campanha(narrador, nome, descricao, dataInicio, status, limite_jogadores);
         servicoCampanha.adicionar(campanha);
+        narrador.adicionarCampanha(campanha);
     }
 
     public void removerCampanha(String c_Id) throws CampanhaNaoExisteException{
@@ -185,31 +187,63 @@ public class SCGPRPG {
         servicoCampanha.atualizar(campanha1, campanha2);
     }
 
-    public void solicitarEntradaEmCampanha(String j_id, String p_id, String c_id)
-            throws CampanhaNaoExisteException, PersonagemNaoExisteException,
-            JogadorNaoExisteException, CampanhaLotadaException {
+    public void solicitarEntradaEmCampanha(String jogadorID, String personagemID, String campanhaID)
+            throws CampanhaNaoExisteException, PersonagemNaoExisteException, JogadorNaoExisteException,
+            CampanhaLotadaException, PersonagemNaoPertenceAoJogadorException,
+            SolicitacaoJaExisteException {
+        Campanha campanha = servicoCampanha.buscar(campanhaID);
+        Jogador jogador = servicoJogador.buscar(jogadorID);
+        Personagem personagem = servicoPersonagem.consultar(personagemID);
 
-        Campanha campanha = servicoCampanha.buscar(c_id);
-        Jogador jogador = servicoJogador.buscar(j_id);
-        Personagem personagem = servicoPersonagem.consultar(p_id);
+        if (!personagem.getJogador().getID().equals(jogadorID)) {
+            throw new PersonagemNaoPertenceAoJogadorException();
+        }
 
-        campanha.adicionarJogador(jogador); // Lança CampanhaLotadaException
-        campanha.adicionarPersonagem(personagem);
+        if (campanha.getSolicitacoes().stream()
+                .anyMatch(s -> s.getPersonagem().getID().equals(personagemID))) {
+            throw new SolicitacaoJaExisteException();
+        }
+        if (!campanha.temVagas()) {
+            throw new CampanhaLotadaException(campanha.getlimiteJogadores());
+        }
+        Solicitacao solicitacao = new Solicitacao(jogador, personagem, campanha);
+        campanha.adicionarSolicitacao(solicitacao);
     }
 
     public ArrayList<Personagem> getPersonagensDoJogador(String j_id) throws JogadorNaoExisteException {
+        if(buscarJogador(j_id) == null){
+            throw new JogadorNaoExisteException();
+        }
         return servicoJogador.getPersonagensDoJogador(j_id);
     }
 
     public void processarSolicitacao(String cId, String pId, boolean aprovar)
-            throws CampanhaNaoExisteException, PersonagemNaoExisteException, CampanhaNaoExisteException {
+            throws CampanhaNaoExisteException, PersonagemNaoExisteException, CampanhaNaoExisteException,
+            CampanhaLotadaException {
         Campanha campanha = servicoCampanha.buscar(cId);
+        Narrador narrador = campanha.getNarrador();
         Solicitacao solicitacao = campanha.getSolicitacoes().stream()
                 .filter(s -> s.getPersonagem().getID().equals(pId))
                 .findFirst()
                 .orElseThrow();
+        boolean aprovacao = narrador.aprovarSolicitacao(solicitacao, aprovar);
 
-        campanha.aprovarSolicitacao(solicitacao, aprovar);
+        if (aprovacao){
+            campanha.adicionarJogador(solicitacao.getJogador());
+            campanha.adicionarPersonagem(solicitacao.getPersonagem());
+            atualizarCampanha(servicoCampanha.buscar(cId), campanha);
+            narrador.atualizarCampanhaNarrador(servicoCampanha.buscar(cId), campanha);
+        }
+    }
+
+    public Campanha buscarCampanha(String c_ID) throws CampanhaNaoExisteException{
+        return servicoCampanha.buscar(c_ID);
+    }
+
+    public ArrayList<Campanha> listarCampanhasAbertas() {
+        return (ArrayList<Campanha>) servicoCampanha.listarTodas().stream()
+                .filter(c -> c.getStatus().equals("ABERTA") && c.temVagas())
+                .collect(Collectors.toList());
     }
 
 }

@@ -1,10 +1,11 @@
 package iu;
 
 import fachada.SCGPRPG;
+import servico.entidade.Campanha;
 import servico.entidade.Narrador;
+import servico.entidade.Personagem;
 import servico.entidade.Solicitacao;
 import servico.excecao.campanha.CampanhaNaoExisteException;
-import servico.excecao.jogador.JogadorNaoExisteException;
 import servico.excecao.personagem.PersonagemNaoExisteException;
 
 import java.util.Scanner;
@@ -34,12 +35,12 @@ public class TelaGerenciamentoSolicitacoes {
                     } else {
                         campanha.getSolicitacoes().forEach(s ->
                                 System.out.println("- " + s.getPersonagem().getNome() +
+                                        " ID: " + s.getPersonagem().getID() +
                                         " (Jogador: " + s.getJogador().getNome() + ")"));
                     }
                 });
 
-                System.out.print("\nID da campanha para gerenciar: ");
-                String cId = sc.nextLine();
+                String cId = solicitarCampanha();
 
                 System.out.print("ID do personagem para aprovar/rejeitar: ");
                 String pId = sc.nextLine();
@@ -52,11 +53,54 @@ public class TelaGerenciamentoSolicitacoes {
 
             } catch (CampanhaNaoExisteException | PersonagemNaoExisteException e) {
                 System.out.println(e.getMessage());
-                System.out.println("O processo ira recomeçar...");
+                System.out.println("O processo ira recomecar...");
                 gerenciar();
             } catch (Exception e) {
                 System.err.println("Erro no processamento: " + e.getMessage());
             }
         }
     }
-}
+    public String solicitarCampanha(){
+        String cId = null;
+        Campanha campanha_aux = null;
+            System.out.print("\nID da campanha para gerenciar: ");
+            cId = sc.nextLine();
+            try {
+                campanha_aux = fachada.buscarCampanha(cId);
+            }catch (CampanhaNaoExisteException e) {
+                System.out.println(e.getMessage());
+                solicitarCampanha();
+            }
+            if (campanha_aux.getSolicitacoes().isEmpty()) {
+                System.out.println("Esta campanha nao tem solicitacoes!! Digite o ID de uma campanha que possui solicitacoes.");
+                solicitarCampanha();
+            }
+        return cId;
+    }
+
+    public String solicitarPersonagem(String cId){
+        String pId = null;
+        Personagem personagem_aux = null;
+        System.out.print("ID do personagem para aprovar/rejeitar: ");
+        pId = sc.nextLine();
+        try {
+            personagem_aux = fachada.buscarPersonagem(pId);
+        }catch (PersonagemNaoExisteException e) {
+            System.out.println(e.getMessage());
+            solicitarCampanha();
+        }
+        try{
+            boolean b = fachada.buscarCampanha(cId).getSolicitacoes().contains(personagem_aux);
+            if(!b){
+                System.out.println("Este personagem nao tem uma solicitacao para esta campanha!" +
+                        "Por favor, selecione um personagem que foi exibido para voce.");
+                solicitarPersonagem(cId);
+            }
+        }catch (CampanhaNaoExisteException e) {
+            System.out.println(e.getMessage());
+            solicitarPersonagem(cId);
+        }
+        return pId;
+    }
+
+    }

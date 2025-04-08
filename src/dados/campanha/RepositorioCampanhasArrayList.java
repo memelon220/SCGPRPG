@@ -52,6 +52,12 @@ public class RepositorioCampanhasArrayList implements IRepositorioCampanhas {
     }
 
     @Override
+    public ArrayList<Campanha> listarTodas() {
+        return arrayCampanhas;
+    }
+
+
+    @Override
     public boolean existe(String c_Id) {
         boolean flag = false;
         for(Campanha j : arrayCampanhas){

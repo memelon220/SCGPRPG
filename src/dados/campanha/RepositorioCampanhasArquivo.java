@@ -9,6 +9,7 @@ public class RepositorioCampanhasArquivo implements IRepositorioCampanhas {
     private static final String ARQUIVO_CAMPANHAS = "campanhas.dat";
     private ArrayList<Campanha> arquivoCampanhas;
 
+
     public RepositorioCampanhasArquivo(){
         this.arquivoCampanhas = carregarCampanha();
     }
@@ -79,6 +80,10 @@ public class RepositorioCampanhasArquivo implements IRepositorioCampanhas {
         for(Campanha c : arquivoCampanhas){
             System.out.println(c);
         }
+    }
+
+    public ArrayList<Campanha> listarTodas() {
+        return arquivoCampanhas;
     }
 
     @Override

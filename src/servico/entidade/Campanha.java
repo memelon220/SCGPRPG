@@ -37,17 +37,6 @@ public class Campanha implements Serializable {
 
     public void adicionarSolicitacao(Solicitacao solicitacao) {
         solicitacoes.add(solicitacao);
-        System.out.println("Nova solicitação recebida de " + solicitacao.getJogador().getNome() +
-                " para adicionar o personagem " + solicitacao.getPersonagem().getNome());
-    }
-
-    public void aprovarSolicitacao(Solicitacao solicitacao, boolean confirmacao) {
-        if (solicitacoes.contains(solicitacao) && confirmacao) {
-            personagens.add(solicitacao.getPersonagem());
-            solicitacoes.remove(solicitacao);
-        }if (solicitacoes.contains(solicitacao) && !confirmacao) {
-            solicitacoes.remove(solicitacao);
-        }
     }
 
     public void enviarConvite(Jogador jogador, Personagem personagem) {
@@ -134,6 +123,10 @@ public class Campanha implements Serializable {
 
     public int getVagasRestantes() {
         return limite_jogadores - jogadores.size();
+    }
+
+    public int getlimiteJogadores(){
+        return limite_jogadores;
     }
 
     public boolean temVagas() {
