@@ -170,11 +170,10 @@ public class SCGPRPG {
     }
 
     public void criarCampanha(Narrador narrador, String nome, String descricao,
-                              String dataInicio, String status) throws CampanhaJaExisteException{
+                              String dataInicio, String status, int limite_jogadores) throws CampanhaJaExisteException{
 
-        Campanha campanha = new Campanha(narrador, nome, descricao, dataInicio, status);
+        Campanha campanha = new Campanha(narrador, nome, descricao, dataInicio, status, limite_jogadores);
         servicoCampanha.adicionar(campanha);
-
     }
 
     public void removerCampanha(String c_Id) throws CampanhaNaoExisteException{
@@ -186,15 +185,31 @@ public class SCGPRPG {
         servicoCampanha.atualizar(campanha1, campanha2);
     }
 
-    public void solicitarEntradaEmCampanha(String j_id, String p_id, String c_id) throws CampanhaNaoExisteException, PersonagemNaoExisteException, JogadorNaoExisteException {
+    public void solicitarEntradaEmCampanha(String j_id, String p_id, String c_id)
+            throws CampanhaNaoExisteException, PersonagemNaoExisteException,
+            JogadorNaoExisteException, CampanhaLotadaException {
+
         Campanha campanha = servicoCampanha.buscar(c_id);
         Jogador jogador = servicoJogador.buscar(j_id);
         Personagem personagem = servicoPersonagem.consultar(p_id);
-        servicoCampanha.adicionarJogadorPersonagem(campanha, personagem, jogador);
+
+        campanha.adicionarJogador(jogador); // Lança CampanhaLotadaException
+        campanha.adicionarPersonagem(personagem);
     }
 
     public ArrayList<Personagem> getPersonagensDoJogador(String j_id) throws JogadorNaoExisteException {
         return servicoJogador.getPersonagensDoJogador(j_id);
+    }
+
+    public void processarSolicitacao(String cId, String pId, boolean aprovar)
+            throws CampanhaNaoExisteException, PersonagemNaoExisteException, CampanhaNaoExisteException {
+        Campanha campanha = servicoCampanha.buscar(cId);
+        Solicitacao solicitacao = campanha.getSolicitacoes().stream()
+                .filter(s -> s.getPersonagem().getID().equals(pId))
+                .findFirst()
+                .orElseThrow();
+
+        campanha.aprovarSolicitacao(solicitacao, aprovar);
     }
 
 }

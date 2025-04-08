@@ -26,10 +26,11 @@ public class TelaCriacaoCampanha {
         String descricao = sc.nextLine();
         System.out.println("Qual a data de início da campanha?");
         String dataInicio = sc.nextLine();
-        System.out.println("Qual o status atual da sua campanha? (em andamento, esperando jogadores, hiato, etc");
-        String status = sc.nextLine();
+        System.out.println("Qual o limite de jogadores para esta campanha?");
+        int limite_jogadores = sc.nextInt();
+        sc.nextLine();
         try {
-            fachada.criarCampanha(usuario, nome, descricao, dataInicio, status);
+            fachada.criarCampanha(usuario, nome, descricao, dataInicio, "Em andamento", limite_jogadores);
             System.out.println("Campanha criada com sucesso!");
         }catch(CampanhaJaExisteException e){
             System.out.println(e.getMessage());

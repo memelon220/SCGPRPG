@@ -23,10 +23,7 @@ public class TelaGerenciamentoPersonagem {
     }
 
     public boolean existemPersonagens(ArrayList<Personagem> arrayPersonagem){
-        if(arrayPersonagem == null || arrayPersonagem.isEmpty()){
-            return false;
-        }
-        return true;
+        return arrayPersonagem != null && !arrayPersonagem.isEmpty();
     }
 
     public void listarPersonagens(){

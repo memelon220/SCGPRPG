@@ -14,8 +14,8 @@ public class FachadaNarrador extends FachadaJogador {
     }
 
     public void criarCampanha(Narrador narrador, String nome, String descricao,
-                              String dataInicio, String status) throws CampanhaJaExisteException {
-        fachadaPrincipal.criarCampanha(narrador, nome, descricao, dataInicio, status);
+                              String dataInicio, String status, int limite_jogadores) throws CampanhaJaExisteException {
+        fachadaPrincipal.criarCampanha(narrador, nome, descricao, dataInicio, status, limite_jogadores);
     }
 
     public void removerCampanha(String c_Id) throws CampanhaNaoExisteException {

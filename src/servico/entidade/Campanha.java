@@ -1,6 +1,7 @@
 package servico.entidade;
 import java.io.Serializable;
 import java.util.ArrayList;
+import servico.excecao.campanha.CampanhaLotadaException;
 
 public class Campanha implements Serializable {
 
@@ -16,9 +17,10 @@ public class Campanha implements Serializable {
     private ArrayList<Jogador> jogadores;
     private ArrayList<Personagem> personagens;
     private ArrayList<Solicitacao> solicitacoes;
+    private int limite_jogadores;
     private static int contadorID = 1;
 
-    public Campanha(Narrador narrador, String nome, String descricao, String dataInicio, String status){
+    public Campanha(Narrador narrador, String nome, String descricao, String dataInicio, String status,int limite_jogadores){
         this.narrador = narrador;
         this.nome = nome;
         this.descricao = descricao;
@@ -28,6 +30,7 @@ public class Campanha implements Serializable {
         this.jogadores = new ArrayList<Jogador>();
         this.personagens = new ArrayList<Personagem>();
         this.solicitacoes = new ArrayList<Solicitacao>();
+        this.limite_jogadores = limite_jogadores;
         this.ID = "C" + System.currentTimeMillis() + "-" + contadorID++;
         }
 
@@ -50,6 +53,17 @@ public class Campanha implements Serializable {
     public void enviarConvite(Jogador jogador, Personagem personagem) {
         Convite convite = new Convite(this, personagem);
         jogador.receberConvite(convite);
+    }
+
+    public void adicionarJogador(Jogador jogador) throws CampanhaLotadaException {
+        if (jogadores.size() >= limite_jogadores) {
+            throw new CampanhaLotadaException(limite_jogadores);
+        }
+        this.jogadores.add(jogador);
+    }
+
+    public void adicionarPersonagem(Personagem personagem){
+        this.personagens.add(personagem);
     }
 
     public String getNome() {
@@ -116,14 +130,14 @@ public class Campanha implements Serializable {
         this.personagens = personagens;
     }
 
-    public void adicionarJogador(Jogador jogador){
-        this.jogadores.add(jogador);
-    }
-
-    public void adicionarPersonagem(Personagem personagem){
-        this.personagens.add(personagem);
-    }
-
     public ArrayList<Solicitacao> getSolicitacoes() { return solicitacoes; }
+
+    public int getVagasRestantes() {
+        return limite_jogadores - jogadores.size();
+    }
+
+    public boolean temVagas() {
+        return jogadores.size() < limite_jogadores;
+    }
 
 }

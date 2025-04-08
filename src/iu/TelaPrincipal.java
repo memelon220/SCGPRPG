@@ -104,6 +104,9 @@ public class TelaPrincipal {
                                         break;
                                 }
                                 break;
+                            case "3":
+                                new TelaSolicitacaoCampanha(fachada, usuario).solicitarEntrada();
+                                break;
                             case "0":
                                 login = false;
                                 System.out.println("Saindo da conta...");
@@ -140,6 +143,7 @@ public class TelaPrincipal {
                                     case "2":
                                         break;
                                     case "3":
+                                        new TelaGerenciamentoSolicitacoes(fachada, (Narrador) usuario).gerenciar();
                                         break;
                                     case "4":
                                         break;
