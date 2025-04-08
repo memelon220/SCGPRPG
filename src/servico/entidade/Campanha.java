@@ -2,6 +2,11 @@ package servico.entidade;
 import java.io.Serializable;
 import java.util.ArrayList;
 import servico.excecao.campanha.CampanhaLotadaException;
+import servico.excecao.campanha.JogadorJaEstaNaCampanhaException;
+import servico.excecao.jogador.JogadorNaoExisteException;
+import servico.excecao.personagem.PersonagemNaoPertenceAoJogadorException;
+
+import java.time.LocalDate;
 
 public class Campanha implements Serializable {
 
@@ -10,37 +15,40 @@ public class Campanha implements Serializable {
     private String nome;
     private final String ID;
     private String descricao;
-    private String dataInicio;
-    private String dataFim;
+    private LocalDate dataInicio;
+    private LocalDate dataFim;
     private String status; //Em andamento, em sessão, finalizada, etc.
     private Narrador narrador;
     private ArrayList<Jogador> jogadores;
     private ArrayList<Personagem> personagens;
     private ArrayList<Solicitacao> solicitacoes;
+    private ArrayList<Convite> convites;
     private int limite_jogadores;
     private static int contadorID = 1;
 
-    public Campanha(Narrador narrador, String nome, String descricao, String dataInicio, String status,int limite_jogadores){
+    public Campanha(Narrador narrador, String nome, String descricao, String status,int limite_jogadores){
         this.narrador = narrador;
         this.nome = nome;
         this.descricao = descricao;
-        this.dataInicio = dataInicio;
+        this.dataInicio = LocalDate.now();
         this.dataFim = null;
         this.status = status;
         this.jogadores = new ArrayList<Jogador>();
         this.personagens = new ArrayList<Personagem>();
         this.solicitacoes = new ArrayList<Solicitacao>();
+        this.convites = new ArrayList<Convite>();
         this.limite_jogadores = limite_jogadores;
         this.ID = "C" + System.currentTimeMillis() + "-" + contadorID++;
         }
 
 
-    public void adicionarSolicitacao(Solicitacao solicitacao) {
+    public void adicionarSolicitacao(Solicitacao solicitacao) throws JogadorJaEstaNaCampanhaException {
         solicitacoes.add(solicitacao);
     }
 
-    public void enviarConvite(Jogador jogador, Personagem personagem) {
-        Convite convite = new Convite(this, personagem);
+    public void enviarConvite(Jogador jogador, Personagem personagem, Campanha campanha)
+            throws PersonagemNaoPertenceAoJogadorException, JogadorNaoExisteException {
+        Convite convite = new Convite(jogador.getID(), campanha, jogador, personagem);
         jogador.receberConvite(convite);
     }
 
@@ -75,19 +83,19 @@ public class Campanha implements Serializable {
         this.descricao = descricao;
     }
 
-    public String getDataInicio() {
+    public LocalDate getDataInicio() {
         return dataInicio;
     }
 
-    public void setDataInicio(String dataInicio) {
+    public void setDataInicio(LocalDate dataInicio) {
         this.dataInicio = dataInicio;
     }
 
-    public String getDataFim() {
+    public LocalDate getDataFim() {
         return dataFim;
     }
 
-    public void setDataFim(String dataFim) {
+    public void setDataFim(LocalDate dataFim) {
         this.dataFim = dataFim;
     }
 
@@ -131,6 +139,18 @@ public class Campanha implements Serializable {
 
     public boolean temVagas() {
         return jogadores.size() < limite_jogadores;
+    }
+
+    public ArrayList<Convite> getConvites() {
+        return convites;
+    }
+
+    public void adicionarConvite(Convite convite) {
+        this.convites.add(convite);
+    }
+
+    public void removerConvite(Convite convite) {
+        this.convites.remove(convite);
     }
 
 }

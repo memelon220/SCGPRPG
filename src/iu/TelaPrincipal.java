@@ -21,6 +21,8 @@ public class TelaPrincipal {
     private TelaLogin telaLogin;
     private TelaGerenciamentoPersonagem telaGerenciamentoPersonagem;
     private TelaGerenciamentoCampanha telaGerenciamentoCampanha;
+    private TelaConvitesCampanha telaConvitesCampanha;
+    private TelaNotificacoes telaNotificacoes;
 
     public TelaPrincipal(SCGPRPG fachada) {
         this.sc = new Scanner(System.in);
@@ -57,6 +59,7 @@ public class TelaPrincipal {
                         usuario = telaLogin.logar();
                         if (usuario != null) {
                             System.out.println("Login realizado com sucesso!");
+                            System.out.println("--------BEM-VINDO " + this.usuario.getNome().toUpperCase() + "---------");
                             login = true;
                         } else {
                             System.out.println("ID ou senha incorretos. Por favor, verifique as informacoes e  tente novamente");
@@ -70,11 +73,19 @@ public class TelaPrincipal {
             } else {
                 while (login) {
                     if (this.usuario.getID().charAt(0) == 'J') {
-                        System.out.println(">>>> Menu de operações <<<<");
+                        if(this.usuario.getNotificacoes().size() != 0) {
+                            System.out.println("--------VOCE TEM " + this.usuario.getNotificacoes().size() +
+                                    " NOTIFICACOES NAO LIDAS--------");
+                            telaNotificacoes =  new TelaNotificacoes(usuario);
+                            telaNotificacoes.listarNotificacoes();
+                        }
+                        System.out.println(">>>> Menu de operações do jogador <<<<");
                         System.out.println("1 - Criar Personagem");
                         System.out.println("2 - Gerenciar Personagens Existentes");
                         System.out.println("3 - Solicitar Entrada em Campanha");
-                        System.out.println("4 - Campanhas Que Estou Participando");
+                        System.out.println("4 - Checar convites");
+                        System.out.println("5 - Campanhas Que Estou Participando");
+                        System.out.println("6 - Notificacoes");
                         System.out.println("0 - Sair");
                         String opcao = sc.nextLine();
                         switch (opcao) {
@@ -107,6 +118,11 @@ public class TelaPrincipal {
                             case "3":
                                 new TelaSolicitacaoCampanha(fachada, usuario).solicitarEntrada();
                                 break;
+                            case "4":
+                                new TelaGerenciamentoConvites(fachada, usuario).gerenciar();
+                                break;
+                            case "5":
+                                break;
                             case "0":
                                 login = false;
                                 System.out.println("Saindo da conta...");
@@ -115,7 +131,13 @@ public class TelaPrincipal {
                                 break;
                         }
                     } else {
-                        System.out.println(">>>> Menu de operações <<<<");
+                        if(this.usuario.getNotificacoes().size() != 0) {
+                            System.out.println("--------VOCE TEM " + this.usuario.getNotificacoes().size() +
+                                    " NOTIFICACOES NAO LIDAS--------");
+                            telaNotificacoes =  new TelaNotificacoes(usuario);
+                            telaNotificacoes.listarNotificacoes();
+                        }
+                        System.out.println(">>>> Menu de operações do narrador <<<<");
                         System.out.println("1 - Criar Campanha");
                         System.out.println("2 - Gerenciar Campanhas Existentes");
                         System.out.println("3 - Criar Personagem");
@@ -139,17 +161,21 @@ public class TelaPrincipal {
                                 opcao = sc.nextLine();
                                 switch (opcao) {
                                     case "1":
+                                        gerenciamentoCampanha.atualizarCampanha();
                                         break;
                                     case "2":
+                                        gerenciamentoCampanha.removerCampanha();
                                         break;
                                     case "3":
                                         new TelaGerenciamentoSolicitacoes(fachada, (Narrador) usuario).gerenciar();
                                         break;
                                     case "4":
+                                        new TelaConvitesCampanha(fachada, (Narrador) usuario).convidarJogador();
                                         break;
                                     case "0":
                                         break;
                                     default:
+                                        System.out.println("Opcao invalida!");
                                         break;
                                 }
                                 break;
@@ -176,6 +202,9 @@ public class TelaPrincipal {
                                         telaGerenciamentoPersonagem.removerPersonagem();
                                         break;
                                     case "0":
+                                        break;
+                                    default:
+                                        System.out.println("Opcao invalida!");
                                         break;
                                 }
                                 break;

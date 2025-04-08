@@ -16,7 +16,8 @@ public class Jogador implements Serializable{
     protected int idade;
     protected String ID;
     protected String senha;
-    private ArrayList<String> notificacoes = new ArrayList<>();
+    protected ArrayList<String> notificacoes = new ArrayList<>();
+    private ArrayList<Convite> convitesRecebidos = new ArrayList<>();
 
     public Jogador(String nome, int idade, String senha){
         this.personagens = new ArrayList<Personagem>() ;
@@ -27,6 +28,7 @@ public class Jogador implements Serializable{
         this.ID = String.format("J%06d", numero) + "-" + contadorID++;
         this.senha = senha;
         this.notificacoes = new ArrayList<>();
+        this.convitesRecebidos = new ArrayList<>();
     }
 
     public void adicionarPersonagem(Personagem personagem){
@@ -38,10 +40,6 @@ public class Jogador implements Serializable{
         notificacoes.add(LocalDateTime.now() + " | " + mensagem);
     }
 
-    public void receberConvite(Convite convite) {
-        convites.add(convite);
-    }
-
     public void aceitarConvite(Convite convite, boolean confirmacao) {
             if (convites.contains(convite) && confirmacao) {
                 convite.getCampanha().adicionarPersonagem(convite.getPersonagem());
@@ -50,7 +48,19 @@ public class Jogador implements Serializable{
         else if (convites.contains(convite) && !confirmacao) {
             convites.remove(convite);
             }
-        }
+    }
+
+    public ArrayList<Convite> getConvitesRecebidos() {
+        return new ArrayList<>(convitesRecebidos);
+    }
+
+    public void receberConvite(Convite convite) {
+        this.convitesRecebidos.add(convite);
+    }
+
+    public void removerConvite(Convite convite) {
+        this.convitesRecebidos.remove(convite);
+    }
 
 
     public String getID() {
@@ -98,7 +108,7 @@ public class Jogador implements Serializable{
     }
 
     public ArrayList<String> getNotificacoes() {
-        return (ArrayList<String>) Collections.unmodifiableList(notificacoes);
+        return new ArrayList<>(this.notificacoes);
     }
 
     public ArrayList<Personagem> setPersonagens(ArrayList personagens) {

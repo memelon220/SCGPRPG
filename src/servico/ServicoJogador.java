@@ -52,6 +52,10 @@ public class ServicoJogador {
         }
     }
 
+    public ArrayList<Jogador> listarJogadores() {
+        return repositorioJogadores.getArrayJogadores();
+    }
+
     public ArrayList<Personagem> getPersonagensDoJogador(String j_id) throws JogadorNaoExisteException {
         Jogador jogador = repositorioJogadores.buscar(j_id);
         return jogador.getPersonagens();

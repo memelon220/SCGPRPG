@@ -5,6 +5,7 @@ import servico.entidade.Narrador;
 import java.util.Scanner;
 import fachada.SCGPRPG;
 import servico.excecao.campanha.CampanhaJaExisteException;
+import java.time.LocalDate;
 
 public class TelaCriacaoCampanha {
 
@@ -24,17 +25,19 @@ public class TelaCriacaoCampanha {
         String nome = sc.nextLine();
         System.out.println("Digite uma descrição para a campanha:");
         String descricao = sc.nextLine();
-        System.out.println("Qual a data de início da campanha?");
-        String dataInicio = sc.nextLine();
         System.out.println("Qual o limite de jogadores para esta campanha?");
         int limite_jogadores = sc.nextInt();
         sc.nextLine();
         try {
-            fachada.criarCampanha(usuario, nome, descricao, dataInicio, "ABERTA", limite_jogadores);
+            fachada.criarCampanha(usuario, nome, descricao,"ABERTA", limite_jogadores);
             System.out.println("Campanha criada com sucesso!");
         }catch(CampanhaJaExisteException e){
             System.out.println(e.getMessage());
             System.out.println("Ocorreu um erro com a geração automática de ID. Por favor, digite as informacoes novamente");
+            solicitarDados();
+        }catch(IllegalArgumentException e){
+            System.out.println(e.getMessage());
+            System.out.println("Por favor, digite as informacoes novamente.");
             solicitarDados();
         }
 

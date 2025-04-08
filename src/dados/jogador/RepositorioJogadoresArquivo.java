@@ -91,4 +91,9 @@ public class RepositorioJogadoresArquivo implements IRepositorioJogadores {
         return false;
     }
 
+    @Override
+    public ArrayList<Jogador> getArrayJogadores() {
+        return arquivoJogadores;
+    }
+
 }
