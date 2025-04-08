@@ -151,12 +151,9 @@ public class SCGPRPG {
         }
     }
 
-    public void atualizarPersonagem(Personagem personagem1, Personagem personagem2)
+    public void atualizarPersonagem(Personagem personagem, String p_id)
             throws PersonagemNaoExisteException {
-        Jogador jogador = personagem1.getJogador();
-        int index = jogador.getPersonagens().indexOf(personagem1);
-        jogador.getPersonagens().set(index, personagem2);
-        servicoPersonagem.atualizar(personagem1, personagem2);
+        servicoPersonagem.atualizar(personagem, p_id);
     }
 
     public void removerPersonagem(String p_ID) throws PersonagemNaoExisteException{
@@ -195,11 +192,6 @@ public class SCGPRPG {
         Personagem personagem = servicoPersonagem.consultar(p_id);
         servicoCampanha.adicionarJogadorPersonagem(campanha, personagem, jogador);
     }
-
-/*
-    public void adicionarPersonagem() {
-    }
-*/
 
     public ArrayList<Personagem> getPersonagensDoJogador(String j_id) throws JogadorNaoExisteException {
         return servicoJogador.getPersonagensDoJogador(j_id);

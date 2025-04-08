@@ -23,8 +23,8 @@ public class FachadaJogador {
                 inteligencia, sabedoria, carisma, classe, especie);
     }
 
-    public void atualizarPersonagem(Personagem personagem1, Personagem personagem2) throws PersonagemNaoExisteException {
-        fachadaPrincipal.atualizarPersonagem(personagem1, personagem2);
+    public void atualizarPersonagem(Personagem personagem, String p_id) throws PersonagemNaoExisteException {
+        fachadaPrincipal.atualizarPersonagem(personagem, p_id);
     }
 
     public void removerPersonagem(String p_ID) throws PersonagemNaoExisteException {

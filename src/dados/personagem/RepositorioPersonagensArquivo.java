@@ -55,11 +55,10 @@ public class RepositorioPersonagensArquivo implements IRepositorioPersonagens {
 
     }
 
-    @Override
-    public void atualizar(Personagem personagem1, Personagem personagem2) {
-        int index = arquivoPersonagens.indexOf(personagem1);
-        if (index != -1) {
-            arquivoPersonagens.set(index, personagem2);
+    public void atualizar(Personagem personagem, String p_id) {
+        if(existe(p_id)){
+            int i = arquivoPersonagens.indexOf(personagem);
+            arquivoPersonagens.set(i, personagem);
             salvarPersonagem();
         }
     }

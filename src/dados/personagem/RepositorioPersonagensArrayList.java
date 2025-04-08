@@ -26,10 +26,10 @@ public class RepositorioPersonagensArrayList implements IRepositorioPersonagens 
     }
 
     @Override
-    public void atualizar(Personagem personagem1, Personagem personagem2) {
-        int i = arrayPersonagens.indexOf(personagem1);
-        if(i != -1){
-            arrayPersonagens.set(i, personagem2);
+    public void atualizar(Personagem personagem, String p_id) {
+        if(existe(p_id)){
+            int i = arrayPersonagens.indexOf(personagem);
+            arrayPersonagens.set(i, personagem);
         }
     }
 

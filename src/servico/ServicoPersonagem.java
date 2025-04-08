@@ -40,12 +40,11 @@ public class ServicoPersonagem {
         }
     }
 
-    public void atualizar(Personagem personagem1, Personagem personagem2) throws PersonagemNaoExisteException {
-        Personagem personagem = repositorioPersonagens.buscar(personagem1.getID());
+    public void atualizar(Personagem personagem, String p_id) throws PersonagemNaoExisteException {
         if (personagem == null) {
             throw new PersonagemNaoExisteException();
         }else{
-            repositorioPersonagens.atualizar(personagem1, personagem2);
+            repositorioPersonagens.atualizar(personagem, p_id);
         }
     }
 }

@@ -12,6 +12,15 @@ public class Narrador extends Jogador{
         this.campanhaAtual = null;
     }
 
+    public void aprovarSolicitacao(Campanha campanha, Solicitacao solicitacao, boolean confirmacao) {
+        campanha.aprovarSolicitacao(solicitacao, confirmacao);
+    }
+
+
+    public void enviarConvite(Campanha campanha, Jogador jogador, Personagem personagem) {
+        campanha.enviarConvite(jogador, personagem);
+    }
+
     public ArrayList<Campanha> getListaCampanhas() {
         return listaCampanhas;
     }

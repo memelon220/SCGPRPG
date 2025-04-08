@@ -9,6 +9,7 @@ public class Jogador implements Serializable{
     private static int contadorID = 1;
 
     protected ArrayList<Personagem> personagens;
+    protected ArrayList<Convite> convites;
     protected String nome;
     protected int idade;
     protected String ID;
@@ -28,6 +29,20 @@ public class Jogador implements Serializable{
         this.personagens.add(personagem);
         personagem.setJogador(this);
     }
+
+    public void receberConvite(Convite convite) {
+        convites.add(convite);
+    }
+
+    public void aceitarConvite(Convite convite, boolean confirmacao) {
+            if (convites.contains(convite) && confirmacao) {
+                convite.getCampanha().adicionarPersonagem(convite.getPersonagem());
+                convites.remove(convite);
+            }
+        else if (convites.contains(convite) && !confirmacao) {
+            convites.remove(convite);
+            }
+        }
 
 
     public String getID() {
@@ -60,6 +75,14 @@ public class Jogador implements Serializable{
 
     public void setSenha(String senha){
         this.senha = senha;
+    }
+
+    public ArrayList<Convite> getConvites(){
+        return convites;
+    }
+
+    public void setConvites(ArrayList<Convite> convites){
+        this.convites = convites;
     }
 
     public ArrayList<Personagem> getPersonagens() {

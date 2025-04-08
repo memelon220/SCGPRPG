@@ -7,6 +7,7 @@ import fachada.SCGPRPG;
 import fachada.FachadaJogador;
 import fachada.FachadaNarrador;
 import servico.entidade.Jogador;
+import servico.entidade.Narrador;
 
 public class TelaPrincipal {
 
@@ -19,6 +20,7 @@ public class TelaPrincipal {
     private TelaCriacaoPersonagem telaCriacaoPersonagem;
     private TelaLogin telaLogin;
     private TelaGerenciamentoPersonagem telaGerenciamentoPersonagem;
+    private TelaGerenciamentoCampanha telaGerenciamentoCampanha;
 
     public TelaPrincipal(SCGPRPG fachada) {
         this.sc = new Scanner(System.in);
@@ -95,6 +97,8 @@ public class TelaPrincipal {
                                     telaGerenciamentoPersonagem.atualizarPersonagem();
                                         break;
                                     case "2":
+                                        telaGerenciamentoPersonagem = new TelaGerenciamentoPersonagem(fachada, usuario);
+                                        telaGerenciamentoPersonagem.removerPersonagem();
                                         break;
                                     case "0":
                                         break;
@@ -116,6 +120,61 @@ public class TelaPrincipal {
                         System.out.println("0 - Sair");
                         String opcao = sc.nextLine();
                         switch (opcao) {
+                            case "1":
+                                TelaCriacaoCampanha criacaoCampanha = new TelaCriacaoCampanha(fachada, (Narrador) usuario);
+                                criacaoCampanha.solicitarDados();
+                                break;
+                            case "2":
+                                TelaGerenciamentoCampanha gerenciamentoCampanha = new TelaGerenciamentoCampanha(fachada, (Narrador) usuario);
+                                gerenciamentoCampanha.listarCampanhas();
+                                System.out.println(">>>> Menu de operações <<<<");
+                                System.out.println("1 - Atualizar Campanha");
+                                System.out.println("2 - Remover Campanha");
+                                System.out.println("3 - Checar Solicitacoes");
+                                System.out.println("4 - Convidar Jogadores");
+                                System.out.println("0 - Sair");
+                                opcao = sc.nextLine();
+                                switch (opcao) {
+                                    case "1":
+                                        break;
+                                    case "2":
+                                        break;
+                                    case "3":
+                                        break;
+                                    case "4":
+                                        break;
+                                    case "0":
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            case "3":
+                                telaCriacaoPersonagem = new TelaCriacaoPersonagem(fachada, usuario);
+                                telaCriacaoPersonagem.solicitarDados();
+                                break;
+                            case "4":
+                                telaGerenciamentoPersonagem = new TelaGerenciamentoPersonagem(fachada, usuario);
+                                System.out.println(">>>> Personagens Atuais <<<<");
+                                telaGerenciamentoPersonagem.listarPersonagens();
+                                System.out.println(">>>> Menu de gerenciamento de personagens <<<<");
+                                System.out.println("1 - Atualizar Personagem");
+                                System.out.println("2 - Remover Personagem");
+                                System.out.println("0 - Voltar");
+                                opcao = sc.nextLine();
+                                sc.nextLine();
+                                switch (opcao) {
+                                    case "1":
+                                        telaGerenciamentoPersonagem.atualizarPersonagem();
+                                        break;
+                                    case "2":
+                                        telaGerenciamentoPersonagem = new TelaGerenciamentoPersonagem(fachada, usuario);
+                                        telaGerenciamentoPersonagem.removerPersonagem();
+                                        break;
+                                    case "0":
+                                        break;
+                                }
+                                break;
                             case "0":
                                 login = false;
                                 System.out.println("Saindo da conta...");

@@ -41,7 +41,7 @@ class RepositorioPersonagensArquivoTest {
     void testAtualizar() {
         repositorio.adicionar(personagemTeste);
         Personagem novoPersonagem = new Personagem("Atualizado1", 1);
-        repositorio.atualizar(personagemTeste, novoPersonagem);
+        repositorio.atualizar(personagemTeste, novoPersonagem.getID());
         Personagem recuperado = repositorio.buscar(novoPersonagem.getID());
         assertEquals("Atualizado1", recuperado.getNome());
     }

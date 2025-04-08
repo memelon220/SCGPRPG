@@ -15,6 +15,8 @@ public class Campanha implements Serializable {
     private Narrador narrador;
     private ArrayList<Jogador> jogadores;
     private ArrayList<Personagem> personagens;
+    private ArrayList<Solicitacao> solicitacoes;
+    private static int contadorID = 1;
 
     public Campanha(Narrador narrador, String nome, String descricao, String dataInicio, String status){
         this.narrador = narrador;
@@ -25,9 +27,30 @@ public class Campanha implements Serializable {
         this.status = status;
         this.jogadores = new ArrayList<Jogador>();
         this.personagens = new ArrayList<Personagem>();
+        this.solicitacoes = new ArrayList<Solicitacao>();
         int numeracao = Integer.parseInt(narrador.getID().substring(1)) + narrador.getListaCampanhas().size();
         //faz o ID de campanha com base no ID de narrador adicionando o número de campanhas que este narrador tem.
-        this.ID = String.format("C%06d", numeracao);
+        this.ID = String.format("C%06d", numeracao)+ "-" + contadorID++;
+    }
+
+    public void adicionarSolicitacao(Solicitacao solicitacao) {
+        solicitacoes.add(solicitacao);
+        System.out.println("Nova solicitação recebida de " + solicitacao.getJogador().getNome() +
+                " para adicionar o personagem " + solicitacao.getPersonagem().getNome());
+    }
+
+    public void aprovarSolicitacao(Solicitacao solicitacao, boolean confirmacao) {
+        if (solicitacoes.contains(solicitacao) && confirmacao) {
+            personagens.add(solicitacao.getPersonagem());
+            solicitacoes.remove(solicitacao);
+        }if (solicitacoes.contains(solicitacao) && !confirmacao) {
+            solicitacoes.remove(solicitacao);
+        }
+    }
+
+    public void enviarConvite(Jogador jogador, Personagem personagem) {
+        Convite convite = new Convite(this, personagem);
+        jogador.receberConvite(convite);
     }
 
     public String getNome() {
@@ -101,5 +124,7 @@ public class Campanha implements Serializable {
     public void adicionarPersonagem(Personagem personagem){
         this.personagens.add(personagem);
     }
+
+    public ArrayList<Solicitacao> getSolicitacoes() { return solicitacoes; }
 
 }
