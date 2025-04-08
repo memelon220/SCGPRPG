@@ -35,7 +35,7 @@ public class TelaCadastroUsuario {
                 System.out.println("Idade: ");
                 int idade = sc.nextInt();
                 sc.nextLine(); // Consome o newline novamente
-                System.out.println("Senha:");
+                System.out.println("Senha [deve ter pelo menos 8 caracteres]:");
                 String senha = sc.nextLine();
                 boolean flag = false;
 

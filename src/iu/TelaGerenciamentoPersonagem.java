@@ -87,26 +87,32 @@ public class TelaGerenciamentoPersonagem {
                     sc.nextLine();
                     switch(op) {
                         case 1:
+                            escolhido.getClasse().retirarClasse();
                             escolhido.setClasse(new Mago(escolhido));
                             escolhido.getClasse().aplicarClasse();
                             break;
                         case 2:
+                            escolhido.getClasse().retirarClasse();
                             escolhido.setClasse(new Ladino(escolhido));
                             escolhido.getClasse().aplicarClasse();
                             break;
                         case 3:
+                            escolhido.getClasse().retirarClasse();
                             escolhido.setClasse(new Guerreiro(escolhido));
                             escolhido.getClasse().aplicarClasse();
                             break;
                         case 4:
+                            escolhido.getClasse().retirarClasse();
                             escolhido.setClasse(new Clerigo(escolhido));
                             escolhido.getClasse().aplicarClasse();
+
                             break;
                         case 0:
                             break;
                         default:
                             System.out.println("Opção inválida!");
                     }
+                    break;
                 case 3:
                     System.out.println("Qual a nova espécie:");
                     System.out.println("1 - Humano");
