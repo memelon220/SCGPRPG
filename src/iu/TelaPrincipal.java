@@ -143,6 +143,7 @@ public class TelaPrincipal {
                         System.out.println("2 - Gerenciar Campanhas Existentes");
                         System.out.println("3 - Criar Personagem");
                         System.out.println("4 - Gerenciar Personagens Existentes");
+                        System.out.println("5 - Iniciar Batalha [2 personagens]");
                         System.out.println("0 - Sair");
                         String opcao = sc.nextLine();
                         switch (opcao) {
@@ -208,6 +209,10 @@ public class TelaPrincipal {
                                         System.out.println("Opcao invalida!");
                                         break;
                                 }
+                                break;
+                            case "5":
+                                TelaBatalha telaBatalha = new TelaBatalha(fachada, (Narrador) usuario);
+                                telaBatalha.selecionarCombatentes();
                                 break;
                             case "0":
                                 login = false;

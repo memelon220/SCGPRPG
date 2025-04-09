@@ -112,10 +112,10 @@ public class TelaGerenciamentoConvites {
         try {
             if (aceitar) {
                 fachada.aceitarConvite(jogador.getID(), conviteId);
-                System.out.println("✅ Convite aceito! Personagem adicionado à campanha.");
+                System.out.println("Convite aceito! Personagem adicionado à campanha.");
             } else {
                 fachada.recusarConvite(jogador.getID(), conviteId);
-                System.out.println("❌ Convite recusado.");
+                System.out.println("Convite recusado.");
             }
         } catch (CampanhaNaoExisteException e) {
             System.err.println("Campanha não existe mais!");

@@ -329,42 +329,7 @@ public class SCGPRPG {
         campanha.getConvites().add(novoConvite);
         jogador.receberConvite(novoConvite);
     }
-/*
-    public void responderConvite(String jogadorId, String conviteId, boolean aceitar)
-            throws ConviteNaoExisteException, CampanhaNaoExisteException, CampanhaLotadaException, JogadorNaoExisteException {
 
-        Convite convite = buscarConvitePorId(conviteId, buscarJogador(jogadorId));
-
-        if (!convite.getJogador().getID().equals(jogadorId)) {
-            throw new ConviteNaoExisteException();
-        }
-
-        System.out.println("Convite: " + convite);
-        System.out.println("Campanha no convite: " + (convite != null ? convite.getCampanha() : "convite é null"));
-        if (convite != null && convite.getCampanha() != null) {
-            System.out.println("ID Campanha: " + convite.getCampanha().getID());
-            System.out.println("Jogadores na campanha: " + convite.getCampanha().getJogadores().size());
-        }
-
-        if (aceitar) {
-            if (convite.getCampanha().getJogadores().size() >=
-                    convite.getCampanha().getlimiteJogadores()) {
-                throw new ConviteNaoExisteException();
-            }
-            convite.setAceito(true);
-            convite.getCampanha().getJogadores().add(convite.getJogador());
-            Campanha campanha = buscarConvite(conviteId, jogadorId).getCampanha();
-            Campanha campanha_aux = buscarConvite(conviteId, jogadorId).getCampanha();
-            campanha_aux.adicionarJogador(convite.getJogador());
-            campanha_aux.adicionarPersonagem(convite.getPersonagem());
-            Narrador narrador = buscarConvite(conviteId, jogadorId).getCampanha().getNarrador();
-            narrador.atualizarCampanhaNarrador(campanha, campanha_aux);
-            atualizarCampanha(campanha, campanha_aux);
-            } else {
-            convite.setRecusado(true);
-        }
-    }
-*/
     public void aceitarConvite(String jogadorId, String conviteId)
             throws JogadorNaoExisteException, ConviteNaoExisteException,
             CampanhaNaoExisteException, CampanhaLotadaException,
