@@ -3,6 +3,7 @@ package servico.entidade;
 public abstract class ClassePersonagem {
     private String nomeClasse;
     private Personagem dono;
+    private int bonus;
 
     protected final Dado d20 = new Dado(20);
     protected final Dado d12 = new Dado(12);
@@ -28,5 +29,7 @@ public abstract class ClassePersonagem {
         this.nomeClasse = nomeClasse;
     }
 
+    public int getBonus() { return bonus; }
 
 }
+

@@ -1,16 +1,18 @@
 package servico.entidade;
 
 public class Mago extends ClassePersonagem {
-private Personagem dono;
+    private Personagem dono;
+    private int bonus;
+
 
     public Mago(Personagem dono) {
         super("Mago");
         this.dono = dono;
+        bonus = dono.calcularModificador(dono.getSabedoria());
     }
 
     @Override
     public void aplicarClasse() {
-        this.dono = dono;
         dono.setClasse(new Mago(dono));
 
         dono.setInteligencia(dono.getInteligencia() + 2);
@@ -21,7 +23,7 @@ private Personagem dono;
     }
 
     @Override
-    public void retirarClasse(){
+    public void retirarClasse() {
         dono.setInteligencia(dono.getInteligencia() - 2);
         dono.setSabedoria(dono.getSabedoria() - 2);
 
@@ -33,21 +35,29 @@ private Personagem dono;
 
     @Override
     public void Atacar(Personagem alvo) {
-        int acerto = d20.rolarDado(1) + dono.calcularModificador(dono.getForca());
-        int dano = d8.rolarDado(1) + dono.calcularModificador(dono.getForca());
-
-        if(acerto >= alvo.getClasseResistencia()) {
-            alvo.setVidaAtual(alvo.getVidaAtual() - dano);
-        }
+        int dano = d8.rolarDado(1) + bonus;
+        alvo.setVidaAtual(alvo.getVidaAtual() - dano);
     }
 
     @Override
     public void habilidadeEspecial(Personagem alvo) {
-        if(dono.getManaAtual() >= 5) {
-            int dano = d10.rolarDado(2);
-
+        int dano;
+        if (dono.getManaAtual() >= 5) {
+            dano = d10.rolarDado(2) + bonus;
             alvo.setVidaAtual(alvo.getVidaAtual() - dano);
             dono.setManaAtual(dono.getManaAtual() - 5);
+        } else {
+            dano = 1 + bonus;
         }
+        alvo.setVidaAtual(alvo.getVidaAtual() - dano);
     }
+
+    public int getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(int bonus) {
+        this.bonus = bonus;
+    }
+
 }

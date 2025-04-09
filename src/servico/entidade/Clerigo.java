@@ -2,10 +2,12 @@ package servico.entidade;
 
 public class Clerigo extends ClassePersonagem {
     private Personagem dono;
+    private int bonus;
 
     public Clerigo(Personagem dono) {
         super("Clérigo");
         this.dono = dono;
+        bonus = dono.calcularModificador(dono.getCarisma());
     }
 
     @Override
@@ -22,7 +24,7 @@ public class Clerigo extends ClassePersonagem {
     }
 
     @Override
-    public void retirarClasse(){
+    public void retirarClasse() {
         dono.setManaMax(dono.getManaMax() - 10);
         dono.setManaAtual(dono.getManaAtual() - 10);
         dono.setVidaMax(dono.getVidaMax() - 10);
@@ -37,22 +39,27 @@ public class Clerigo extends ClassePersonagem {
 
     @Override
     public void Atacar(Personagem alvo) {
-        int acerto = d20.rolarDado(1) + dono.calcularModificador(dono.getForca());
-
-        if(acerto >= alvo.getClasseResistencia()) {
-            int dano = d6.rolarDado(1) + dono.calcularModificador(dono.getCarisma());
-            alvo.setVidaAtual(alvo.getVidaAtual() - dano);
-        }
+        int dano = d6.rolarDado(1) + bonus;
+        alvo.setVidaAtual(alvo.getVidaAtual() - dano);
     }
 
     @Override
     public void habilidadeEspecial(Personagem alvo) {
-
-        if(dono.getManaAtual() >= 5) {
-            int cura = d8.rolarDado(2) + dono.calcularModificador(dono.getSabedoria());
-            alvo.setVidaAtual(Math.min(alvo.getVidaAtual() + cura, alvo.getVidaMax()));
+        int cura;
+        if (dono.getManaAtual() >= 5) {
+            cura = d8.rolarDado(2) + bonus;
             dono.setManaAtual(dono.getManaAtual() - 5);
+        } else {
+            cura = 1;
         }
+        alvo.setVidaAtual(Math.min(alvo.getVidaAtual() + cura, alvo.getVidaMax()));
     }
 
+    public int getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(int bonus) {
+        this.bonus = bonus;
+    }
 }

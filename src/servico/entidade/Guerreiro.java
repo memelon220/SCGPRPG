@@ -1,18 +1,18 @@
 package servico.entidade;
 
 public class Guerreiro extends ClassePersonagem {
-
     private Personagem dono;
+    private int bonus;
 
     public Guerreiro(Personagem dono) {
         super("Guerreiro");
         this.dono = dono;
+        bonus = dono.calcularModificador(dono.getForca());
     }
 
     @Override
     public void aplicarClasse() {
         dono.setClasse(new Guerreiro(dono));
-
         dono.setForca(dono.getForca() + 2);
         dono.setConstituicao(dono.getConstituicao() + 2);
 
@@ -21,7 +21,7 @@ public class Guerreiro extends ClassePersonagem {
     }
 
     @Override
-    public void retirarClasse(){
+    public void retirarClasse() {
         dono.setForca(dono.getForca() - 2);
         dono.setConstituicao(dono.getConstituicao() - 2);
 
@@ -33,31 +33,24 @@ public class Guerreiro extends ClassePersonagem {
 
     @Override
     public void Atacar(Personagem alvo) {
-
-        int acerto = d20.rolarDado(1) + dono.calcularModificador(dono.getForca());
-
-        if (acerto >= alvo.getClasseResistencia()) {
-            int dano = d8.rolarDado(1) + dono.calcularModificador(dono.getForca());
-            alvo.setVidaAtual(alvo.getVidaAtual() - dano);
-        }
+        int dano = d8.rolarDado(1) + bonus;
+        alvo.setVidaAtual(alvo.getVidaAtual() - dano);
     }
 
     public void habilidadeEspecial(Personagem alvo) {
+        int dano = d12.rolarDado(1) + bonus;
+        alvo.setVidaAtual(alvo.getVidaAtual() - dano);
+        dono.setVidaAtual(Math.min(
+                dono.getVidaAtual() + (dano / 2),
+                dono.getVidaMax()
+        ));
+    }
 
-        int acerto = d20.rolarDado(1) + dono.calcularModificador(dono.getForca());
+    public int getBonus() {
+        return bonus;
+    }
 
-        if (acerto >= alvo.getClasseResistencia()) {
-            int dano = d12.rolarDado(1) + dono.calcularModificador(dono.getForca());
-
-            //Remove da vida do alvo o dano rolado
-            alvo.setVidaAtual(alvo.getVidaAtual() - dano);
-
-            //Adiciona metade do dano aplicado no alvo como vida no dono da classe se a soma for maior que a vida máxima,
-            //a vida vai pro máximo sem ultrapassar o limite
-            dono.setVidaAtual(Math.min(
-                    dono.getVidaAtual() + (dano/2),
-                    dono.getVidaMax()
-            ));
-        }
+    public void setBonus(int bonus) {
+        this.bonus = bonus;
     }
 }
