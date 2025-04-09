@@ -80,6 +80,7 @@ public class TelaSolicitacaoCampanha {
 
         try{
             fachada.solicitarEntradaEmCampanha(jogador.getID(), pId, cId);
+            fachada.buscarCampanha(cId).getNarrador().adicionarNotificacao("Nova solicitação...");
             System.out.println("Solicitação enviada com sucesso!");
 
         } catch (CampanhaLotadaException e) {

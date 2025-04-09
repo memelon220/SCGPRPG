@@ -34,30 +34,28 @@ public class TelaGerenciamentoConvites {
         }
 
         try {
-            System.out.println("\n>>> CONVITES RECEBIDOS <<<");
+            System.out.println(">>> CONVITES RECEBIDOS <<<");
 
             // Agrupa convites por status
-            System.out.println("\n--- PENDENTES ---");
+            System.out.println("--- PENDENTES ---");
             convites.stream()
                     .filter(c -> !c.isAceito() && !c.isRecusado())
                     .forEach(this::imprimirConvite);
 
-            System.out.println("\n--- ACEITOS ---");
+            System.out.println("--- ACEITOS ---");
             convites.stream()
                     .filter(Convite::isAceito)
                     .forEach(this::imprimirConvite);
 
-            System.out.println("\n--- RECUSADOS ---");
+            System.out.println("--- RECUSADOS ---");
             convites.stream()
                     .filter(Convite::isRecusado)
                     .forEach(this::imprimirConvite);
 
-            // Opções apenas para convites pendentes
             if (convites.stream().anyMatch(c -> !c.isAceito() && !c.isRecusado())) {
-                System.out.println("\n1 - Responder convite pendente");
+                System.out.println("1 - Responder convite pendente");
                 System.out.println("2 - Ver detalhes de um convite");
                 System.out.println("0 - Voltar");
-                System.out.print("Opção: ");
                 String opcao = sc.nextLine();
 
                 switch(opcao) {
@@ -163,7 +161,7 @@ public class TelaGerenciamentoConvites {
                 return;
             }
 
-            System.out.println("\n=== DETALHES DO CONVITE ===");
+            System.out.println(">>>> DETALHES DO CONVITE <<<<");
             System.out.println("Campanha: " + convite.getCampanha().getNome());
             System.out.println("Narrador: " + convite.getCampanha().getNarrador().getNome());
             System.out.println("Personagem: " + convite.getPersonagem().getNome());

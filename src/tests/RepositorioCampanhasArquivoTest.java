@@ -41,9 +41,9 @@ class RepositorioCampanhasArquivoTest {
     @Test
     void testAtualizar() {
         repositorio.adicionar(campanhaTeste);
-        Campanha novaCampanha = new Campanha(new Narrador("Pedro", 25, "123"), "Aventura 2", "Uma aventura aí pt 2", "ABERTA", 4);
+        campanhaTeste.setNome("Aventura 2");
         repositorio.atualizar(campanhaTeste);
-        Campanha recuperada = repositorio.buscar(novaCampanha.getID());
+        Campanha recuperada = repositorio.buscar(campanhaTeste.getID());
         assertEquals("Aventura 2", recuperada.getNome());
     }
 

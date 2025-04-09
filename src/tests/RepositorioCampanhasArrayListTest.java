@@ -25,9 +25,9 @@ class RepositorioCampanhasArrayListTest {
     @Test
     void testAdicionarCampanha(){
         repTeste.adicionar(cTeste_1);
-        Campanha campanhaRecuperada = repTeste.buscar("123456");
+        Campanha campanhaRecuperada = repTeste.buscar(cTeste_1.getID());
         assertNotNull(campanhaRecuperada, "Campanha não foi adicionada");
-        assertEquals("123456", campanhaRecuperada.getID());
+        assertEquals(cTeste_1.getID(), campanhaRecuperada.getID());
         assertEquals("Aventura 1", campanhaRecuperada.getNome());
     }
 
@@ -45,26 +45,26 @@ class RepositorioCampanhasArrayListTest {
     void testBuscarCampanha() {
         repTeste.adicionar(cTeste_1);
         repTeste.adicionar(cTeste_2);
-        Campanha campanhaRecuperada = repTeste.buscar("654321");
+        Campanha campanhaRecuperada = repTeste.buscar(cTeste_1.getID());
         assertNotNull(campanhaRecuperada, "Campanha não foi adicionada");
-        assertEquals("654321", campanhaRecuperada.getID());
-        assertEquals("Aventura 2", campanhaRecuperada.getNome());
+        assertEquals(campanhaRecuperada.getID(), cTeste_1.getID());
+        assertEquals("Aventura 1", campanhaRecuperada.getNome());
     }
 
     @Test
     void testAtualizarCampanha() {
         repTeste.adicionar(cTeste_1);
         repTeste.atualizar(cTeste_1);
-        Campanha campanhaRecuperada = repTeste.buscar("654321");
+        Campanha campanhaRecuperada = repTeste.buscar(cTeste_1.getID());
         assertNotNull(campanhaRecuperada, "Campanha não foi adicionada");
-        assertEquals("654321", campanhaRecuperada.getID());
-        assertEquals("Aventura 2", campanhaRecuperada.getNome());
+        assertEquals(cTeste_1.getID(), campanhaRecuperada.getID());
+        assertEquals("Aventura 1", campanhaRecuperada.getNome());
     }
 
     @Test
     void testExisteCampanha(){
         repTeste.adicionar(cTeste_1);
-        boolean c1 = repTeste.existe("123456");
+        boolean c1 = repTeste.existe(cTeste_1.getID());
         boolean c2 = repTeste.existe("654321");
         assertTrue(c1);
         assertFalse(c2);

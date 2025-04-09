@@ -22,9 +22,9 @@ class RepositorioJogadoresArrayListTest {
     @Test
     void testAdicionarJogador() {
         repTeste.adicionar(jTeste_1);
-        Jogador jogadorRecuperado = repTeste.buscar("123456");
+        Jogador jogadorRecuperado = repTeste.buscar(jTeste_1.getID());
         assertNotNull(jogadorRecuperado, "Jogador não foi adicionado");
-        assertEquals("123456", jogadorRecuperado.getID());
+        assertEquals(jTeste_1.getID(), jogadorRecuperado.getID());
         assertEquals("Raphael", jogadorRecuperado.getNome());
     }
 
@@ -42,27 +42,28 @@ class RepositorioJogadoresArrayListTest {
     void testBuscarJogador() {
         repTeste.adicionar(jTeste_1);
         repTeste.adicionar(jTeste_2);
-        Jogador jogadorRecuperado = repTeste.buscar("654321");
+        Jogador jogadorRecuperado = repTeste.buscar(jTeste_1.getID());
         assertNotNull(jogadorRecuperado, "Jogador não foi adicionado");
-        assertEquals("654321", jogadorRecuperado.getID());
-        assertEquals("Luigi", jogadorRecuperado.getNome());
+        assertEquals(jTeste_1.getID(), jogadorRecuperado.getID());
+        assertEquals("Raphael", jogadorRecuperado.getNome());
     }
 
     @Test
     void testAtualizarJogador() {
         repTeste.adicionar(jTeste_1);
+        jTeste_1.setNome("Atualizado");
         repTeste.atualizar(jTeste_1);
-        Jogador jogadorRecuperado = repTeste.buscar("654321");
+        Jogador jogadorRecuperado = repTeste.buscar(jTeste_1.getID());
         assertNotNull(jogadorRecuperado, "Jogador não foi adicionado");
-        assertEquals("654321", jogadorRecuperado.getID());
-        assertEquals("Luigi", jogadorRecuperado.getNome());
+        assertEquals(jTeste_1.getID(), jogadorRecuperado.getID());
+        assertEquals("Atualizado", jogadorRecuperado.getNome());
     }
 
     @Test
     void testExisteJogador(){
         repTeste.adicionar(jTeste_1);
-        boolean j1 = repTeste.existe("123456");
-        boolean j2 = repTeste.existe("654321");
+        boolean j1 = repTeste.existe(jTeste_1.getID());
+        boolean j2 = repTeste.existe(jTeste_2.getID());
         assertTrue(j1);
         assertFalse(j2);
     }

@@ -52,11 +52,12 @@ class RepositorioPersonagensArrayListTest {
     @Test
     void testAtualizarPersonagem(){
         repTeste.adicionar(pTeste_1);
+        pTeste_1.setNome("TESTANDO 123");
         repTeste.atualizar(pTeste_1, pTeste_2.getID());
-        Personagem personagemRecuperado = repTeste.buscar(pTeste_2.getID());
+        Personagem personagemRecuperado = repTeste.buscar(pTeste_1.getID());
         assertNotNull(personagemRecuperado, "Personagem não foi adicionado");
-        assertEquals(pTeste_2.getID(), personagemRecuperado.getID());
-        assertEquals("Zelda", personagemRecuperado.getNome());
+        assertEquals(pTeste_1.getID(), personagemRecuperado.getID());
+        assertEquals("TESTANDO 123", personagemRecuperado.getNome());
     }
 
     @Test

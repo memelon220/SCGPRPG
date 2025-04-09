@@ -52,7 +52,7 @@ public class TelaGerenciamentoCampanha {
 
     public void listarPersonagens(Campanha campanha){
         if(existemPersonagens(campanha.getPersonagens())){
-            System.out.println("\n>>>> Personagens <<<<");
+            System.out.println("\nPersonagens");
             for(Personagem p : campanha.getPersonagens()){
                 System.out.println("---------------------");
                 System.out.println("Nome:" + p.getNome());
@@ -68,28 +68,9 @@ public class TelaGerenciamentoCampanha {
         }
     }
 
-    public void listarJogadores(Campanha campanha){
-        if(existemJogadores(campanha.getJogadores())){
-            System.out.println(">>>> Jogadores <<<<");
-            for(Jogador j : campanha.getJogadores()){
-                System.out.println("Nome: " + j.getNome() + ", Idade: " + j.getIdade() + ", ID: " + j.getID());
-                System.out.print("Personagens:");
-                for(Personagem p : campanha.getPersonagens()){
-                    System.out.println("[ ");
-                    if(p.getJogador().equals(j)){
-                        System.out.print("Nome: "+ p.getNome() + ", ID: " + p.getID());
-                    }
-                    System.out.println(" ] ");
-                }
-            }
-        } else {
-            System.out.println("Nenhum jogador foi adicionado...");
-            return;
-        }
-    }
-
     public void listarCampanhas(){
         if(existemCampanhas(usuario.getListaCampanhas())){
+            System.out.println("\n>>>> Campanhas <<<<");
             for(Campanha c : usuario.getListaCampanhas()){
                 System.out.println("ID: " + c.getID());
                 System.out.println("Nome: " + c.getNome() + ", Status: " + c.getStatus());
@@ -100,7 +81,6 @@ public class TelaGerenciamentoCampanha {
                 System.out.println("Data de início: " + c.getDataInicio() + ", Data de fim: " + c.getDataFim());
                 }
                 listarPersonagens(c);
-                listarJogadores(c);
             }
         } else {
             System.out.println("Crie uma campanha antes...");

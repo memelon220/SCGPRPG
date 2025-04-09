@@ -60,7 +60,9 @@ public class TelaConvitesCampanha {
             return;
         }
         for(Jogador j : jogadores) {
-            System.out.printf("%s | ID: %s\n", j.getNome(), j.getID());
+            if(!j.getID().equals(narrador.getID())) {
+                System.out.printf("%s | ID: %s\n", j.getNome(), j.getID());
+            }
         }
         System.out.print("Digite o ID do Jogador que você deseja convidar (digite 0 para cancelar): ");
         Jogador achado = null;
@@ -81,12 +83,18 @@ public class TelaConvitesCampanha {
                 System.out.println("Este jogador não possui personagens cadastrados.");
                 return;
             }
-            personagensJogador.forEach(p ->
-                    System.out.printf("%s (Nível %d) | ID: %s\n",
-                            p.getNome(),
-                            p.getNivel(),
-                            p.getID())
-            );
+            for (Personagem p : personagensJogador) {
+                boolean personagemEmCampanha = false; // Flag para verificar se o personagem está em alguma campanha
+                for (Campanha c : fachada.listarCampanhasAbertas()) {
+                    if (c.getPersonagens().contains(p)) {
+                        personagemEmCampanha = true;
+                        break;
+                    }
+                }
+                if (!personagemEmCampanha) {
+                    System.out.printf("%s (Nível %d) | ID: %s\n", p.getNome(), p.getNivel(), p.getID());
+                }
+            }
             System.out.print("Digite o ID do Personagem que você deseja convidar (digite 0 para cancelar): ");
             String pId = sc.nextLine();
             if (pId.equals("0")) {

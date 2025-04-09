@@ -62,7 +62,7 @@ public class TelaPrincipal {
                             System.out.println("--------BEM-VINDO " + this.usuario.getNome().toUpperCase() + "---------");
                             login = true;
                         } else {
-                            System.out.println("ID ou senha incorretos. Por favor, verifique as informacoes e  tente novamente");
+                            System.out.println("Por favor, verifique as informacoes e  tente novamente");
                         }
                         break;
                     default:
@@ -101,7 +101,6 @@ public class TelaPrincipal {
                                 System.out.println("2 - Remover Personagem");
                                 System.out.println("0 - Voltar");
                                 opcao = sc.nextLine();
-                                sc.nextLine();
                                 switch (opcao) {
                                     case "1":
                                     telaGerenciamentoPersonagem.atualizarPersonagem();
@@ -132,8 +131,8 @@ public class TelaPrincipal {
                                 break;
                         }
                     } else {
-                        if(this.usuario.getNotificacoes().size() != 0) {
-                            System.out.println("--------VOCE TEM " + this.usuario.getNotificacoes().size() +
+                        if(usuario.getNotificacoes().size() != 0) {
+                            System.out.println("--------VOCE TEM " + usuario.getNotificacoes().size() +
                                     " NOTIFICACOES NAO LIDAS--------");
                             telaNotificacoes =  new TelaNotificacoes(usuario);
                             telaNotificacoes.listarNotificacoes();

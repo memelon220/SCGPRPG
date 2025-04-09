@@ -121,6 +121,10 @@ public class Jogador implements Serializable{
         return new ArrayList<>(this.notificacoes);
     }
 
+    public void setNotificacoes(ArrayList<String> notificacoes) {
+        this.notificacoes = notificacoes;
+    }
+
     public ArrayList<Personagem> setPersonagens(ArrayList personagens) {
         return this.personagens = personagens;
     }

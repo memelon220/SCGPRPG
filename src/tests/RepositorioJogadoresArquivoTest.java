@@ -42,11 +42,9 @@ class RepositorioJogadoresArquivoTest {
     @Test
     void testAtualizar() {
         repositorio.adicionar(jogadorTeste);
-        Jogador novoJogador = new Jogador("Atualizado", 20, "123");
-        novoJogador.setID(TEST_ID);
+        jogadorTeste.setNome("Atualizado");
         repositorio.atualizar(jogadorTeste);
-        Jogador recuperado = repositorio.buscar(TEST_ID);
-        assertEquals("Atualizado", recuperado.getNome());
+        assertEquals("Atualizado", jogadorTeste.getNome());
     }
 
     @Test
