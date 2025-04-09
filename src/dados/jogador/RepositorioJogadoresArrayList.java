@@ -25,10 +25,10 @@ public class RepositorioJogadoresArrayList implements IRepositorioJogadores {
     }
 
     @Override
-    public void atualizar(Jogador jogador1, Jogador jogador2) {
-        int i = arrayJogadores.indexOf(jogador1);
+    public void atualizar(Jogador jogador) {
+        int i = arrayJogadores.indexOf(buscar(jogador.getID()));
         if(i != -1){
-            arrayJogadores.set(i, jogador2);
+            arrayJogadores.set(i, jogador);
         }
     }
 

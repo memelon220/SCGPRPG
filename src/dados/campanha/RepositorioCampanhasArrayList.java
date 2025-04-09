@@ -25,10 +25,10 @@ public class RepositorioCampanhasArrayList implements IRepositorioCampanhas {
     }
 
     @Override
-    public void atualizar(Campanha Campanha1, Campanha Campanha2) {
-        int i = arrayCampanhas.indexOf(Campanha1);
-        if(i != -1){
-            arrayCampanhas.set(i, Campanha2);
+    public void atualizar(Campanha campanha) {
+        int index = arrayCampanhas.indexOf(buscar(campanha.getID()));
+        if (index != -1) {
+            arrayCampanhas.set(index, campanha);
         }
     }
 

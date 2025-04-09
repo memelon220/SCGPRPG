@@ -51,7 +51,7 @@ class RepositorioJogadoresArrayListTest {
     @Test
     void testAtualizarJogador() {
         repTeste.adicionar(jTeste_1);
-        repTeste.atualizar(jTeste_1, jTeste_2);
+        repTeste.atualizar(jTeste_1);
         Jogador jogadorRecuperado = repTeste.buscar("654321");
         assertNotNull(jogadorRecuperado, "Jogador não foi adicionado");
         assertEquals("654321", jogadorRecuperado.getID());

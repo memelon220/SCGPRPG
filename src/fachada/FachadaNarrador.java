@@ -22,8 +22,8 @@ public class FachadaNarrador extends FachadaJogador {
         fachadaPrincipal.removerCampanha(c_Id);
     }
 
-    public void atualizarCampanha(Campanha campanha1, Campanha campanha2) throws CampanhaNaoExisteException{
-        fachadaPrincipal.atualizarCampanha(campanha1, campanha2);
+    public void atualizarCampanha(Campanha campanha) throws CampanhaNaoExisteException{
+        fachadaPrincipal.atualizarCampanha(campanha);
     }
 
 

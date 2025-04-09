@@ -54,8 +54,8 @@ public class SCGPRPG {
         servicoJogador.remover(j_ID);
     }
 
-    public void atualizarJogador(Jogador jogador1, Jogador jogador2) throws JogadorNaoExisteException{
-        servicoJogador.atualizar(jogador1, jogador2);
+    public void atualizarJogador(Jogador jogador1) throws JogadorNaoExisteException{
+        servicoJogador.atualizar(jogador1);
     }
 
     public Jogador buscarJogador(String j_id) throws JogadorNaoExisteException {
@@ -188,8 +188,8 @@ public class SCGPRPG {
         servicoCampanha.remover(campanha);
     }
 
-    public void atualizarCampanha(Campanha campanha1, Campanha campanha2) throws CampanhaNaoExisteException{
-        servicoCampanha.atualizar(campanha1, campanha2);
+    public void atualizarCampanha(Campanha campanha) throws CampanhaNaoExisteException{
+        servicoCampanha.atualizar(campanha);
     }
 
     public void solicitarEntradaEmCampanha(String jogadorID, String personagemID, String campanhaID)
@@ -224,6 +224,9 @@ public class SCGPRPG {
     public void processarSolicitacao(String cId, String pId, boolean aprovar)
             throws CampanhaNaoExisteException, PersonagemNaoExisteException, CampanhaNaoExisteException,
             CampanhaLotadaException {
+        if(servicoCampanha.buscar(cId) == null){
+            throw new CampanhaNaoExisteException();
+        }
         Campanha campanha = servicoCampanha.buscar(cId);
         Narrador narrador = campanha.getNarrador();
         Solicitacao solicitacao = campanha.getSolicitacoes().stream()
@@ -235,7 +238,7 @@ public class SCGPRPG {
         if (aprovacao){
             campanha.adicionarJogador(solicitacao.getJogador());
             campanha.adicionarPersonagem(solicitacao.getPersonagem());
-            atualizarCampanha(servicoCampanha.buscar(cId), campanha);
+            atualizarCampanha(campanha);
             narrador.atualizarCampanhaNarrador(servicoCampanha.buscar(cId), campanha);
         }
     }
@@ -263,7 +266,7 @@ public class SCGPRPG {
         Convite convite = campanha.getConvites().stream()
                 .filter(c -> c.getPersonagem().getID().equals(personagemId))
                 .findFirst()
-                .orElseThrow(() -> new ConviteNaoExisteException());
+                .orElseThrow(ConviteNaoExisteException::new);
         if (convite.isAceito() || convite.isRecusado()) {
             throw new ConviteNaoExisteException();
         }
@@ -290,7 +293,7 @@ public class SCGPRPG {
         return campanha.getConvites().stream()
                 .filter(c -> c.getPersonagem().getID().equals(personagemId))
                 .findFirst()
-                .orElseThrow(() -> new ConviteNaoExisteException());
+                .orElseThrow(ConviteNaoExisteException::new);
     }
 
     public void enviarConviteParaJogador(String narradorId, String campanhaId, String jogadorId, String personagemId)
@@ -326,7 +329,7 @@ public class SCGPRPG {
         campanha.getConvites().add(novoConvite);
         jogador.receberConvite(novoConvite);
     }
-
+/*
     public void responderConvite(String jogadorId, String conviteId, boolean aceitar)
             throws ConviteNaoExisteException, CampanhaNaoExisteException, CampanhaLotadaException, JogadorNaoExisteException {
 
@@ -360,6 +363,35 @@ public class SCGPRPG {
             } else {
             convite.setRecusado(true);
         }
+    }
+*/
+    public void aceitarConvite(String jogadorId, String conviteId)
+            throws JogadorNaoExisteException, ConviteNaoExisteException,
+            CampanhaNaoExisteException, CampanhaLotadaException,
+            PersonagemNaoElegivelException {
+
+        // 1. Atualiza status do convite no jogador
+        servicoJogador.processarConvite(jogadorId, conviteId, true);
+
+        // 2. Recupera dados atualizados
+        Jogador jogador = servicoJogador.buscar(jogadorId);
+        Convite convite = jogador.getConvitesRecebidos().stream()
+                .filter(c -> c.getId().equals(conviteId))
+                .findFirst()
+                .get(); // Já validado no processarConvite
+
+        // 3. Vincula à campanha
+        servicoCampanha.adicionarParticipantes(
+                convite.getCampanha().getID(),
+                jogador,
+                convite.getPersonagem()
+        );
+    }
+
+    public void recusarConvite(String jogadorId, String conviteId)
+            throws JogadorNaoExisteException, ConviteNaoExisteException {
+
+        servicoJogador.processarConvite(jogadorId, conviteId, false);
     }
 
     public Convite buscarConvitePorId(String conviteId, Jogador jogador) throws ConviteNaoExisteException {

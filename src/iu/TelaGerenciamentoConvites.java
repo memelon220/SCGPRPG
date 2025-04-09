@@ -5,7 +5,11 @@ import servico.entidade.Campanha;
 import servico.entidade.Jogador;
 import servico.entidade.Personagem;
 import servico.entidade.Convite;
+import servico.excecao.campanha.CampanhaLotadaException;
+import servico.excecao.campanha.CampanhaNaoExisteException;
 import servico.excecao.jogador.ConviteNaoExisteException;
+import servico.excecao.jogador.JogadorNaoExisteException;
+import servico.excecao.personagem.PersonagemNaoElegivelException;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -85,6 +89,40 @@ public class TelaGerenciamentoConvites {
                 status,
                 convite.getId());
     }
+/*
+    public void mostrarConvites(Jogador jogador) {
+        ArrayList<Convite> pendentes = jogador.getConvitesPendentes();
+
+        if (pendentes.isEmpty()) {
+            System.out.println("Nenhum convite pendente.");
+            return;
+        }
+
+        pendentes.forEach(convite ->
+                System.out.printf(
+                        "ID: %s | Campanha: %s | Personagem: %s\n",
+                        convite.getId(),
+                        convite.getCampanha().getNome(),
+                        convite.getPersonagem().getNome()
+                )
+        );
+    }
+*/
+    public void processarResposta(Jogador jogador, String conviteId, boolean aceitar) {
+        try {
+            if (aceitar) {
+                fachada.aceitarConvite(jogador.getID(), conviteId);
+                System.out.println("✅ Convite aceito! Personagem adicionado à campanha.");
+            } else {
+                fachada.recusarConvite(jogador.getID(), conviteId);
+                System.out.println("❌ Convite recusado.");
+            }
+        } catch (CampanhaNaoExisteException e) {
+            System.err.println("Campanha não existe mais!");
+        } catch (Exception e) {
+            System.err.println("Erro: " + e.getMessage());
+        }
+    }
 
     private void responderConvite() {
         try {
@@ -93,14 +131,23 @@ public class TelaGerenciamentoConvites {
 
             System.out.print("Aceitar convite? (S/N): ");
             boolean aceitar = sc.nextLine().equalsIgnoreCase("S");
+            if(aceitar) {
+                fachada.aceitarConvite(jogador.getID(), conviteId);
+                System.out.println("Convite aceito com sucesso! Você foi adicionado a campanha.");
+            }else{
+                fachada.recusarConvite(jogador.getID(), conviteId);
+                System.out.println("Convite recusado com sucesso!");
+            }
 
-            fachada.responderConvite(jogador.getID(), conviteId, aceitar);
-            System.out.println("Convite " + (aceitar ? "aceito" : "recusado") + " com sucesso!");
-
-        } catch (ConviteNaoExisteException e) {
+        } catch (ConviteNaoExisteException | PersonagemNaoElegivelException | CampanhaNaoExisteException |
+                 JogadorNaoExisteException e) {
             System.out.println(e.getMessage());
+            return;
+        } catch(CampanhaLotadaException e){
+           System.out.println(e.getMessage());
         } catch (Exception e) {
             System.err.println("Erro ao responder convite: " + e.getMessage());
+            return;
         }
     }
 

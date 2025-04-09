@@ -19,6 +19,9 @@ public class Convite {
         this.dataEnvio = LocalDateTime.now();
     }
 
+    public void marcarComoAceito() { this.aceito = true; }
+    public void marcarComoRecusado() { this.recusado = true; }
+    public boolean isPendente() { return !aceito && !recusado;}
     public boolean isAceito() { return aceito; }
     public boolean isRecusado() { return recusado; }
     public Jogador getJogador() { return jogador; }

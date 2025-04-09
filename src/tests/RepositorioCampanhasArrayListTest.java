@@ -54,7 +54,7 @@ class RepositorioCampanhasArrayListTest {
     @Test
     void testAtualizarCampanha() {
         repTeste.adicionar(cTeste_1);
-        repTeste.atualizar(cTeste_1, cTeste_2);
+        repTeste.atualizar(cTeste_1);
         Campanha campanhaRecuperada = repTeste.buscar("654321");
         assertNotNull(campanhaRecuperada, "Campanha não foi adicionada");
         assertEquals("654321", campanhaRecuperada.getID());

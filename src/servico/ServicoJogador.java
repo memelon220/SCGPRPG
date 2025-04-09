@@ -2,10 +2,12 @@ package servico;
 
 import dados.jogador.IRepositorioJogadores;
 import servico.entidade.Jogador;
+import servico.excecao.jogador.ConviteNaoExisteException;
 import servico.excecao.jogador.JogadorNaoExisteException;
 import servico.excecao.jogador.JogadorJaExisteException;
 import servico.entidade.Personagem;
 import java.util.ArrayList;
+import servico.entidade.Convite;
 
 public class ServicoJogador {
 
@@ -43,14 +45,34 @@ public class ServicoJogador {
         }
     }
 
-    public void atualizar(Jogador jogador1, Jogador jogador2) throws JogadorNaoExisteException {
-        Jogador jogador = repositorioJogadores.buscar(jogador1.getID());
-        if (jogador == null) {
+    public void atualizar(Jogador jogador) throws JogadorNaoExisteException {
+        if (!repositorioJogadores.existe(jogador.getID())) {
             throw new JogadorNaoExisteException();
-        } else {
-            repositorioJogadores.atualizar(jogador1, jogador2);
         }
+        repositorioJogadores.atualizar(jogador);
     }
+
+    public void processarConvite(String jogadorId, String conviteId, boolean aceitar)
+            throws JogadorNaoExisteException, ConviteNaoExisteException {
+
+        Jogador jogador = repositorioJogadores.buscar(jogadorId);
+        if(jogador == null){
+            throw new JogadorNaoExisteException();
+        }
+        Convite convite = jogador.getConvitesRecebidos().stream()
+                .filter(c -> c.getId().equals(conviteId))
+                .findFirst()
+                .orElseThrow(ConviteNaoExisteException::new);
+
+        if (aceitar) {
+            convite.marcarComoAceito();
+        } else {
+            convite.marcarComoRecusado();
+        }
+
+        repositorioJogadores.atualizar(jogador);
+    }
+
 
     public ArrayList<Jogador> listarJogadores() {
         return repositorioJogadores.getArrayJogadores();

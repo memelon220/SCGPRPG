@@ -8,6 +8,7 @@ import servico.excecao.campanha.CampanhaJaExisteException;
 import servico.excecao.campanha.CampanhaLotadaException;
 import servico.excecao.campanha.CampanhaNaoExisteException;
 import servico.excecao.jogador.JogadorNaoExisteException;
+import servico.excecao.personagem.PersonagemNaoElegivelException;
 import servico.excecao.personagem.PersonagemNaoExisteException;
 
 import java.util.ArrayList;
@@ -52,14 +53,34 @@ public class ServicoCampanha {
         return repositorioCampanhas.listarTodas();
     }
 
-    public void atualizar(Campanha campanha1, Campanha campanha2) throws CampanhaNaoExisteException{
-        Campanha campanha = repositorioCampanhas.buscar(campanha1.getID());
-        if(campanha == null){
+
+    public void atualizar(Campanha campanha) throws CampanhaNaoExisteException {
+        if (!repositorioCampanhas.existe(campanha.getID())) {
             throw new CampanhaNaoExisteException();
-        }else{
-            repositorioCampanhas.atualizar(campanha1, campanha2);
+        }
+        repositorioCampanhas.atualizar(campanha);
+    }
+
+    public void adicionarParticipantes(String campanhaId, Jogador jogador, Personagem personagem)
+            throws CampanhaNaoExisteException, CampanhaLotadaException,
+            PersonagemNaoElegivelException {
+
+        Campanha campanha = repositorioCampanhas.buscar(campanhaId);
+        if(campanha == null) {
+            throw new CampanhaNaoExisteException();
         }
 
+        if (!campanha.temVagas()) {
+            throw new CampanhaLotadaException(campanha.getlimiteJogadores());
+        }
+
+        if (campanha.getJogadores().contains(jogador)) {
+            throw new PersonagemNaoElegivelException("Jogador já está na campanha");
+        }
+
+        campanha.adicionarJogador(jogador);
+        campanha.adicionarPersonagem(personagem);
+        repositorioCampanhas.atualizar(campanha);
     }
 
     public void adicionarJogadorPersonagem(Campanha campanha, Personagem personagem, Jogador jogador)
@@ -79,5 +100,5 @@ public class ServicoCampanha {
             }
         }
     }
-
 }
+

@@ -56,10 +56,10 @@ public class RepositorioJogadoresArquivo implements IRepositorioJogadores {
     }
 
     @Override
-    public void atualizar(Jogador jogador1, Jogador jogador2) {
-        int index = arquivoJogadores.indexOf(jogador1);
+    public void atualizar(Jogador jogador) {
+        int index = arquivoJogadores.indexOf(buscar(jogador.getID()));
         if (index != -1) {
-            arquivoJogadores.set(index, jogador2);
+            arquivoJogadores.set(index, jogador);
             salvarJogador();
         }
     }

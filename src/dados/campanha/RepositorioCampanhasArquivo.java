@@ -57,10 +57,10 @@ public class RepositorioCampanhasArquivo implements IRepositorioCampanhas {
     }
 
     @Override
-    public void atualizar(Campanha campanha1, Campanha campanha2) {
-        int index = arquivoCampanhas.indexOf(campanha1);
+    public void atualizar(Campanha campanha) {
+        int index = arquivoCampanhas.indexOf(buscar(campanha.getID()));
         if (index != -1) {
-            arquivoCampanhas.set(index, campanha2);
+            arquivoCampanhas.set(index, campanha);
             salvarCampanha();
         }
     }

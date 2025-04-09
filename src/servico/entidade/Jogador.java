@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.Random;
 import java.util.ArrayList;
 import java.io.Serializable;
+import java.util.stream.Collectors;
 
 public class Jogador implements Serializable{
 
