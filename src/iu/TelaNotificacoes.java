@@ -14,19 +14,12 @@ public class TelaNotificacoes {
 
     public TelaNotificacoes(Narrador usuario) { this.usuario = usuario; }
 
-    public void listarNotificacoes(){
-        ArrayList<String> notif = usuario.getNotificacoes();
-        for(String i : notif){
-            System.out.println("-- " +i);
+    public void listarNotificacoes() {
+        ArrayList<String> notificacoes = usuario.getNotificacoes();
+        for (String notif : notificacoes) {
+            System.out.println("-- " + notif);
         }
-        removerNotificacoes();
-    }
-
-    public void removerNotificacoes(){
-        ArrayList<String> notif = usuario.getNotificacoes();
-        for(String i : notif){
-            notif.remove(i);
-        }
+        notificacoes.clear();
     }
 
 }

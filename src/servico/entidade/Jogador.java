@@ -16,8 +16,8 @@ public class Jogador implements Serializable{
     protected int idade;
     protected String ID;
     protected String senha;
-    protected ArrayList<String> notificacoes = new ArrayList<>();
-    private ArrayList<Convite> convitesRecebidos = new ArrayList<>();
+    protected ArrayList<String> notificacoes;
+    private ArrayList<Convite> convitesRecebidos;
 
     public Jogador(String nome, int idade, String senha){
         this.personagens = new ArrayList<Personagem>() ;
@@ -27,8 +27,8 @@ public class Jogador implements Serializable{
         int numero = random.nextInt(1000000);
         this.ID = String.format("J%06d", numero) + "-" + contadorID++;
         this.senha = senha;
-        this.notificacoes = new ArrayList<>();
-        this.convitesRecebidos = new ArrayList<>();
+        this.notificacoes = new ArrayList<String>();
+        this.convitesRecebidos = new ArrayList<Convite>();
     }
 
     public void adicionarPersonagem(Personagem personagem){
@@ -50,8 +50,18 @@ public class Jogador implements Serializable{
             }
     }
 
-    public ArrayList<Convite> getConvitesRecebidos() {
-        return new ArrayList<>(convitesRecebidos);
+    public void aceitarConvite(Convite convite) {
+        convite.marcarComoAceito();
+    }
+
+    public void recusarConvite(Convite convite) {
+        convite.marcarComoRecusado();
+    }
+
+    public ArrayList<Convite> getConvitesPendentes() {
+        return (ArrayList<Convite>) convites.stream()
+                .filter(Convite::isPendente)
+                .collect(Collectors.toList());
     }
 
     public void receberConvite(Convite convite) {
@@ -61,7 +71,6 @@ public class Jogador implements Serializable{
     public void removerConvite(Convite convite) {
         this.convitesRecebidos.remove(convite);
     }
-
 
     public String getID() {
         return ID;
@@ -95,8 +104,8 @@ public class Jogador implements Serializable{
         this.senha = senha;
     }
 
-    public ArrayList<Convite> getConvites(){
-        return convites;
+    public ArrayList<Convite> getConvitesRecebidos() {
+        return new ArrayList<Convite>(convitesRecebidos);
     }
 
     public void setConvites(ArrayList<Convite> convites){

@@ -201,4 +201,20 @@ public class TelaGerenciamentoPersonagem {
         }
     }
 
+    public void campanhasAtuais(ArrayList<Campanha> campanhas){
+        for(Campanha c : campanhas){
+            for(Jogador j : c.getJogadores()){
+                if(j.getID().equals(usuario.getID())){
+                    for(Personagem p : c.getPersonagens()){
+                        if(c.getPersonagens().contains(p)){
+                            System.out.println("Nome do personagem: " + p.getNome() +", Campanha: " + c.getNome());
+                        }
+                    }
+                    return;
+                }
+            }
+        }
+        System.out.println("Nenhum personagem está em uma campanha");
+    }
+
 }

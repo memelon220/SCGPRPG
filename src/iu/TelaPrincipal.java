@@ -85,7 +85,6 @@ public class TelaPrincipal {
                         System.out.println("3 - Solicitar Entrada em Campanha");
                         System.out.println("4 - Checar convites");
                         System.out.println("5 - Campanhas Que Estou Participando");
-                        System.out.println("6 - Notificacoes");
                         System.out.println("0 - Sair");
                         String opcao = sc.nextLine();
                         switch (opcao) {
@@ -122,6 +121,8 @@ public class TelaPrincipal {
                                 new TelaGerenciamentoConvites(fachada, usuario).gerenciar();
                                 break;
                             case "5":
+                                telaGerenciamentoPersonagem = new TelaGerenciamentoPersonagem(fachada, usuario);
+                                telaGerenciamentoPersonagem.campanhasAtuais(fachada.listarCampanhasAbertas());
                                 break;
                             case "0":
                                 login = false;

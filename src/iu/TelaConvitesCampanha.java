@@ -59,12 +59,19 @@ public class TelaConvitesCampanha {
             System.out.println("Nenhum jogador cadastrado no sistema.");
             return;
         }
-        jogadores.forEach(j ->
-                System.out.printf("%s | ID: %s\n", j.getNome(), j.getID())
-        );
+        for(Jogador j : jogadores) {
+            System.out.printf("%s | ID: %s\n", j.getNome(), j.getID());
+        }
         System.out.print("Digite o ID do Jogador que você deseja convidar (digite 0 para cancelar): ");
+        Jogador achado = null;
         String jId = sc.nextLine();
-        if (jId.equals("0")) {
+        for(Jogador j : jogadores) {
+            if (j.getID().equals(jId)) {
+                achado = j;
+                break;
+            }
+        }
+        if (jId.equals("0") || achado == null) {
             return;
         }
         try {
@@ -87,6 +94,7 @@ public class TelaConvitesCampanha {
             }
             fachada.enviarConviteParaJogador(narrador.getID(), cId, jId, pId);
             System.out.println("Convite enviado com sucesso!");
+            achado.adicionarNotificacao("Novo convite...");
         } catch (CampanhaLotadaException e) {
             System.out.printf("Campanha lotada! (Limite: %d jogadores)\n", e.getLimite());
         } catch (JogadorNaoExisteException e) {

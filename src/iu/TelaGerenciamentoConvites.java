@@ -109,7 +109,7 @@ public class TelaGerenciamentoConvites {
             System.out.print("\nID do convite: ");
             String conviteId = sc.nextLine();
 
-            Convite convite = fachada.buscarConvitePorId(conviteId);
+            Convite convite = fachada.buscarConvitePorId(conviteId, jogador);
 
             if (!convite.getJogador().getID().equals(jogador.getID())) {
                 System.out.println("Este convite não é seu!");

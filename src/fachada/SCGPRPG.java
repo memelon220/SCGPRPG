@@ -322,23 +322,25 @@ public class SCGPRPG {
             throw new CampanhaLotadaException(campanha.getlimiteJogadores());
         }
 
-        Convite novoConvite = new Convite(
-                UUID.randomUUID().toString(),
-                campanha,
-                jogador,
-                personagem
-        );
-
+        Convite novoConvite = new Convite(UUID.randomUUID().toString(), campanha, jogador, personagem);
+        campanha.getConvites().add(novoConvite);
         jogador.receberConvite(novoConvite);
     }
 
     public void responderConvite(String jogadorId, String conviteId, boolean aceitar)
-            throws ConviteNaoExisteException, CampanhaNaoExisteException, CampanhaLotadaException {
+            throws ConviteNaoExisteException, CampanhaNaoExisteException, CampanhaLotadaException, JogadorNaoExisteException {
 
-        Convite convite = buscarConvitePorId(conviteId);
+        Convite convite = buscarConvitePorId(conviteId, buscarJogador(jogadorId));
 
         if (!convite.getJogador().getID().equals(jogadorId)) {
             throw new ConviteNaoExisteException();
+        }
+
+        System.out.println("Convite: " + convite);
+        System.out.println("Campanha no convite: " + (convite != null ? convite.getCampanha() : "convite é null"));
+        if (convite != null && convite.getCampanha() != null) {
+            System.out.println("ID Campanha: " + convite.getCampanha().getID());
+            System.out.println("Jogadores na campanha: " + convite.getCampanha().getJogadores().size());
         }
 
         if (aceitar) {
@@ -355,15 +357,14 @@ public class SCGPRPG {
             Narrador narrador = buscarConvite(conviteId, jogadorId).getCampanha().getNarrador();
             narrador.atualizarCampanhaNarrador(campanha, campanha_aux);
             atualizarCampanha(campanha, campanha_aux);
-
             } else {
             convite.setRecusado(true);
         }
     }
 
-    public Convite buscarConvitePorId(String conviteId) throws ConviteNaoExisteException {
-        for (Campanha campanha : servicoCampanha.listarTodas()){
-            for (Convite convite : campanha.getConvites()) {
+    public Convite buscarConvitePorId(String conviteId, Jogador jogador) throws ConviteNaoExisteException {
+        for (Jogador j : servicoJogador.listarJogadores()){
+            for (Convite convite : j.getConvitesRecebidos()) {
                 if (convite.getId().equals(conviteId)) {
                     return convite;
                 }
