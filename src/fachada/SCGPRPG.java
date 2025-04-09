@@ -257,45 +257,6 @@ public class SCGPRPG {
         return (ArrayList<Jogador>) servicoJogador.listarJogadores();
     }
 
-    public void cancelarConvite(String narradorId, String campanhaId, String personagemId)
-            throws CampanhaNaoExisteException, ConviteNaoExisteException {
-        Campanha campanha = buscarCampanha(campanhaId);
-        if (!campanha.getNarrador().getID().equals(narradorId)) {
-            throw new CampanhaNaoExisteException();
-        }
-        Convite convite = campanha.getConvites().stream()
-                .filter(c -> c.getPersonagem().getID().equals(personagemId))
-                .findFirst()
-                .orElseThrow(ConviteNaoExisteException::new);
-        if (convite.isAceito() || convite.isRecusado()) {
-            throw new ConviteNaoExisteException();
-        }
-        campanha.getConvites().remove(convite);
-        System.out.println("Convite cancelado com sucesso");
-    }
-
-    public ArrayList<Convite> listarConvitesDoNarrador(String narradorId) {
-        ArrayList<Convite> convites = new ArrayList<>();
-        for (Campanha campanha : servicoCampanha.listarTodas()) {
-            if (campanha.getNarrador().getID().equals(narradorId)) {
-                convites.addAll(campanha.getConvites());
-            }
-        }
-
-        return convites;
-    }
-
-    public Convite buscarConvite(String campanhaId, String personagemId)
-            throws CampanhaNaoExisteException, ConviteNaoExisteException {
-
-        Campanha campanha = buscarCampanha(campanhaId);
-
-        return campanha.getConvites().stream()
-                .filter(c -> c.getPersonagem().getID().equals(personagemId))
-                .findFirst()
-                .orElseThrow(ConviteNaoExisteException::new);
-    }
-
     public void enviarConviteParaJogador(String narradorId, String campanhaId, String jogadorId, String personagemId)
             throws CampanhaLotadaException, JogadorNaoExisteException,
             PersonagemNaoPertenceAoJogadorException, ConviteJaExisteException,

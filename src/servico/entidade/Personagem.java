@@ -81,19 +81,6 @@ public class Personagem implements Serializable {
         manaAtual = manaMax;
         classeResistencia = 10 + calcularModificador(destreza);
     }
-/*
-    public void exibirFicha() {
-        System.out.printf("Nome: %s | Nível: %d | Classe: %s | Especie: %s| XP: %d | Vida Máxima: %d | Vida Atual: %d | Magia: %d%n", nome, nivel, this.classe.getNomeClasse(), this.especie.getNome(), XP, vidaMax, vidaAtual, magia);
-        System.out.println("|Atributos|");
-        System.out.printf("Força: %d | Destreza: %d | Constituição: %d | Inteligência: %d | Sabedoria: %d | Carisma: %d%n",
-                forca, destreza, constituicao, inteligencia, sabedoria, carisma);
-    }
-
-    public void exibirXP() {
-        System.out.println("XP: " + XP);
-        System.out.println("Nível: " + nivel);
-    }
-*/
 
     public int getXP() {
         return XP;

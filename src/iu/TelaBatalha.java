@@ -218,7 +218,6 @@ public class TelaBatalha {
             }
         } else {
             System.out.println("Crie uma campanha antes...");
-            return;
         }
     }
 }

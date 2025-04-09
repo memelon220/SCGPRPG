@@ -250,29 +250,4 @@ public class TelaGerenciamentoCampanha {
         }
     }
 
-    /*
-    public void aprovarSolicitacao(Campanha campanha, Solicitacao solicitacao) {
-        if (campanha.getNarrador().equals(this.nome)) {
-            campanha.aprovarSolicitacao(solicitacao);
-        } else {
-            System.out.println("Você não é o narrador desta campanha!");
-        }
-    }
-
-    public void enviarConvite(Campanha campanha, Jogador jogador, Personagem personagem) {
-        if (campanha.getNarrador().equals(this.nome)) {
-            campanha.enviarConvite(jogador, personagem);
-        } else {
-            System.out.println("Você não é o narrador desta campanha!");
-        }
-    }
-*/
-    public void solicitacoesEntradaCampanha(Narrador usuario){
-
-    }
-
-    public void convidarJogador(Campanha campanha, Jogador jogador){
-
-    }
-
 }
