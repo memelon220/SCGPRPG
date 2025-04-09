@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class TelaGerenciamentoPersonagem {
 
-    private Scanner sc;
+    public Scanner sc;
     private SCGPRPG fachada;
     private Jogador usuario;
 

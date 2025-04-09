@@ -10,7 +10,7 @@ import servico.entidade.*;
 import fachada.SCGPRPG;
 
 public class TelaBatalha {
-    protected final Dado d20 = new Dado(20);
+    private final Dado d20 = new Dado(20);
     private SCGPRPG fachada;
     private Scanner sc;
     private Narrador usuario;
